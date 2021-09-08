@@ -8,12 +8,12 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@firebase": "^9.0.1",
-    "@types/react-native-dotenv": "^0.2.0",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
+    "@types/react-native-dotenv": "^0.2.0",
     "expo": "~42.0.1",
     "expo-status-bar": "~1.0.4",
+    "@firebase": "^9.0.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
@@ -26,7 +26,19 @@
     "@babel/core": "^7.9.0",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
+    "prettier": "2.3.2",
     "typescript": "~4.0.0"
   },
-  "private": true
+  "private": true,
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true,
+    "jsxSingleQuote": false,
+    "bracketSpacing": true,
+    "jsxBracketSameLine": false,
+    "endOfLine": "lf",
+    "arrowParens": "always"
+  }
 }

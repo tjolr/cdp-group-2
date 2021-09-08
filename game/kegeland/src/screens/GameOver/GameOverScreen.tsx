@@ -1,11 +1,11 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { View, Text, Button } from "react-native";
-import { StyleSheet } from "react-native";
-import { NavigationScreenProps } from "../navigation.types";
+import { StatusBar } from 'expo-status-bar';
+import React from 'react';
+import { View, Text, Button } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { NavigationScreenProps } from '../navigation.types';
 
 const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
-  const handleMainMenuPress = () => navigation.navigate("MainMenu");
+  const handleMainMenuPress = () => navigation.navigate('MainMenu');
 
   return (
     <View style={styles.container}>
@@ -19,9 +19,9 @@ const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

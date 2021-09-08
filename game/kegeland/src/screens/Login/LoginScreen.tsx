@@ -1,10 +1,10 @@
-import React from "react";
-import { View, Text, Button } from "react-native";
-import { StyleSheet } from "react-native";
-import { NavigationScreenProps } from "../navigation.types";
+import React from 'react';
+import { View, Text, Button } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { NavigationScreenProps } from '../navigation.types';
 
 const LoginScreen = ({ navigation }: NavigationScreenProps) => {
-  const handleLoginPress = () => navigation.navigate("MainMenu");
+  const handleLoginPress = () => navigation.navigate('MainMenu');
 
   return (
     <View style={styles.container}>
@@ -17,9 +17,9 @@ const LoginScreen = ({ navigation }: NavigationScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

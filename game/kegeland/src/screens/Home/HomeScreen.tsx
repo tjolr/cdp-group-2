@@ -1,11 +1,11 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { View, Text, Button } from "react-native";
-import { StyleSheet } from "react-native";
-import { NavigationScreenProps } from "../navigation.types";
+import { StatusBar } from 'expo-status-bar';
+import React from 'react';
+import { View, Text, Button } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { NavigationScreenProps } from '../navigation.types';
 
 const HomeScreen = ({ navigation }: NavigationScreenProps) => {
-  const handleLoginPress = () => navigation.navigate("Login");
+  const handleLoginPress = () => navigation.navigate('Login');
 
   return (
     <View style={styles.container}>
@@ -19,9 +19,9 @@ const HomeScreen = ({ navigation }: NavigationScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

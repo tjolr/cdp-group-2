@@ -3223,6 +3223,14 @@ expo-font@~9.2.1:
     expo-modules-core "~0.2.0"
     fontfaceobserver "^2.1.0"
 
+expo-google-sign-in@~9.2.1:
+  version "9.2.1"
+  resolved "https://registry.yarnpkg.com/expo-google-sign-in/-/expo-google-sign-in-9.2.1.tgz#6011af58bb271891d379dd50569409ccef5484ac"
+  integrity sha512-Iepx54lfg/VZne8oI8Rv6wZdEYlhvHG824qgpZJ69bhnOb1MK8LrR3QTRC39Mj7qcRx2fj0FqOLMGKM13eSRnQ==
+  dependencies:
+    expo-modules-core "~0.2.0"
+    invariant "^2.2.4"
+
 expo-keep-awake@~9.2.0:
   version "9.2.0"
   resolved "https://registry.yarnpkg.com/expo-keep-awake/-/expo-keep-awake-9.2.0.tgz#9cbdcc8264c943ef29a58326236cd34267e98f43"

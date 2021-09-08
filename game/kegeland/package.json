@@ -12,6 +12,7 @@
     "@react-navigation/native-stack": "^6.1.0",
     "@types/react-native-dotenv": "^0.2.0",
     "expo": "~42.0.1",
+    "expo-google-sign-in": "~9.2.1",
     "expo-status-bar": "~1.0.4",
     "@firebase": "^9.0.1",
     "react": "16.13.1",

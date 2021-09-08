@@ -15,6 +15,11 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.1076179588401-moh2asa7pk6k9dc9e0vrj80deaukq8gv"
+        }
+      },
       "supportsTablet": true,
       "bundleIdentifier": "com.cdp.reactnativefirebase",
       "googleServicesFile": "./GoogleService-Info.plist"
@@ -22,10 +27,10 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF",
-        "package": "com.cdp.reactnativefirebase",
-        "googleServicesFile": "./google-services.json"
-      }
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.cdp.reactnativefirebase",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"

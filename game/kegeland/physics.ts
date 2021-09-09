@@ -1,29 +1,18 @@
-import Matter from 'matter-js'
+import Matter from 'matter-js';
 
-interface PhysicsInterface {
-    entities: any,
-    
+const Physics = (entities: any, { touches, time }: any) => {
+  let engine = entities.physics.engine;
+  touches
+    .filter((t: any) => t.type === 'press')
+    .forEach((t: any) => {
+      Matter.Body.setVelocity(entities.Player.body, {
+        x: 0,
+        y: -4,
+      });
+    });
 
-}
+  Matter.Engine.update(engine, time.delta);
 
-interface InputInterface {
-    touches: any,
-    time: any
-}
-
-const Physics = (entities: PhysicsInterface, { touches, time }: InputInterface) => {
-    let engine = entities.physics.engine
-
-    touches.filter(t => t.type === 'press')
-    .forEach(t => {
-        Matter.Body.setVelocity(entities.Bird.body, {
-            x: 0,
-            y: -4
-        })
-    })
-
-    Matter.Engine.update(engine, time.delta)
-
-    return entities;
-}
+  return entities;
+};
 export default Physics;

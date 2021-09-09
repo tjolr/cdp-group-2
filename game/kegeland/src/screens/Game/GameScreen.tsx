@@ -1,11 +1,11 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { View, Text, Button } from "react-native";
-import { StyleSheet } from "react-native";
-import { NavigationScreenProps } from "../navigation.types";
-import { GameEngine } from "react-native-game-engine"
-import entities from "../../../entities";
-
+import { StatusBar } from 'expo-status-bar';
+import React from 'react';
+import { View, Text, Button } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { NavigationScreenProps } from '../navigation.types';
+import { GameEngine } from 'react-native-game-engine';
+import entities from '../../../entities';
+import Physics from '../../../physics';
 
 const GameScreen = ({ navigation }: NavigationScreenProps) => {
   const handleGameOverPress = () => navigation.navigate('GameOver');
@@ -14,9 +14,8 @@ const GameScreen = ({ navigation }: NavigationScreenProps) => {
     <GameEngine
       entities={entities()}
       style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
-    >
-      
-    </GameEngine>
+      systems={[Physics]}
+    ></GameEngine>
   );
 };
 

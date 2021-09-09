@@ -321,3 +321,8 @@ Temporary Items
 .apdisk
 
 # End of https://www.toptal.com/developers/gitignore/api/reactnative,firebase
+
+
+# Firebase service
+google-services.json
+GoogleService-Info.plist

@@ -1,47 +1,57 @@
-import React from 'react'
-import { View } from 'react-native'
-import Matter from 'matter-js'
+import { World, Bodies } from 'matter-js';
+import React from 'react';
+import { View } from 'react-native';
 
 interface PlayerInterface {
-    world: any;
-    pos: PositionInterface;
+  world: any;
+  pos: PositionInterface;
+  size: ISize;
 }
 
 interface PositionInterface {
-    x: number;
-    y: number;
+  x: number;
+  y: number;
 }
 
-const Player = () => {
-    return (
-        <View style={{
-            borderWidth: 1,
-            borderColor: 'green',
-            borderStyle: 'solid',
-            position: 'absolute',
-            left: 50,
-            top: 250,
-            width: 50,
-            height: 50
-        }}/>
-    )
+interface ISize {
+  width: number;
+  height: number;
 }
 
-export default ({world, pos}: PlayerInterface) => {
-    const player = Matter.Bodies.rectangle(
-        pos.x,
-        pos.y,
-        50,
-        50,
-        {label: 'Player'}
+const Player = (props: any) => {
+  // Size of player calculated from the hitbox
+  const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
+  const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
-    )
-    Matter.World.add(world, player)
+  // X and Y coordinate of center of player
+  const xBody = props.body.position.x - widthBody / 2;
+  const yBody = props.body.position.y - heightBody / 2;
+  return (
+    <View
+      style={{
+        borderWidth: 1,
+        borderColor: 'green',
+        borderStyle: 'solid',
+        position: 'absolute',
+        left: xBody,
+        top: yBody,
+        width: widthBody,
+        height: heightBody,
+      }}
+    />
+  );
+};
 
-    return {
-        body: player,
-        color: 'green',
-        pos,
-        renderer: <Player/>
-    }
-}
+export default ({ world, pos, size }: PlayerInterface) => {
+  const player = Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
+    label: 'Player',
+  });
+  World.add(world, player);
+
+  return {
+    body: player,
+    color: 'green',
+    pos,
+    renderer: <Player />,
+  };
+};

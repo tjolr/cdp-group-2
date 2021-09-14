@@ -12,6 +12,7 @@ export default () => {
   let world = engine.world;
 
   world.gravity.y = 0.3;
+  console.log(windowHeight);
 
   return {
     physics: { engine, world },
@@ -22,7 +23,7 @@ export default () => {
     }),
     Floor: Bounds({
       world,
-      pos: { x: windowWidth / 2, y: windowHeight - 90 },
+      pos: { x: windowWidth / 2, y: windowHeight },
       size: { height: 50, width: windowWidth },
     }),
     Roof: Bounds({

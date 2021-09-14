@@ -24,12 +24,12 @@ export default () => {
     Floor: Bounds({
       world,
       pos: { x: windowWidth / 2, y: windowHeight },
-      size: { height: 50, width: windowWidth },
+      size: { height: 10, width: windowWidth },
     }),
     Roof: Bounds({
       world,
       pos: { x: windowWidth / 2, y: 0 },
-      size: { height: 50, width: windowWidth },
+      size: { height: 10, width: windowWidth },
     }),
   };
 };

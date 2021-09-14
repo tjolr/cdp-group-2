@@ -1,15 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { View, Text, Button } from 'react-native';
-import { StyleSheet } from 'react-native';
-import { NavigationScreenProps } from '../navigation.types';
 import { GameEngine } from 'react-native-game-engine';
 import entities from '../../../entities';
 import Physics from '../../../physics';
 
-const GameScreen = ({ navigation }: NavigationScreenProps) => {
-  const handleGameOverPress = () => navigation.navigate('GameOver');
-
+const GameScreen = () => {
   return (
     <GameEngine
       entities={entities()}
@@ -18,14 +12,5 @@ const GameScreen = ({ navigation }: NavigationScreenProps) => {
     ></GameEngine>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default GameScreen;

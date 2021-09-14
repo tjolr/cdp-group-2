@@ -12,7 +12,6 @@ export default () => {
   let world = engine.world;
 
   world.gravity.y = 0.3;
-  console.log(windowHeight);
 
   return {
     physics: { engine, world },

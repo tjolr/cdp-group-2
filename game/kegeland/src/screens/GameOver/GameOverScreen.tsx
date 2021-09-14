@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { View, Text, Button } from 'react-native';
 import { StyleSheet } from 'react-native';
@@ -9,7 +8,6 @@ const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
       <Text>GameOver screen</Text>
       <Button onPress={handleMainMenuPress} title="MainMenu" />
     </View>

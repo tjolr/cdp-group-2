@@ -1,5 +1,11 @@
 import { Engine } from 'matter-js';
 import Player from '../components/Player';
+import Bounds from '../components/Bounds';
+
+import { Dimensions } from 'react-native';
+
+const windowHeight = Dimensions.get('window').height;
+const windowWidth = Dimensions.get('window').width;
 
 export default () => {
   let engine = Engine.create();
@@ -13,6 +19,16 @@ export default () => {
       world,
       pos: { x: 50, y: 250 },
       size: { width: 50, height: 50 },
+    }),
+    Floor: Bounds({
+      world,
+      pos: { x: windowWidth / 2, y: windowHeight - 90 },
+      size: { height: 50, width: windowWidth },
+    }),
+    Roof: Bounds({
+      world,
+      pos: { x: windowWidth / 2, y: 0 },
+      size: { height: 50, width: windowWidth },
     }),
   };
 };

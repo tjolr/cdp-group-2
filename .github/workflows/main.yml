@@ -9,6 +9,8 @@ jobs:
   publish:
     name: Install and publish
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./game/kegeland
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -19,5 +21,9 @@ jobs:
           expo-version: 4.x
           expo-cache: true
           token: ${{ secrets.EXPO_TOKEN }}
-      - run: yarn install
-      - run: expo publish
+      - name: Install packages
+        run: yarn install
+        working-directory: ${{env.working-directory}}
+      - name: Publish application
+        run: expo publish
+        working-directory: ${{env.working-directory}}

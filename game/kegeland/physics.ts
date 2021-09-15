@@ -1,22 +1,25 @@
 import Matter from 'matter-js';
 import { getPipeSizePos } from './utils/random';
+import {
+  GameEngineUpdateEventOptionType,
+  TouchEvent,
+} from 'react-native-game-engine';
 
 import { Dimensions } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const Physics = (entities: any, { touches, time }: any) => {
+const Physics = (
+  entities: any,
+  { touches, time }: GameEngineUpdateEventOptionType
+) => {
   let engine = entities.physics.engine;
   let yVelocity: number;
   touches
-    .filter((t: any) => t.type === 'press')
-    .forEach((t: any) => {
-      if (t.event.pageY < windowHeight / 2) {
-        yVelocity = -4;
-      } else {
-        yVelocity = 4;
-      }
+    .filter((t: TouchEvent) => t.type === 'press')
+    .forEach((t: TouchEvent) => {
+      yVelocity = t.event.pageY < windowHeight / 2 ? -4 : 4;
       Matter.Body.setVelocity(entities.Player.body, {
         x: 0,
         y: yVelocity,

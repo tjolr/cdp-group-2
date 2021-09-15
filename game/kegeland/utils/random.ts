@@ -15,20 +15,20 @@ export const getPipeSizePos = (addToPosX = 0) => {
   let min = 300;
   let max = windowHeight - 100;
   let yPosTop = -getRandom({ min, max });
-  const rndInt = Math.floor(Math.random() * 2) + 1;
   let pipe;
+  let yCoord;
 
+  // Randomly decide if the pipe should be at the bottom or top
+  const rndInt = Math.floor(Math.random() * 2) + 1;
   if (rndInt == 1) {
-    pipe = {
-      pos: { x: windowWidth + addToPosX, y: yPosTop },
-      size: { height: windowHeight * 2, width: 75 },
-    };
+    yCoord = yPosTop;
   } else {
-    pipe = {
-      pos: { x: windowWidth + addToPosX, y: windowHeight * 2 + 200 + yPosTop },
-      size: { height: windowHeight * 2, width: 75 },
-    };
+    yCoord = windowHeight * 2 + 200 + yPosTop;
   }
+  pipe = {
+    pos: { x: windowWidth + addToPosX, y: yCoord },
+    size: { height: windowHeight * 2, width: 75 },
+  };
 
   return { pipe };
 };

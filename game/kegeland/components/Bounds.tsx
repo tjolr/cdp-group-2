@@ -8,11 +8,11 @@ const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 
 const Bounds = (props: IEntity) => {
-  // Size of player calculated from the hitbox
+  // Size of boundary calculated from the hitbox
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
-  // X and Y coordinate of center of player
+  // X and Y coordinate of center of boundary
   const xBody = props.body.position.x - widthBody / 2;
   const yBody = props.body.position.y - heightBody / 2;
 

@@ -4,11 +4,11 @@ import { View } from 'react-native';
 import { IEntity, IHitbox } from './components.types';
 
 const Obstacle = (props: IEntity) => {
-  // Size of player calculated from the hitbox
+  // Size of obstacle calculated from the hitbox
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
-  // X and Y coordinate of center of player
+  // X and Y coordinate of center of obstacle
   const xBody = props.body.position.x - widthBody / 2;
   const yBody = props.body.position.y - heightBody / 2;
 

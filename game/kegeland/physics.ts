@@ -4,15 +4,22 @@ import { getPipeSizePos } from './utils/random';
 import { Dimensions } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const Physics = (entities: any, { touches, time }: any) => {
   let engine = entities.physics.engine;
+  let yVelocity: number;
   touches
     .filter((t: any) => t.type === 'press')
     .forEach((t: any) => {
+      if (t.event.pageY < windowHeight / 2) {
+        yVelocity = -4;
+      } else {
+        yVelocity = 4;
+      }
       Matter.Body.setVelocity(entities.Player.body, {
         x: 0,
-        y: -4,
+        y: yVelocity,
       });
     });
 
@@ -22,6 +29,19 @@ const Physics = (entities: any, { touches, time }: any) => {
     const pipeSizePos = getPipeSizePos(windowWidth * 0.9);
 
     Matter.Body.setPosition(entities['Obstacle'].body, pipeSizePos.pipe.pos);
+  }
+
+  let playerY =
+    (entities['Player'].body.bounds.max.y +
+      entities['Player'].body.bounds.min.y) /
+    2;
+  if (playerY > windowHeight / 2 - 3 && playerY < windowHeight / 2 + 3) {
+    engine.gravity.y = 0;
+    Matter.Body.setVelocity(entities['Player'].body, { x: 0, y: 0 });
+  } else if (playerY < windowHeight / 2) {
+    engine.gravity.y = 0.3;
+  } else {
+    engine.gravity.y = -0.3;
   }
 
   Matter.Body.translate(entities[`Obstacle`].body, { x: -3, y: 0 });

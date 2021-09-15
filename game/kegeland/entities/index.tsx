@@ -9,11 +9,10 @@ import { getPipeSizePos } from '../utils/random';
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 
-export default () => {
+const Entities = () => {
   let engine = Engine.create();
   let world = engine.world;
-
-  world.gravity.y = 0.3;
+  engine.gravity.y = 0;
 
   const pipeSizePos = getPipeSizePos();
 
@@ -21,7 +20,7 @@ export default () => {
     physics: { engine, world },
     Player: Player({
       world,
-      pos: { x: 50, y: 250 },
+      pos: { x: 50, y: windowHeight / 2 },
       size: { width: 50, height: 50 },
     }),
     Floor: Bounds({
@@ -41,3 +40,5 @@ export default () => {
     }),
   };
 };
+
+export default Entities;

@@ -3,7 +3,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { IEntity, IHitbox } from './components.types';
 
-const Player = (props: IEntity) => {
+const Obstacle = (props: IEntity) => {
   // Size of player calculated from the hitbox
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
@@ -11,6 +11,7 @@ const Player = (props: IEntity) => {
   // X and Y coordinate of center of player
   const xBody = props.body.position.x - widthBody / 2;
   const yBody = props.body.position.y - heightBody / 2;
+
   return (
     <View
       style={{
@@ -28,15 +29,16 @@ const Player = (props: IEntity) => {
 };
 
 export default ({ world, pos, size }: IHitbox) => {
-  const player = Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
-    label: 'Player',
+  const obstacle = Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
+    label: 'Obstacle',
+    isStatic: true,
   });
-  World.add(world, player);
+  World.add(world, obstacle);
 
   return {
-    body: player,
+    body: obstacle,
     color: 'green',
     pos,
-    renderer: <Player body={player} />,
+    renderer: <Obstacle body={obstacle} />,
   };
 };

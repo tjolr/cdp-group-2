@@ -2,31 +2,12 @@ import { World, Bodies } from 'matter-js';
 import React from 'react';
 import { View } from 'react-native';
 import { Dimensions } from 'react-native';
+import { IEntity, IHitbox } from './components.types';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 
-interface IHitbox {
-  world: any;
-  pos: IPosition;
-  size: ISize;
-}
-
-interface IPosition {
-  x: number;
-  y: number;
-}
-
-interface ISize {
-  width: number;
-  height: number;
-}
-
-interface IFloor {
-  body: Matter.Body;
-}
-
-const Bounds = (props: IFloor) => {
+const Bounds = (props: IEntity) => {
   // Size of player calculated from the hitbox
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;

@@ -28,10 +28,13 @@ const Physics = (
 
   Matter.Engine.update(engine, time.delta);
 
-  if (entities['Obstacle'].body.bounds.max.x <= 0) {
+  const moveObstacle = () => {
     const pipeSizePos = getPipeSizePos(windowWidth * 0.9);
-
     Matter.Body.setPosition(entities['Obstacle'].body, pipeSizePos.pipe.pos);
+  };
+
+  if (entities['Obstacle'].body.bounds.max.x <= 0) {
+    moveObstacle();
   }
 
   let playerY =
@@ -55,8 +58,7 @@ const Physics = (
       entities.Obstacle.body.bounds
     )
   ) {
-    const pipeSizePos = getPipeSizePos(windowWidth * 0.9);
-    Matter.Body.setPosition(entities['Obstacle'].body, pipeSizePos.pipe.pos);
+    moveObstacle();
     dispatch({ type: 'hit_obstacle' });
   }
 

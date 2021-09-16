@@ -1,5 +1,5 @@
-import { AppUser } from './../../types/user.d';
-import { RegisterFormData } from './../../src/screens/Register/RegisterScreen';
+import { UserCredential } from '@firebase/auth-types';
+import { AppUser, RegisterFormData, SimpleUser } from './../../types/user.d';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { API } from '../../src/firebase/api';
 import { RootState } from '../store';
@@ -8,6 +8,7 @@ import { ApiStatus } from '../../types/state-management';
 
 interface UserState extends User {
   registerUserDefaultThunkStatus: ApiStatus;
+  loginUserDefaultThunkStatus: ApiStatus;
 }
 
 const initialState: UserState = {
@@ -17,12 +18,20 @@ const initialState: UserState = {
   firstName: '',
   lastName: '',
   registerUserDefaultThunkStatus: 'idle',
+  loginUserDefaultThunkStatus: 'idle',
 };
 
 export const registerUserDefaultThunk = createAsyncThunk(
   'user/registerUserDefaultThunk',
   async (user: RegisterFormData): Promise<AppUser> => {
     return await API.registerUserDefault(user);
+  }
+);
+
+export const loginUserDefaultThunk = createAsyncThunk(
+  'user/loginUserDefaultThunk',
+  async (user: SimpleUser): Promise<UserCredential> => {
+    return await API.signInDefault(user);
   }
 );
 
@@ -57,6 +66,21 @@ export const userSlice = createSlice({
       })
       .addCase(registerUserDefaultThunk.rejected, (state) => {
         state.registerUserDefaultThunkStatus = 'failed';
+      })
+      .addCase(loginUserDefaultThunk.pending, (state) => {
+        state.loginUserDefaultThunkStatus = 'loading';
+      })
+      .addCase(loginUserDefaultThunk.fulfilled, (state, action) => {
+        state.loginUserDefaultThunkStatus = 'idle';
+        const user = action.payload.user;
+        if (user?.email) {
+          state.email = action.payload.user?.email ?? '';
+          state.userId = user.uid;
+          state.displayName = user.displayName ?? '';
+        }
+      })
+      .addCase(loginUserDefaultThunk.rejected, (state) => {
+        state.loginUserDefaultThunkStatus = 'failed';
       });
   },
 });
@@ -70,5 +94,7 @@ export const firstNameSel = (state: RootState) => state.user.firstName;
 export const lastNameSel = (state: RootState) => state.user.lastName;
 export const registerUserDefaultThunkStatusSel = (state: RootState) =>
   state.user.registerUserDefaultThunkStatus;
+export const loginUserDefaultThunkStatusSel = (state: RootState) =>
+  state.user.loginUserDefaultThunkStatus;
 
 export default userSlice.reducer;

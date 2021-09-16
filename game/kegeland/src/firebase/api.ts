@@ -1,16 +1,16 @@
 import { UserCredential } from '@firebase/auth-types';
-import { RegisterFormData } from '../screens/Register/RegisterScreen';
-import { AppUser } from '../../types/user';
+import { AppUser, RegisterFormData, SimpleUser } from '../../types/user';
 import { firestoredb } from './config';
 import { FirestoreApi } from './firestoreApi';
 import firebase from 'firebase';
 
 export namespace API {
   export const signInDefault = async (
-    email: string,
-    password: string
+    user: SimpleUser
   ): Promise<UserCredential> => {
-    return await firebase.auth().signInWithEmailAndPassword(email, password);
+    return await firebase
+      .auth()
+      .signInWithEmailAndPassword(user.email, user.password);
   };
 
   export const registerUserDefault = async (
@@ -36,14 +36,5 @@ export namespace API {
 
   const saveUser = async (user: AppUser) => {
     return FirestoreApi.collectionTypes.users.doc(user.id).set(user);
-  };
-
-  export const writeTest = async () => {
-    // Add a new document in collection "cities"
-    firestoredb.collection('cities').doc('LA').set({
-      name: 'Los Angeles',
-      state: 'CAaaaa',
-      country: 'USA',
-    });
   };
 }

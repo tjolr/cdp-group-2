@@ -1,77 +1,185 @@
 import {
   Box,
   Button,
-  Center,
+  FormControl,
   Heading,
   HStack,
+  Input,
   Link,
-  Stack,
   Text,
+  VStack,
 } from 'native-base';
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import { API } from '../../firebase/api';
+import React, { useState } from 'react';
 import { NavigationScreenProps } from '../navigation.types';
+import { ScrollView } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../../state-management/redux.hooks';
+import {
+  loginUserDefaultThunk,
+  loginUserDefaultThunkStatusSel,
+} from '../../../state-management/user/userSlice';
+import { SimpleUser } from '../../../types/user';
+import { emailRegex } from '../../utils/String.utils';
 
 const LoginScreen = ({ navigation }: NavigationScreenProps) => {
-  const handleLoginPress = async () => {
-    try {
-      await API.signInDefault('sondreo.dahl@gmail.com', 'Test123');
-    } catch (e) {
-      return new Error(e);
+  const dispatch = useAppDispatch();
+  const loginUserDefaultThunkStatus = useAppSelector(
+    loginUserDefaultThunkStatusSel
+  );
+
+  const handleRegisterPress = () => navigation.navigate('Register');
+
+  const [formData, setData] = useState<SimpleUser>({
+    email: '',
+    password: '',
+  });
+  const [errors, setErrors] = useState<SimpleUser>({
+    email: '',
+    password: '',
+  });
+
+  const validate = () => {
+    let valid = true;
+    if (!formData.email) {
+      setErrors({
+        ...errors,
+        email: 'Email is required',
+      });
+      valid = false;
+    } else if (!emailRegex.test(formData.email.trim())) {
+      setErrors({
+        ...errors,
+        email: 'Email is not valid',
+      });
+      valid = false;
     }
-    navigation.navigate('MainMenu');
+
+    if (!formData.password) {
+      setErrors({
+        ...errors,
+        password: 'Password is required',
+      });
+      valid = false;
+    }
+
+    return valid;
   };
 
-  const handleRegisterPress = () => {
-    navigation.navigate('Register');
+  const handleLoginPress = async () => {
+    if (validate()) {
+      try {
+        await dispatch(
+          loginUserDefaultThunk({
+            email: formData.email.trim(),
+            password: formData.password.trim(),
+          })
+        ).unwrap();
+        navigation.navigate('MainMenu');
+      } catch {
+        setErrors({
+          ...errors,
+          password: 'Email and password combination does not match',
+        });
+      }
+    }
   };
 
   return (
-    <Box
-      bg={{
-        linearGradient: {
-          colors: ['rose.300', 'pink.200'],
-          start: [0, 1],
-          end: [1, 0],
-        },
-      }}
-      style={styles.container}
-    >
-      <Center>
-        <Stack direction="column" space={'lg'}>
-          <Heading>Log in</Heading>
-          <Text fontSize="lg">Please log in using your Google account</Text>
+    <ScrollView>
+      <Box
+        bg={{
+          linearGradient: {
+            colors: ['rose.300', 'pink.200'],
+            start: [0, 1],
+            end: [1, 0],
+          },
+        }}
+        p={8}
+        minHeight="100%"
+        w="100%"
+        mx="auto"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Heading size="xl" color="teal.500">
+          Welcome
+        </Heading>
+        <Heading color="muted.500" size="xs">
+          Sign in to continue!
+        </Heading>
 
-          <Center>
-            <Button colorScheme="teal" size="lg" onPress={handleLoginPress}>
-              Email login
+        <VStack space={2} mt={5} w="100%">
+          {/* Email */}
+          <FormControl isRequired isInvalid={!!errors.email}>
+            <FormControl.Label
+              _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}
+            >
+              Email
+            </FormControl.Label>
+            <Input
+              onChangeText={(value) => setData({ ...formData, email: value })}
+            />
+            {!!errors.email && (
+              <FormControl.ErrorMessage
+                _text={{ fontSize: 'xs', color: 'error.500', fontWeight: 500 }}
+              >
+                {errors.email}
+              </FormControl.ErrorMessage>
+            )}
+          </FormControl>
+
+          {/* Password */}
+          <FormControl isRequired isInvalid={!!errors.password}>
+            <FormControl.Label
+              _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}
+            >
+              Password
+            </FormControl.Label>
+            <Input
+              type="password"
+              onChangeText={(value) =>
+                setData({ ...formData, password: value })
+              }
+            />
+            {!!errors.password && (
+              <FormControl.ErrorMessage
+                _text={{ fontSize: 'xs', color: 'error.500', fontWeight: 500 }}
+              >
+                {errors.password}
+              </FormControl.ErrorMessage>
+            )}
+          </FormControl>
+
+          <VStack space={2} mt={5}>
+            <Button
+              colorScheme="teal"
+              _text={{ color: 'white' }}
+              startIcon={<AntDesign name="login" size={20} color="white" />}
+              isLoading={loginUserDefaultThunkStatus === 'loading'}
+              onPress={handleLoginPress}
+            >
+              Sign in
             </Button>
-          </Center>
-
-          <HStack justifyContent="center">
+          </VStack>
+          <HStack justifyContent="center" mt={4}>
             <Text fontSize="md" color="muted.700" fontWeight={400}>
-              I'm a new user.{' '}
+              I'm a new user.
             </Text>
             <Link
-              _text={{ color: 'teal.500', bold: true, fontSize: 'md' }}
+              _text={{ color: 'teal.600', bold: true, fontSize: 'md' }}
               onPress={handleRegisterPress}
             >
               Sign Up
             </Link>
           </HStack>
-        </Stack>
-      </Center>
-    </Box>
+        </VStack>
+      </Box>
+    </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default LoginScreen;

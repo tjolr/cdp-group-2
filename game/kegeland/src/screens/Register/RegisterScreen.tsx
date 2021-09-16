@@ -19,14 +19,7 @@ import {
   registerUserDefaultThunk,
   registerUserDefaultThunkStatusSel,
 } from '../../../state-management/user/userSlice';
-
-export interface RegisterFormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+import { RegisterFormData } from '../../../types/user';
 
 const RegisterScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
@@ -142,7 +135,7 @@ const RegisterScreen = ({ navigation }: NavigationScreenProps) => {
   };
 
   return (
-    <ScrollView flexDirection="column">
+    <ScrollView>
       <Box
         bg={{
           linearGradient: {
@@ -156,9 +149,17 @@ const RegisterScreen = ({ navigation }: NavigationScreenProps) => {
         minHeight="100%"
         w="100%"
         mx="auto"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
       >
-        <Heading>Register account</Heading>
-        <VStack space={2} mt={5}>
+        <Heading color="teal.500" mb={1}>
+          Register account
+        </Heading>
+        <Heading color="muted.500" size="xs">
+          Fill in your user information
+        </Heading>
+        <VStack space={2} mt={5} w="100%">
           {/* First Name */}
           <FormControl isRequired isInvalid={!!errors.firstName}>
             <FormControl.Label

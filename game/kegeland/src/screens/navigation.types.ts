@@ -4,6 +4,7 @@ type RootStackParamList = {
   Home: undefined;
   Login: undefined;
   MainMenu: undefined;
+  Register: undefined;
   Game: undefined;
   GameOver: undefined;
 };

@@ -19,7 +19,7 @@
     "expo-google-sign-in": "~9.2.1",
     "expo-linear-gradient": "~9.2.0",
     "expo-status-bar": "~1.0.4",
-    "firebase": "^9.0.1",
+    "firebase": "8.2.3",
     "matter-js": "^0.17.1",
     "native-base": "^3.1.0",
     "react": "16.13.1",

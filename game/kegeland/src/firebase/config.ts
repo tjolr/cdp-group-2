@@ -1,17 +1,18 @@
-import { initializeApp, getApps, getApp } from 'firebase/app';
-import { FIREBASE_API_KEY } from '@env';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: FIREBASE_API_KEY,
+  apiKey: 'AIzaSyBbu20RqV6kmgZSg-BYvLEVvn728MXNUYs',
   authDomain: 'kegeland-dev.firebaseapp.com',
   projectId: 'kegeland-dev',
   messagingSenderId: '1076179588401',
   appId: '1:1076179588401:android:5182486ac138ca56fa4c10',
 };
 
-if (!getApps().length) {
-  initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app();
 }
 
-const firebase = getApp();
-export { firebase };
+export const firestoredb = firebase.firestore();

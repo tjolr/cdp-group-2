@@ -11,6 +11,7 @@ import MainMenuScreen from './src/screens/MainMenu/MainMenuScreen';
 import { theme } from './src/styles/theme';
 import { store } from './state-management/store';
 import { StatusBar } from 'expo-status-bar';
+import RegisterScreen from './src/screens/Register/RegisterScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +34,7 @@ const App = () => {
           >
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} />
             <Stack.Screen name="MainMenu" component={MainMenuScreen} />
             <Stack.Screen name="Game" component={GameScreen} />
             <Stack.Screen name="GameOver" component={GameOverScreen} />

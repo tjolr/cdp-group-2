@@ -1,35 +1,49 @@
-import * as GoogleSignIn from 'expo-google-sign-in';
+import { UserCredential } from '@firebase/auth-types';
+import { RegisterFormData } from '../screens/Register/RegisterScreen';
+import { AppUser } from '../../types/user';
+import { firestoredb } from './config';
+import { FirestoreApi } from './firestoreApi';
+import firebase from 'firebase';
 
 export namespace API {
-  export const initGoogleAuth = async () => {
-    // In order for this to work, the firebase googleServiceFile in app.json must be configured
-    // The file can be found under project settings in the firebase console
-    await GoogleSignIn.initAsync();
-    syncUserWithStateAsync();
+  export const signInDefault = async (
+    email: string,
+    password: string
+  ): Promise<UserCredential> => {
+    return await firebase.auth().signInWithEmailAndPassword(email, password);
   };
 
-  export const googleSignIn = async () => {
-    await GoogleSignIn.askForPlayServicesAsync().catch(() => {
-      return new Error('Failed to communicate with play services');
+  export const registerUserDefault = async (
+    registerUser: RegisterFormData
+  ): Promise<AppUser> => {
+    const registerResponse = await firebase
+      .auth()
+      .createUserWithEmailAndPassword(
+        registerUser.email,
+        registerUser.password
+      );
+
+    const newUser: AppUser = {
+      id: registerResponse.user?.uid,
+      email: registerUser.email,
+      firstName: registerUser.firstName,
+      lastName: registerUser.lastName,
+    };
+    registerResponse.user && (await saveUser(newUser));
+
+    return newUser;
+  };
+
+  const saveUser = async (user: AppUser) => {
+    return FirestoreApi.collectionTypes.users.doc(user.id).set(user);
+  };
+
+  export const writeTest = async () => {
+    // Add a new document in collection "cities"
+    firestoredb.collection('cities').doc('LA').set({
+      name: 'Los Angeles',
+      state: 'CAaaaa',
+      country: 'USA',
     });
-
-    const { type, user } = await GoogleSignIn.signInAsync();
-    if (type === 'success') {
-      syncUserWithStateAsync();
-      return user;
-    }
-    return new Error('Failed to sign in');
-  };
-
-  export const googleSignOut = async () => {
-    await GoogleSignIn.signOutAsync();
-  };
-
-  export const getCurrentGoogleUser = () => {
-    return GoogleSignIn.getCurrentUser();
   };
 }
-
-const syncUserWithStateAsync = async () => {
-  await GoogleSignIn.signInSilentlyAsync();
-};

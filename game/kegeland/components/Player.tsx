@@ -31,6 +31,11 @@ export default ({ world, pos, size }: IHitbox) => {
   const player = Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
     label: 'Player',
   });
+  player.collisionFilter = {
+    group: -1,
+    category: 1,
+    mask: 1,
+  };
   World.add(world, player);
 
   return {

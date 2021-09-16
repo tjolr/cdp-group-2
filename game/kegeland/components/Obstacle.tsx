@@ -33,6 +33,9 @@ export default ({ world, pos, size }: IHitbox) => {
     label: 'Obstacle',
     isStatic: true,
   });
+  obstacle.collisionFilter = {
+    group: -1,
+  };
   World.add(world, obstacle);
 
   return {

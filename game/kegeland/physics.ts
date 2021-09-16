@@ -12,7 +12,7 @@ const windowHeight = Dimensions.get('window').height;
 
 const Physics = (
   entities: any,
-  { touches, time }: GameEngineUpdateEventOptionType
+  { touches, time, dispatch }: GameEngineUpdateEventOptionType
 ) => {
   let engine = entities.physics.engine;
   let yVelocity: number;
@@ -48,6 +48,17 @@ const Physics = (
   }
 
   Matter.Body.translate(entities[`Obstacle`].body, { x: -3, y: 0 });
+
+  if (
+    Matter.Bounds.overlaps(
+      entities.Player.body.bounds,
+      entities.Obstacle.body.bounds
+    )
+  ) {
+    const pipeSizePos = getPipeSizePos(windowWidth * 0.9);
+    Matter.Body.setPosition(entities['Obstacle'].body, pipeSizePos.pipe.pos);
+    dispatch({ type: 'hit_obstacle' });
+  }
 
   return entities;
 };

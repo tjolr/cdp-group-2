@@ -31,16 +31,20 @@ const Bounds = (props: IEntity) => {
 };
 
 export default ({ world, pos, size }: IHitbox) => {
-  const floor = Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
-    label: 'Floor',
+  const bounds = Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
+    label: 'Bounds',
     isStatic: true,
   });
-  World.add(world, floor);
+  bounds.collisionFilter = {
+    category: 1,
+    mask: 1,
+  };
+  World.add(world, bounds);
 
   return {
-    body: floor,
+    body: bounds,
     color: 'green',
     pos,
-    renderer: <Bounds body={floor} />,
+    renderer: <Bounds body={bounds} />,
   };
 };

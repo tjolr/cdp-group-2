@@ -1,5 +1,9 @@
-import { UserCredential } from '@firebase/auth-types';
-import { AppUser, RegisterFormData, SimpleUser } from './../../types/user.d';
+import {
+  AppUser,
+  AppUserCredential,
+  RegisterFormData,
+  SimpleUser,
+} from './../../types/user.d';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { API } from '../../src/firebase/api';
 import { RootState } from '../store';
@@ -30,8 +34,12 @@ export const registerUserDefaultThunk = createAsyncThunk(
 
 export const loginUserDefaultThunk = createAsyncThunk(
   'user/loginUserDefaultThunk',
-  async (user: SimpleUser): Promise<UserCredential> => {
-    return await API.signInDefault(user);
+  async (user: SimpleUser): Promise<AppUserCredential> => {
+    const userCred = await API.signInDefault(user);
+    const appUser = await (
+      await API.getUserInfo(userCred.user?.uid ?? '')
+    ).data();
+    return { ...userCred, ...appUser };
   }
 );
 
@@ -77,6 +85,8 @@ export const userSlice = createSlice({
           state.email = action.payload.user?.email ?? '';
           state.userId = user.uid;
           state.displayName = user.displayName ?? '';
+          state.firstName = action.payload.firstName ?? '';
+          state.lastName = action.payload.lastName ?? '';
         }
       })
       .addCase(loginUserDefaultThunk.rejected, (state) => {

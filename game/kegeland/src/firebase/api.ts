@@ -1,6 +1,5 @@
 import { UserCredential } from '@firebase/auth-types';
 import { AppUser, RegisterFormData, SimpleUser } from '../../types/user';
-import { firestoredb } from './config';
 import { FirestoreApi } from './firestoreApi';
 import firebase from 'firebase';
 
@@ -36,5 +35,11 @@ export namespace API {
 
   const saveUser = async (user: AppUser) => {
     return FirestoreApi.collectionTypes.users.doc(user.id).set(user);
+  };
+
+  export const getUserInfo = async (
+    userId: string
+  ): Promise<firebase.firestore.DocumentSnapshot<AppUser>> => {
+    return FirestoreApi.collectionTypes.users.doc(userId).get();
   };
 }

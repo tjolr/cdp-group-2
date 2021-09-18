@@ -1,12 +1,17 @@
 import { Text } from 'native-base';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GameEngine } from 'react-native-game-engine';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import entities from '../../../entities';
 import Physics from '../../../physics';
+import { NavigationScreenProps } from '../navigation.types';
 
-const GameScreen = () => {
+const GameScreen = ({ navigation }: NavigationScreenProps) => {
+  const handleGameOver = () => navigation.navigate('GameOver');
   const [lives, setLives] = useState(3);
+  useEffect(() => {
+    if (lives === 0) handleGameOver();
+  }, [lives]);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Text

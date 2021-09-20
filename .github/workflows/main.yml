@@ -24,6 +24,15 @@ jobs:
       - name: Install packages
         run: yarn install
         working-directory: ${{env.working-directory}}
+      - name: Create Google-service file from secrets
+        shell: bash
+        env:
+          GOOGLE_SERVICE_ANDROID: ${{ secrets.GOOGLE_SERVICE_ANDROID }}
+          GOOGLE_SERICE_APPLE: ${{ secrets.GOOGLE_SERVICE_APPLE }}
+        run: |
+          base64 --decode <<< "$env:GOOGLE_SERVICE_ANDROID" > google-services.json \
+            && base64 --decode <<< "$env:GOOGLE_SERVICE_APPLE"" > GoogleService-Info.plist
+        working-directory: ${{env.working-directory}}
       - name: Publish application
         run: expo publish
         working-directory: ${{env.working-directory}}

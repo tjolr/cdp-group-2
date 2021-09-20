@@ -7,8 +7,12 @@ import Physics from '../../../physics';
 import { NavigationScreenProps } from '../navigation.types';
 
 const GameScreen = ({ navigation }: NavigationScreenProps) => {
-  const handleGameOver = () => navigation.navigate('GameOver');
+  const handleGameOver = () => {
+    setRunning(false);
+    navigation.navigate('GameOver');
+  };
   const [lives, setLives] = useState(3);
+  const [running, setRunning] = useState(true);
   useEffect(() => {
     if (lives === 0) handleGameOver();
   }, [lives]);
@@ -28,6 +32,7 @@ const GameScreen = ({ navigation }: NavigationScreenProps) => {
         entities={entities()}
         style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
         systems={[Physics]}
+        running={running}
         onEvent={(e: any) => {
           switch (e.type) {
             case 'hit_obstacle':

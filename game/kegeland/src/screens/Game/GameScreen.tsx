@@ -9,6 +9,7 @@ import { NavigationScreenProps } from '../navigation.types';
 const GameScreen = ({ navigation }: NavigationScreenProps) => {
   const handleGameOver = () => navigation.navigate('GameOver');
   const [lives, setLives] = useState(3);
+  const [points, setPoints] = useState(0);
   useEffect(() => {
     if (lives === 0) handleGameOver();
   }, [lives]);
@@ -17,12 +18,21 @@ const GameScreen = ({ navigation }: NavigationScreenProps) => {
       <Text
         style={{
           textAlign: 'center',
-          fontSize: 40,
+          fontSize: 25,
           fontWeight: 'bold',
-          margin: 20,
+          margin: 10,
         }}
       >
         Lives: {lives}
+      </Text>
+      <Text
+        style={{
+          textAlign: 'center',
+          fontSize: 25,
+          fontWeight: 'bold',
+        }}
+      >
+        Points: {points}
       </Text>
       <GameEngine
         entities={entities()}
@@ -32,6 +42,10 @@ const GameScreen = ({ navigation }: NavigationScreenProps) => {
           switch (e.type) {
             case 'hit_obstacle':
               setLives(lives - 1);
+              break;
+            case 'new_point':
+              setPoints(points + 1);
+              break;
           }
         }}
       ></GameEngine>

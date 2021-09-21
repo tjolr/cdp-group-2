@@ -12,7 +12,10 @@ const GameScreen = ({ navigation }: NavigationScreenProps) => {
     navigation.navigate('GameOver');
   };
   const [lives, setLives] = useState(3);
+<<<<<<< HEAD
   const [points, setPoints] = useState(0);
+=======
+>>>>>>> e3cd009431cdd9bb9933ee2685f7af79a37be711
   const [running, setRunning] = useState(true);
   useEffect(() => {
     if (lives === 0) handleGameOver();

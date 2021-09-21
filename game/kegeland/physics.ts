@@ -33,7 +33,16 @@ const Physics = (
     Matter.Body.setPosition(entities['Obstacle'].body, pipeSizePos.pipe.pos);
   };
 
+  if (
+    entities['Obstacle'].body.bounds.max.x <= 10 &&
+    !entities['Obstacle'].point
+  ) {
+    entities['Obstacle'].point = true;
+    dispatch({ type: 'new_point' });
+  }
+
   if (entities['Obstacle'].body.bounds.max.x <= 0) {
+    entities['Obstacle'].point = false;
     moveObstacle();
   }
 

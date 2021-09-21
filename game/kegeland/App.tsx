@@ -30,6 +30,7 @@ const App = () => {
             initialRouteName="Home"
             screenOptions={{
               headerShown: false,
+              gestureEnabled: false,
             }}
           >
             <Stack.Screen name="Home" component={HomeScreen} />

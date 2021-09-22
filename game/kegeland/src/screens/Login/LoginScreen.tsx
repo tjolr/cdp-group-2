@@ -23,6 +23,9 @@ import {
 } from '../../../state-management/user/userSlice';
 import { SimpleUser } from '../../../types/user';
 import { emailRegex } from '../../utils/String.utils';
+import { StyleSheet } from 'react-native';
+import { borderColor } from 'styled-system';
+
 
 const LoginScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
@@ -88,8 +91,14 @@ const LoginScreen = ({ navigation }: NavigationScreenProps) => {
   };
 
   return (
-    <ScrollView>
+
+
+   
+    <ScrollView
+    
+ >
       <Box
+         style={styles.scrollview}
         bg={{
           linearGradient: {
             colors: ['rose.300', 'pink.200'],
@@ -98,13 +107,21 @@ const LoginScreen = ({ navigation }: NavigationScreenProps) => {
           },
         }}
         p={8}
-        minHeight="100%"
+        height="100%"
         w="100%"
         mx="auto"
         display="flex"
         justifyContent="center"
         alignItems="center"
       >
+        <Heading size="xl" color="teal.500">
+          Welcome
+        </Heading>
+   
+
+
+        
+
         <Heading size="xl" color="teal.500">
           Welcome
         </Heading>
@@ -179,7 +196,17 @@ const LoginScreen = ({ navigation }: NavigationScreenProps) => {
         </VStack>
       </Box>
     </ScrollView>
+    
   );
 };
 
 export default LoginScreen;
+
+
+const styles = StyleSheet.create({
+  scrollview: {
+    borderWidth: 2,
+    borderColor: 'red',
+    borderStyle: 'solid'
+  },
+});

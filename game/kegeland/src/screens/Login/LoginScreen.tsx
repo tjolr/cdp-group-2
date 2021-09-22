@@ -11,7 +11,7 @@ import {
 } from 'native-base';
 import React, { useState } from 'react';
 import { NavigationScreenProps } from '../navigation.types';
-import { ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import {
   useAppDispatch,
@@ -25,6 +25,7 @@ import { SimpleUser } from '../../../types/user';
 import { emailRegex } from '../../utils/String.utils';
 import { StyleSheet } from 'react-native';
 import { borderColor } from 'styled-system';
+import { scrollViewStyles } from '../../common/scrollView';
 
 const LoginScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
@@ -90,9 +91,8 @@ const LoginScreen = ({ navigation }: NavigationScreenProps) => {
   };
 
   return (
-    <ScrollView>
+    <SafeAreaView style={scrollViewStyles.container}>
       <Box
-        style={styles.scrollview}
         bg={{
           linearGradient: {
             colors: ['rose.300', 'pink.200'],
@@ -101,17 +101,13 @@ const LoginScreen = ({ navigation }: NavigationScreenProps) => {
           },
         }}
         p={8}
-        height="100%"
         w="100%"
         mx="auto"
         display="flex"
         justifyContent="center"
         alignItems="center"
+        style={{ flex: 1 }}
       >
-        <Heading size="xl" color="teal.500">
-          Welcome
-        </Heading>
-
         <Heading size="xl" color="teal.500">
           Welcome
         </Heading>
@@ -132,7 +128,11 @@ const LoginScreen = ({ navigation }: NavigationScreenProps) => {
             />
             {!!errors.email && (
               <FormControl.ErrorMessage
-                _text={{ fontSize: 'xs', color: 'error.500', fontWeight: 500 }}
+                _text={{
+                  fontSize: 'xs',
+                  color: 'error.500',
+                  fontWeight: 500,
+                }}
               >
                 {errors.email}
               </FormControl.ErrorMessage>
@@ -154,7 +154,11 @@ const LoginScreen = ({ navigation }: NavigationScreenProps) => {
             />
             {!!errors.password && (
               <FormControl.ErrorMessage
-                _text={{ fontSize: 'xs', color: 'error.500', fontWeight: 500 }}
+                _text={{
+                  fontSize: 'xs',
+                  color: 'error.500',
+                  fontWeight: 500,
+                }}
               >
                 {errors.password}
               </FormControl.ErrorMessage>
@@ -174,7 +178,7 @@ const LoginScreen = ({ navigation }: NavigationScreenProps) => {
           </VStack>
           <HStack justifyContent="center" mt={4}>
             <Text fontSize="md" color="muted.700" fontWeight={400}>
-              I'm a new user.
+              I'm a new user.{' '}
             </Text>
             <Link
               _text={{ color: 'teal.600', bold: true, fontSize: 'md' }}
@@ -185,16 +189,8 @@ const LoginScreen = ({ navigation }: NavigationScreenProps) => {
           </HStack>
         </VStack>
       </Box>
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 
 export default LoginScreen;
-
-const styles = StyleSheet.create({
-  scrollview: {
-    borderWidth: 2,
-    borderColor: 'red',
-    borderStyle: 'solid',
-  },
-});

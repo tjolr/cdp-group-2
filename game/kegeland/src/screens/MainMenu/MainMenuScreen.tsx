@@ -1,16 +1,17 @@
-import { Box, Heading, ScrollView, Text, Button } from 'native-base';
+import { Box, Heading, Text, Button } from 'native-base';
 import React from 'react';
 import { NavigationScreenProps } from '../navigation.types';
 import { AntDesign } from '@expo/vector-icons';
 import { useAppSelector } from '../../../state-management/redux.hooks';
 import { firstNameSel } from '../../../state-management/user/userSlice';
+import { SafeAreaView } from 'react-native';
 
 const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
   const handleStartGamePress = () => navigation.navigate('Game');
   const firstName = useAppSelector(firstNameSel);
 
   return (
-    <ScrollView>
+    <SafeAreaView>
       <Box
         bg={{
           linearGradient: {
@@ -53,7 +54,7 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
           Start exercise
         </Button>
       </Box>
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 

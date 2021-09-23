@@ -15,16 +15,26 @@ const Physics = (
   { touches, time, dispatch }: GameEngineUpdateEventOptionType
 ) => {
   let engine = entities.physics.engine;
-  let yVelocity: number;
   touches
-    .filter((t: TouchEvent) => t.type === 'press')
+    .filter((t: TouchEvent) => t.type === 'start')
     .forEach((t: TouchEvent) => {
-      yVelocity = t.event.pageY < windowHeight / 2 ? -4 : 4;
-      Matter.Body.setVelocity(entities.Player.body, {
-        x: 0,
-        y: yVelocity,
-      });
+      if (t.event.pageY < windowHeight / 2) {
+        entities.Player.speed = -4;
+      } else {
+        entities.Player.speed = 4;
+      }
     });
+  touches
+    .filter((t: TouchEvent) => t.type === 'end')
+    .forEach((t: TouchEvent) => {
+      entities.Player.speed = 0;
+    });
+  if (entities.Player.speed < 0 || entities.Player.speed > 0) {
+    Matter.Body.setVelocity(entities.Player.body, {
+      x: 0,
+      y: entities.Player.speed,
+    });
+  }
 
   Matter.Engine.update(engine, time.delta);
 

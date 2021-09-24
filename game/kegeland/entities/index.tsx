@@ -21,7 +21,7 @@ const Entities = () => {
     Player: Player({
       world,
       pos: { x: 50, y: windowHeight / 2 },
-      size: { width: 50, height: 50 },
+      size: { width: 75, height: 50 },
     }),
     Floor: Bounds({
       world,

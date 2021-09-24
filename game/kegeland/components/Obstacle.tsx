@@ -15,9 +15,11 @@ const Obstacle = (props: IEntity) => {
   return (
     <View
       style={{
-        borderWidth: 1,
-        borderColor: 'green',
+        backgroundColor: '#ffd500',
         borderStyle: 'solid',
+        borderColor: '#ffb700',
+        borderWidth: 3,
+        borderRadius: 10,
         position: 'absolute',
         left: xBody,
         top: yBody,
@@ -40,7 +42,7 @@ export default ({ world, pos, size }: IHitbox) => {
 
   return {
     body: obstacle,
-    color: 'green',
+    color: 'red',
     pos,
     renderer: <Obstacle body={obstacle} />,
   };

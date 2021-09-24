@@ -1,7 +1,8 @@
 import { World, Bodies } from 'matter-js';
 import React from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import { IEntity, IHitbox } from './components.types';
+import PlaneImage from '../assets/plane_1_pink.png';
 
 const Player = (props: IEntity) => {
   // Size of player calculated from the hitbox
@@ -12,16 +13,15 @@ const Player = (props: IEntity) => {
   const xBody = props.body.position.x - widthBody / 2;
   const yBody = props.body.position.y - heightBody / 2;
   return (
-    <View
+    <Image
+      source={PlaneImage}
       style={{
-        borderWidth: 1,
-        borderColor: 'green',
-        borderStyle: 'solid',
         position: 'absolute',
         left: xBody,
         top: yBody,
         width: widthBody,
         height: heightBody,
+        resizeMode: 'stretch',
       }}
     />
   );

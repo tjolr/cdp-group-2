@@ -1,10 +1,16 @@
 import { Text } from 'native-base';
+import { ImageBackground, View } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { GameEngine } from 'react-native-game-engine';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import entities from '../../../entities';
 import Physics from '../../../physics';
 import { NavigationScreenProps } from '../navigation.types';
+import Background from '../../../assets/hills.png';
+import { Dimensions } from 'react-native';
+
+const windowHeight = Dimensions.get('window').height;
+const windowWidth = Dimensions.get('window').width;
 
 const GameScreen = ({ navigation }: NavigationScreenProps) => {
   const handleGameOver = () => {
@@ -18,26 +24,29 @@ const GameScreen = ({ navigation }: NavigationScreenProps) => {
     if (lives === 0) handleGameOver();
   }, [lives]);
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Text
-        style={{
-          textAlign: 'center',
-          fontSize: 25,
-          fontWeight: 'bold',
-          margin: 10,
-        }}
-      >
-        Lives: {lives}
-      </Text>
-      <Text
-        style={{
-          textAlign: 'center',
-          fontSize: 25,
-          fontWeight: 'bold',
-        }}
-      >
-        Points: {points}
-      </Text>
+    <ImageBackground source={Background} style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
+        <Text
+          style={{
+            textAlign: 'center',
+            fontSize: 25,
+            fontWeight: 'bold',
+            top: 45,
+          }}
+        >
+          Lives: {lives}
+        </Text>
+        <Text
+          style={{
+            textAlign: 'center',
+            fontSize: 25,
+            fontWeight: 'bold',
+            top: 50,
+          }}
+        >
+          Points: {points}
+        </Text>
+      </View>
       <GameEngine
         entities={entities()}
         style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
@@ -54,7 +63,7 @@ const GameScreen = ({ navigation }: NavigationScreenProps) => {
           }
         }}
       ></GameEngine>
-    </SafeAreaView>
+    </ImageBackground>
   );
 };
 

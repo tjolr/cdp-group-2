@@ -16,18 +16,7 @@ const Bounds = (props: IEntity) => {
   const xBody = props.body.position.x - widthBody / 2;
   const yBody = props.body.position.y - heightBody / 2;
 
-  return (
-    <View
-      style={{
-        backgroundColor: 'green',
-        position: 'absolute',
-        left: xBody,
-        top: yBody,
-        width: widthBody,
-        height: heightBody,
-      }}
-    />
-  );
+  return <></>;
 };
 
 export default ({ world, pos, size }: IHitbox) => {

@@ -1,6 +1,6 @@
 import { World, Bodies } from 'matter-js';
 import React from 'react';
-import { View, Image } from 'react-native';
+import { Image } from 'react-native';
 import { IEntity, IHitbox } from './components.types';
 import PlaneImage from '../assets/plane_1_pink.png';
 
@@ -40,7 +40,6 @@ export default ({ world, pos, size }: IHitbox) => {
 
   return {
     body: player,
-    color: 'green',
     pos,
     renderer: <Player body={player} />,
   };

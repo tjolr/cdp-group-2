@@ -42,7 +42,6 @@ export default ({ world, pos, size }: IHitbox) => {
 
   return {
     body: obstacle,
-    color: 'red',
     pos,
     renderer: <Obstacle body={obstacle} />,
   };

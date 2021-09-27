@@ -1,11 +1,7 @@
 import { World, Bodies } from 'matter-js';
 import React from 'react';
 import { View } from 'react-native';
-import { Dimensions } from 'react-native';
 import { IEntity, IHitbox } from './components.types';
-
-const windowHeight = Dimensions.get('window').height;
-const windowWidth = Dimensions.get('window').width;
 
 const Bounds = (props: IEntity) => {
   // Size of boundary calculated from the hitbox

@@ -6,10 +6,6 @@ import entities from '../../../entities';
 import Physics from '../../../physics';
 import { NavigationScreenProps } from '../navigation.types';
 import Background from '../../../assets/hills.png';
-import { Dimensions } from 'react-native';
-
-const windowHeight = Dimensions.get('window').height;
-const windowWidth = Dimensions.get('window').width;
 
 const GameScreen = ({ navigation }: NavigationScreenProps) => {
   const handleGameOver = () => {

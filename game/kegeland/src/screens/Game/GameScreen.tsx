@@ -26,7 +26,6 @@ const GameScreen = ({ navigation }: NavigationScreenProps) => {
   const lives = useAppSelector(livesSel);
 
   const handleGameOver = () => {
-    console.log('gameover');
     setRunning(false);
     navigation.navigate('GameOver');
     dispatch(restoreLives());

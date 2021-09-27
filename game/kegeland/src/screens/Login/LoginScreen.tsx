@@ -26,7 +26,6 @@ import { emailRegex } from '../../utils/String.utils';
 import { StyleSheet } from 'react-native';
 import { borderColor } from 'styled-system';
 
-
 const LoginScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
   const loginUserDefaultThunkStatus = useAppSelector(
@@ -91,14 +90,9 @@ const LoginScreen = ({ navigation }: NavigationScreenProps) => {
   };
 
   return (
-
-
-   
-    <ScrollView
-    
- >
+    <ScrollView>
       <Box
-         style={styles.scrollview}
+        style={styles.scrollview}
         bg={{
           linearGradient: {
             colors: ['rose.300', 'pink.200'],
@@ -117,10 +111,6 @@ const LoginScreen = ({ navigation }: NavigationScreenProps) => {
         <Heading size="xl" color="teal.500">
           Welcome
         </Heading>
-   
-
-
-        
 
         <Heading size="xl" color="teal.500">
           Welcome
@@ -196,17 +186,15 @@ const LoginScreen = ({ navigation }: NavigationScreenProps) => {
         </VStack>
       </Box>
     </ScrollView>
-    
   );
 };
 
 export default LoginScreen;
 
-
 const styles = StyleSheet.create({
   scrollview: {
     borderWidth: 2,
     borderColor: 'red',
-    borderStyle: 'solid'
+    borderStyle: 'solid',
   },
 });

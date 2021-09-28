@@ -31,7 +31,7 @@ jobs:
           GOOGLE_SERICE_APPLE: ${{ secrets.GOOGLE_SERVICE_APPLE }}
         run: |
           echo "$GOOGLE_SERVICE_ANDROID" | base64 --decode > google-services.json
-          && echo "$GOOGLE_SERVICE_APPLE" | base64 --decode > GoogleService-Info.plist
+          echo "$GOOGLE_SERVICE_APPLE" | base64 --decode > GoogleService-Info.plist
         working-directory: ${{env.working-directory}}
       - name: Publish application
         run: expo publish

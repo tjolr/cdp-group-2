@@ -4,20 +4,41 @@ import React, { useState, useEffect } from 'react';
 import { GameEngine } from 'react-native-game-engine';
 import entities from '../../../entities';
 import Physics from '../../../physics';
+import {
+  clearGame,
+  incrementPoints,
+  livesSel,
+  pointsSel,
+  decrementLives,
+  restoreLives,
+} from '../../../state-management/game/gameSlice';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../../state-management/redux.hooks';
 import { NavigationScreenProps } from '../navigation.types';
+import { useRoute } from '@react-navigation/native';
 import Background from '../../../assets/hills.png';
 
+
 const GameScreen = ({ navigation }: NavigationScreenProps) => {
+  const route = useRoute();
+  const dispatch = useAppDispatch();
+  const points = useAppSelector(pointsSel);
+  const lives = useAppSelector(livesSel);
+
   const handleGameOver = () => {
     setRunning(false);
     navigation.navigate('GameOver');
+    dispatch(restoreLives());
   };
-  const [lives, setLives] = useState(3);
-  const [points, setPoints] = useState(0);
+
   const [running, setRunning] = useState(true);
+
   useEffect(() => {
     if (lives === 0) handleGameOver();
   }, [lives]);
+
   return (
     <ImageBackground source={Background} style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
@@ -50,10 +71,10 @@ const GameScreen = ({ navigation }: NavigationScreenProps) => {
         onEvent={(e: any) => {
           switch (e.type) {
             case 'hit_obstacle':
-              setLives(lives - 1);
+              dispatch(decrementLives());
               break;
             case 'new_point':
-              setPoints(points + 1);
+              dispatch(incrementPoints());
               break;
           }
         }}

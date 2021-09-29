@@ -18,7 +18,9 @@ const Physics = (
   touches
     .filter((t: TouchEvent) => t.type === 'start')
     .forEach((t: TouchEvent) => {
-      if (t.event.pageY < windowHeight / 2) {
+      if (t.event.pageX > windowWidth / 2) {
+        entities.Player.shield = true;
+      } else if (t.event.pageY < windowHeight / 2) {
         entities.Player.speed = -4;
       } else {
         entities.Player.speed = 4;
@@ -27,6 +29,7 @@ const Physics = (
   touches
     .filter((t: TouchEvent) => t.type === 'end')
     .forEach((t: TouchEvent) => {
+      entities.Player.shield = false;
       entities.Player.speed = 0;
     });
   if (entities.Player.speed < 0 || entities.Player.speed > 0) {
@@ -88,6 +91,9 @@ const Physics = (
       entities.Obstacle.body.bounds
     )
   ) {
+    // If the player has shield and the obstacle is a wall, then the player should not lose a life
+    if (entities.Player.shield && entities['Obstacle'].body.position.y == 0)
+      return entities;
     movePlayer();
     moveObstacle();
     dispatch({ type: 'hit_obstacle' });

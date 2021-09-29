@@ -43,6 +43,17 @@ const Physics = (
     Matter.Body.setPosition(entities['Obstacle'].body, pipeSizePos.pipe.pos);
   };
 
+  const movePlayer = () => {
+    Matter.Body.setPosition(entities['Player'].body, {
+      x: 50,
+      y: windowHeight / 2,
+    });
+    Matter.Body.setVelocity(entities.Player.body, {
+      x: 0,
+      y: entities.Player.speed,
+    });
+  };
+
   if (
     entities['Obstacle'].body.bounds.max.x <= 10 &&
     !entities['Obstacle'].point
@@ -77,6 +88,7 @@ const Physics = (
       entities.Obstacle.body.bounds
     )
   ) {
+    movePlayer();
     moveObstacle();
     dispatch({ type: 'hit_obstacle' });
   }

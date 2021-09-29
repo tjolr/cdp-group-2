@@ -11,6 +11,8 @@ import {
   pointsSel,
   decrementLives,
   restoreLives,
+  runningSel,
+  stopGame,
 } from '../../../state-management/game/gameSlice';
 import {
   useAppDispatch,
@@ -20,24 +22,26 @@ import { NavigationScreenProps } from '../navigation.types';
 import { useRoute } from '@react-navigation/native';
 import Background from '../../../assets/hills.png';
 
-
 const GameScreen = ({ navigation }: NavigationScreenProps) => {
   const route = useRoute();
   const dispatch = useAppDispatch();
   const points = useAppSelector(pointsSel);
   const lives = useAppSelector(livesSel);
+  const running = useAppSelector(runningSel);
 
   const handleGameOver = () => {
-    setRunning(false);
+    dispatch(stopGame());
     navigation.navigate('GameOver');
     dispatch(restoreLives());
   };
 
-  const [running, setRunning] = useState(true);
-
   useEffect(() => {
     if (lives === 0) handleGameOver();
   }, [lives]);
+
+  useEffect(() => {
+    dispatch(clearGame());
+  }, []);
 
   return (
     <ImageBackground source={Background} style={{ flex: 1 }}>
@@ -65,7 +69,13 @@ const GameScreen = ({ navigation }: NavigationScreenProps) => {
       </View>
       <GameEngine
         entities={entities()}
-        style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+        }}
         systems={[Physics]}
         running={running}
         onEvent={(e: any) => {

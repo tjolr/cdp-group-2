@@ -1,5 +1,5 @@
 import Matter from 'matter-js';
-import { getPipeSizePos } from './utils/random';
+import { getPipeSizePos } from '../utils/random';
 import {
   GameEngineUpdateEventOptionType,
   TouchEvent,
@@ -10,7 +10,7 @@ import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const Physics = (
+const Physics2 = (
   entities: any,
   { touches, time, dispatch }: GameEngineUpdateEventOptionType
 ) => {
@@ -101,4 +101,4 @@ const Physics = (
 
   return entities;
 };
-export default Physics;
+export default Physics2;

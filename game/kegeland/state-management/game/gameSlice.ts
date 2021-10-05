@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import Physics1 from '../../physics/physics1control';
+import Physics2 from '../../physics/physics2controls';
 import { RootState } from '../store';
 import { GameState } from './gameSlice.types';
 
@@ -7,6 +9,7 @@ const initialState: GameState = {
   points: 0,
   lives: 3,
   running: true,
+  controls: Physics1,
 };
 
 export const gameSlice = createSlice({
@@ -19,11 +22,19 @@ export const gameSlice = createSlice({
     incrementPoints: (state) => {
       state.points += 1;
     },
-    clearGame: (state) => {
+    clearGame: (state, action: PayloadAction<number>) => {
       state.points = 0;
       state.gameId = '';
       state.lives = 3;
       state.running = true;
+      switch (action.payload) {
+        case 1:
+          state.controls = Physics1;
+          break;
+        case 2:
+          state.controls = Physics2;
+          break;
+      }
     },
     decrementLives: (state) => {
       state.lives -= 1;
@@ -50,5 +61,6 @@ export const {
 export const pointsSel = (state: RootState) => state.game.points;
 export const livesSel = (state: RootState) => state.game.lives;
 export const runningSel = (state: RootState) => state.game.running;
+export const controlsSel = (state: RootState) => state.game.controls;
 
 export default gameSlice.reducer;

@@ -29,3 +29,21 @@ export const getPipeSizePos = (addToPosX = 0) => {
 
   return { pipe };
 };
+
+export const getPipeSizePosBottom = (addToPosX = 0) => {
+  let min = 400;
+  let max = windowHeight - 200;
+  let yPosTop = -getRandom(min, max);
+  let pipe;
+  let yCoord;
+
+  // Randomly decide if the pipe should be at the bottom, top or full height wall
+  yCoord = windowHeight * 2 + 200 + yPosTop;
+
+  pipe = {
+    pos: { x: windowWidth + addToPosX, y: yCoord },
+    size: { height: windowHeight * 2, width: 75 },
+  };
+
+  return { pipe };
+};

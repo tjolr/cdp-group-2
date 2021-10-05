@@ -1,11 +1,10 @@
 import { Text } from 'native-base';
 import { ImageBackground, View } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { GameEngine } from 'react-native-game-engine';
 import entities from '../../../entities';
-import Physics from '../../../physics';
+
 import {
-  clearGame,
   incrementPoints,
   livesSel,
   pointsSel,
@@ -13,6 +12,7 @@ import {
   restoreLives,
   runningSel,
   stopGame,
+  controlsSel,
 } from '../../../state-management/game/gameSlice';
 import {
   useAppDispatch,
@@ -28,6 +28,7 @@ const GameScreen = ({ navigation }: NavigationScreenProps) => {
   const points = useAppSelector(pointsSel);
   const lives = useAppSelector(livesSel);
   const running = useAppSelector(runningSel);
+  const controls = useAppSelector(controlsSel);
 
   const handleGameOver = () => {
     dispatch(stopGame());
@@ -38,10 +39,6 @@ const GameScreen = ({ navigation }: NavigationScreenProps) => {
   useEffect(() => {
     if (lives === 0) handleGameOver();
   }, [lives]);
-
-  useEffect(() => {
-    dispatch(clearGame());
-  }, []);
 
   return (
     <ImageBackground source={Background} style={{ flex: 1 }}>
@@ -76,7 +73,7 @@ const GameScreen = ({ navigation }: NavigationScreenProps) => {
           right: 0,
           bottom: 0,
         }}
-        systems={[Physics]}
+        systems={[controls]}
         running={running}
         onEvent={(e: any) => {
           switch (e.type) {

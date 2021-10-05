@@ -1,5 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { NavigationScreenProps } from '../navigation.types';
 import { Box, Text, Heading, Button, Center } from 'native-base';
@@ -12,10 +11,16 @@ import { clearGame, pointsSel } from '../../../state-management/game/gameSlice';
 const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
   const handleMainMenuPress = () => navigation.navigate('MainMenu');
-  const handleNextGamePress = () => {
+  const handleNextGamePressOne = () => {
     navigation.navigate('Game');
     setTimeout(() => {
-      dispatch(clearGame());
+      dispatch(clearGame(1));
+    }, 100);
+  };
+  const handleNextGamePressTwo = () => {
+    navigation.navigate('Game');
+    setTimeout(() => {
+      dispatch(clearGame(2));
     }, 100);
   };
   const points = useAppSelector(pointsSel);
@@ -53,13 +58,21 @@ const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
       </Text>
 
       <Button
-        onPress={handleNextGamePress}
-        marginBottom="10"
+        onPress={handleNextGamePressOne}
+        marginBottom="5"
         marginTop="20"
         colorScheme="teal"
         _text={{ color: 'white' }}
       >
-        PLAY NEXT GAME
+        PLAY NEXT GAME - 1 CONTROL
+      </Button>
+      <Button
+        onPress={handleNextGamePressTwo}
+        marginBottom="10"
+        colorScheme="teal"
+        _text={{ color: 'white' }}
+      >
+        PLAY NEXT GAME - 2 CONTROLS
       </Button>
       <Button
         onPress={handleMainMenuPress}

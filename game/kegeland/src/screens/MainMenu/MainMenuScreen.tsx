@@ -16,7 +16,7 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
     navigation.navigate('Game');
     dispatch(clearGame(1));
   };
-  const handleStartGamePressTwo = () => {
+  const handleStartGamePressMultiple = () => {
     navigation.navigate('Game');
     dispatch(clearGame(2));
   };
@@ -71,7 +71,7 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
           colorScheme="teal"
           m={7}
           startIcon={<AntDesign name="play" size={20} color="white" />}
-          onPress={handleStartGamePressTwo}
+          onPress={handleStartGamePressMultiple}
         >
           Start exercise - 2 controls
         </Button>

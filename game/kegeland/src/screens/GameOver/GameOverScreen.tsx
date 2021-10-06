@@ -17,7 +17,7 @@ const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
       dispatch(clearGame(1));
     }, 100);
   };
-  const handleNextGamePressTwo = () => {
+  const handleNextGamePressMultiple = () => {
     navigation.navigate('Game');
     setTimeout(() => {
       dispatch(clearGame(2));
@@ -67,7 +67,7 @@ const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
         PLAY NEXT GAME - 1 CONTROL
       </Button>
       <Button
-        onPress={handleNextGamePressTwo}
+        onPress={handleNextGamePressMultiple}
         marginBottom="10"
         colorScheme="teal"
         _text={{ color: 'white' }}

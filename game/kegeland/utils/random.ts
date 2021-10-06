@@ -37,7 +37,6 @@ export const getPipeSizePosBottom = (addToPosX = 0) => {
   let pipe;
   let yCoord;
 
-  // Randomly decide if the pipe should be at the bottom, top or full height wall
   yCoord = windowHeight * 2 + 200 + yPosTop;
 
   pipe = {

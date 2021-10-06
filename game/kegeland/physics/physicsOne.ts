@@ -1,5 +1,5 @@
 import Matter from 'matter-js';
-import { getPipeSizePos } from '../utils/random';
+import { getPipeSizePosBottom } from '../utils/random';
 import {
   GameEngineUpdateEventOptionType,
   TouchEvent,
@@ -10,7 +10,7 @@ import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const Physics2 = (
+const PhysicsOne = (
   entities: any,
   { touches, time, dispatch }: GameEngineUpdateEventOptionType
 ) => {
@@ -18,21 +18,14 @@ const Physics2 = (
   touches
     .filter((t: TouchEvent) => t.type === 'start')
     .forEach((t: TouchEvent) => {
-      if (t.event.pageX > windowWidth / 2) {
-        entities.Player.shield = true;
-      } else if (t.event.pageY < windowHeight / 2) {
-        entities.Player.speed = -4;
-      } else {
-        entities.Player.speed = 4;
-      }
+      entities.Player.speed = -4;
     });
   touches
     .filter((t: TouchEvent) => t.type === 'end')
     .forEach((t: TouchEvent) => {
-      entities.Player.shield = false;
       entities.Player.speed = 0;
     });
-  if (entities.Player.speed < 0 || entities.Player.speed > 0) {
+  if (entities.Player.speed < 0) {
     Matter.Body.setVelocity(entities.Player.body, {
       x: 0,
       y: entities.Player.speed,
@@ -42,14 +35,14 @@ const Physics2 = (
   Matter.Engine.update(engine, time.delta);
 
   const moveObstacle = () => {
-    const pipeSizePos = getPipeSizePos(windowWidth * 0.9);
+    const pipeSizePos = getPipeSizePosBottom(windowWidth * 0.9);
     Matter.Body.setPosition(entities['Obstacle'].body, pipeSizePos.pipe.pos);
   };
 
   const movePlayer = () => {
     Matter.Body.setPosition(entities['Player'].body, {
       x: 50,
-      y: windowHeight / 2,
+      y: windowHeight - 250,
     });
     Matter.Body.setVelocity(entities.Player.body, {
       x: 0,
@@ -70,17 +63,12 @@ const Physics2 = (
     moveObstacle();
   }
 
-  let playerY =
-    (entities['Player'].body.bounds.max.y +
-      entities['Player'].body.bounds.min.y) /
-    2;
-  if (playerY > windowHeight / 2 - 3 && playerY < windowHeight / 2 + 3) {
+  let playerY = entities['Player'].body.bounds.min.y;
+  if (playerY > windowHeight - 250) {
     engine.gravity.y = 0;
     Matter.Body.setVelocity(entities['Player'].body, { x: 0, y: 0 });
-  } else if (playerY < windowHeight / 2) {
-    engine.gravity.y = 0.3;
   } else {
-    engine.gravity.y = -0.3;
+    engine.gravity.y = 0.3;
   }
 
   Matter.Body.translate(entities[`Obstacle`].body, { x: -3, y: 0 });
@@ -91,9 +79,7 @@ const Physics2 = (
       entities.Obstacle.body.bounds
     )
   ) {
-    // If the player has shield and the obstacle is a wall, then the player should not lose a life
-    if (entities.Player.shield && entities['Obstacle'].body.position.y == 0)
-      return entities;
+    if (entities['Obstacle'].body.position.y == 0) return entities;
     movePlayer();
     moveObstacle();
     dispatch({ type: 'hit_obstacle' });
@@ -101,4 +87,4 @@ const Physics2 = (
 
   return entities;
 };
-export default Physics2;
+export default PhysicsOne;

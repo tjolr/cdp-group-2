@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import Physics1 from '../../physics/physics1control';
-import Physics2 from '../../physics/physics2controls';
+import PhysicsOne from '../../physics/physicsOne';
+import PhysicsMultiple from '../../physics/physicsMultiple';
 import { RootState } from '../store';
 import { GameState } from './gameSlice.types';
 
@@ -9,7 +9,7 @@ const initialState: GameState = {
   points: 0,
   lives: 3,
   running: true,
-  controls: Physics1,
+  controls: PhysicsOne,
 };
 
 export const gameSlice = createSlice({
@@ -29,10 +29,10 @@ export const gameSlice = createSlice({
       state.running = true;
       switch (action.payload) {
         case 1:
-          state.controls = Physics1;
+          state.controls = PhysicsOne;
           break;
         case 2:
-          state.controls = Physics2;
+          state.controls = PhysicsMultiple;
           break;
       }
     },

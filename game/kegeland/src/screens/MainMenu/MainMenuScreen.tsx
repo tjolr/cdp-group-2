@@ -2,12 +2,24 @@ import { Box, Heading, Text, Button } from 'native-base';
 import React from 'react';
 import { NavigationScreenProps } from '../navigation.types';
 import { AntDesign } from '@expo/vector-icons';
-import { useAppSelector } from '../../../state-management/redux.hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../../state-management/redux.hooks';
 import { firstNameSel } from '../../../state-management/user/userSlice';
 import { SafeAreaView } from 'react-native';
+import { clearGame } from '../../../state-management/game/gameSlice';
 
 const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
-  const handleStartGamePress = () => navigation.navigate('Game');
+  const dispatch = useAppDispatch();
+  const handleStartGamePressOne = () => {
+    navigation.navigate('Game');
+    dispatch(clearGame(1));
+  };
+  const handleStartGamePressMultiple = () => {
+    navigation.navigate('Game');
+    dispatch(clearGame(2));
+  };
   const firstName = useAppSelector(firstNameSel);
 
   return (
@@ -49,9 +61,19 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
           colorScheme="teal"
           m={7}
           startIcon={<AntDesign name="play" size={20} color="white" />}
-          onPress={handleStartGamePress}
+          onPress={handleStartGamePressOne}
         >
-          Start exercise
+          Start exercise - 1 control
+        </Button>
+
+        <Button
+          size="lg"
+          colorScheme="teal"
+          m={7}
+          startIcon={<AntDesign name="play" size={20} color="white" />}
+          onPress={handleStartGamePressMultiple}
+        >
+          Start exercise - 2 controls
         </Button>
       </Box>
     </SafeAreaView>

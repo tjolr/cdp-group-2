@@ -4,7 +4,7 @@ import Bounds from '../components/Bounds';
 import Obstacle from '../components/Obstacle';
 
 import { Dimensions } from 'react-native';
-import { getPipeSizePos } from '../utils/random';
+import { getPipeSizePosBottom } from '../utils/random';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -14,7 +14,7 @@ const Entities = () => {
   let world = engine.world;
   engine.gravity.y = 0;
 
-  const pipeSizePos = getPipeSizePos();
+  const pipeSizePos = getPipeSizePosBottom();
 
   return {
     physics: { engine, world },

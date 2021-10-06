@@ -3,4 +3,5 @@ export interface GameState {
   points: number;
   lives: number;
   running: boolean;
+  controls: any;
 }

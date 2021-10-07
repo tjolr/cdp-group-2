@@ -15,17 +15,20 @@ import {
 import {
   currentGameSel,
   gamesNumberSel,
+  getQuestionsDefaultThunk,
+  getQuestionsDefaultThunkSel,
   incrementGame,
 } from '../../../state-management/session/sessionSlice';
+import { API } from '../../firebase/api';
 
 const SAMScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
   const currentGameNumber = useAppSelector(currentGameSel);
   const gamesNumber = useAppSelector(gamesNumberSel);
-
+  const questions = dispatch(getQuestionsDefaultThunk('SAM')).unwrap();
   const handleStartGamePress = () => {
     dispatch(incrementGame());
-    console.log(currentGameNumber);
+    console.log(questions);
     if (currentGameNumber <= gamesNumber) {
       navigation.navigate('Game');
       if (currentGameNumber % 2 == 1) {

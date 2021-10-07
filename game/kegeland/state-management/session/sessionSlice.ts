@@ -1,12 +1,15 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { API } from '../../src/firebase/api';
+import { Question } from '../../types/questionnaires';
 import { RootState } from '../store';
-import { SessionState } from './sesssionSlice.types';
+import { SessionState } from './sessionSlice.types';
 
 const initialState: SessionState = {
   sessionId: '',
   gamesNumber: 3,
   currentGame: 0,
   points: [],
+  getQuestionsDefaultThunk: 'idle',
 };
 
 export const sessionSlice = createSlice({
@@ -26,9 +29,21 @@ export const sessionSlice = createSlice({
   },
 });
 
+export const getQuestionsDefaultThunk = createAsyncThunk(
+  'session/getQuestionsDefaultThunk',
+  async (name: string): Promise<Array<Question>> => {
+    const samQuestions = await (
+      await API.getQuestionnaire(name)
+    ).get('questions');
+    return { ...samQuestions.questions };
+  }
+);
+
 export const { setSessionId, incrementGame, savePoints } = sessionSlice.actions;
 
 export const gamesNumberSel = (state: RootState) => state.session.gamesNumber;
 export const currentGameSel = (state: RootState) => state.session.currentGame;
+export const getQuestionsDefaultThunkSel = (state: RootState) =>
+  state.session.getQuestionsDefaultThunk;
 
 export default sessionSlice.reducer;

@@ -8,7 +8,10 @@ import {
 } from '../../../state-management/redux.hooks';
 import { firstNameSel } from '../../../state-management/user/userSlice';
 import { SafeAreaView } from 'react-native';
-import { clearGame } from '../../../state-management/game/gameSlice';
+import {
+  clearGame,
+  setSession,
+} from '../../../state-management/game/gameSlice';
 
 const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
@@ -19,6 +22,10 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
   const handleStartGamePressMultiple = () => {
     navigation.navigate('Game');
     dispatch(clearGame(2));
+  };
+  const handleStartGameSession = () => {
+    navigation.navigate('SelfAssessment1');
+    dispatch(setSession(true));
   };
   const firstName = useAppSelector(firstNameSel);
 
@@ -69,11 +76,21 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
         <Button
           size="lg"
           colorScheme="teal"
-          m={7}
+          // m={7}
           startIcon={<AntDesign name="play" size={20} color="white" />}
           onPress={handleStartGamePressMultiple}
         >
           Start exercise - 2 controls
+        </Button>
+
+        <Button
+          size="lg"
+          colorScheme="teal"
+          m={7}
+          startIcon={<AntDesign name="play" size={20} color="white" />}
+          onPress={handleStartGameSession}
+        >
+          Start session
         </Button>
       </Box>
     </SafeAreaView>

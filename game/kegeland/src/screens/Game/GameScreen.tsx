@@ -13,6 +13,7 @@ import {
   runningSel,
   stopGame,
   controlsSel,
+  sessionSel,
 } from '../../../state-management/game/gameSlice';
 import {
   useAppDispatch,
@@ -21,6 +22,7 @@ import {
 import { NavigationScreenProps } from '../navigation.types';
 import { useRoute } from '@react-navigation/native';
 import Background from '../../../assets/hills.png';
+import { savePoints } from '../../../state-management/session/sessionSlice';
 
 const GameScreen = ({ navigation }: NavigationScreenProps) => {
   const route = useRoute();
@@ -29,10 +31,16 @@ const GameScreen = ({ navigation }: NavigationScreenProps) => {
   const lives = useAppSelector(livesSel);
   const running = useAppSelector(runningSel);
   const controls = useAppSelector(controlsSel);
+  const session = useAppSelector(sessionSel);
 
   const handleGameOver = () => {
     dispatch(stopGame());
-    navigation.navigate('GameOver');
+    if (session) {
+      dispatch(savePoints(points));
+      navigation.navigate('SAM');
+    } else {
+      navigation.navigate('GameOver');
+    }
     dispatch(restoreLives());
   };
 

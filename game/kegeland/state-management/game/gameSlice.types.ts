@@ -4,4 +4,5 @@ export interface GameState {
   lives: number;
   running: boolean;
   controls: any;
+  session: boolean;
 }

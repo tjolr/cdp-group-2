@@ -12,6 +12,9 @@ import { theme } from './src/styles/theme';
 import { store } from './state-management/store';
 import { StatusBar } from 'expo-status-bar';
 import RegisterScreen from './src/screens/Register/RegisterScreen';
+import SAMScreen from './src/screens/Questionnaire/SAMScreen';
+import SelfAssessment1Screen from './src/screens/Questionnaire/SelfAssessment1Screen';
+import SelfAssessment2Screen from './src/screens/Questionnaire/SelfAssessment2Screen';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,7 +30,7 @@ const App = () => {
       <NativeBaseProvider config={config} theme={theme}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="Home"
+            initialRouteName="MainMenu"
             screenOptions={{
               headerShown: false,
               gestureEnabled: false,
@@ -39,6 +42,15 @@ const App = () => {
             <Stack.Screen name="MainMenu" component={MainMenuScreen} />
             <Stack.Screen name="Game" component={GameScreen} />
             <Stack.Screen name="GameOver" component={GameOverScreen} />
+            <Stack.Screen
+              name="SelfAssessment1"
+              component={SelfAssessment1Screen}
+            />
+            <Stack.Screen
+              name="SelfAssessment2"
+              component={SelfAssessment2Screen}
+            />
+            <Stack.Screen name="SAM" component={SAMScreen} />
           </Stack.Navigator>
         </NavigationContainer>
         <StatusBar hidden />

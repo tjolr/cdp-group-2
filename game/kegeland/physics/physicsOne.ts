@@ -63,8 +63,11 @@ const PhysicsOne = (
     moveObstacle();
   }
 
-  let playerY = entities['Player'].body.bounds.min.y;
-  if (playerY > windowHeight - 250) {
+  let playerY =
+    (entities['Player'].body.bounds.min.y +
+      entities['Player'].body.bounds.max.y) /
+    2;
+  if (playerY >= windowHeight - 250) {
     engine.gravity.y = 0;
     Matter.Body.setVelocity(entities['Player'].body, { x: 0, y: 0 });
   } else {

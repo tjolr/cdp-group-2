@@ -82,7 +82,6 @@ const PhysicsOne = (
       entities.Obstacle.body.bounds
     )
   ) {
-    if (entities['Obstacle'].body.position.y == 0) return entities;
     movePlayer();
     moveObstacle();
     dispatch({ type: 'hit_obstacle' });

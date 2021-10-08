@@ -13,11 +13,15 @@ import { clearGame } from '../../../state-management/game/gameSlice';
 const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
   const handleStartGamePressOne = () => {
-    navigation.navigate('Game');
+    navigation.navigate('Game', {
+      controlNumber: 1,
+    });
     dispatch(clearGame(1));
   };
   const handleStartGamePressMultiple = () => {
-    navigation.navigate('Game');
+    navigation.navigate('Game', {
+      controlNumber: 3,
+    });
     dispatch(clearGame(2));
   };
   const firstName = useAppSelector(firstNameSel);

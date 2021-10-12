@@ -5,7 +5,10 @@ import Obstacle from '../components/Obstacle';
 import { Dimensions } from 'react-native';
 import { getPipeSizePosBottom } from '../utils/random';
 import { useAppSelector } from '../state-management/redux.hooks';
-import { controlsSel } from '../state-management/game/gameSlice';
+import {
+  controlsSel,
+  obstacleSpeedSel,
+} from '../state-management/game/gameSlice';
 import PhysicsOne from '../physics/physicsOne';
 
 const windowHeight = Dimensions.get('window').height;
@@ -16,6 +19,7 @@ const Entities = () => {
   let world = engine.world;
   engine.gravity.y = 0;
   const controls = useAppSelector(controlsSel);
+  const obstacleSpeed = useAppSelector(obstacleSpeedSel);
   let playerY = windowHeight / 2;
   if (controls == PhysicsOne) playerY = windowHeight - 250;
 
@@ -42,6 +46,7 @@ const Entities = () => {
       world,
       pos: pipeSizePos.pipe.pos,
       size: pipeSizePos.pipe.size,
+      speed: obstacleSpeed,
     }),
   };
 };

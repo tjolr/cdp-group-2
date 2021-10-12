@@ -1,6 +1,6 @@
 import { Text } from 'native-base';
 import { ImageBackground, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { GameEngine } from 'react-native-game-engine';
 import entities from '../../../entities';
 import {
@@ -14,6 +14,7 @@ import {
   controlsSel,
   saveGameDataThunk,
   getUserGameSettingsThunk,
+  obstacleSpeedSel,
 } from '../../../state-management/game/gameSlice';
 import {
   useAppDispatch,
@@ -31,7 +32,8 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   const running = useAppSelector(runningSel);
   const controls = useAppSelector(controlsSel);
   const [backgroundImage, setBackgroundImage] = useState(Background);
-  //const obstacleSpeed = useAppSelector(obstacleSpeedSel);
+  const obstacleSpeed = useAppSelector(obstacleSpeedSel);
+  const engine = useRef(null);
 
   const handleGameOver = () => {
     dispatch(stopGame());
@@ -80,6 +82,7 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
       </View>
       <GameEngine
         entities={entities()}
+        ref={engine}
         style={{
           position: 'absolute',
           top: 0,

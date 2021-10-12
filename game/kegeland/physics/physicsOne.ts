@@ -37,6 +37,7 @@ const PhysicsOne = (
   const moveObstacle = () => {
     const pipeSizePos = getPipeSizePosBottom(windowWidth * 0.9);
     Matter.Body.setPosition(entities['Obstacle'].body, pipeSizePos.pipe.pos);
+    console.log(entities.Obstacle.speed);
   };
 
   const movePlayer = () => {

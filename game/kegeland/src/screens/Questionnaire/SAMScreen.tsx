@@ -28,10 +28,15 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
   const handleStartGamePress = () => {
     dispatch(incrementGame());
     if (currentGameNumber <= gamesNumber) {
-      navigation.navigate('Game');
       if (currentGameNumber % 2 == 1) {
+        navigation.navigate('Game', {
+          controlNumber: 1,
+        });
         dispatch(clearGame(1));
       } else {
+        navigation.navigate('Game', {
+          controlNumber: 3,
+        });
         dispatch(clearGame(2));
       }
     } else {

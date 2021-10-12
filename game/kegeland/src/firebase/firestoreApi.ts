@@ -18,7 +18,6 @@ export namespace FirestoreApi {
 
   export const collectionTypes = {
     // list your collections here
-    users: dataPoint<AppUser>('users'),
     questionnaires: dataPoint<AppQuestionnaire>('questionnaires'),
     users: dataPoint<UserDocument>('users'),
   };

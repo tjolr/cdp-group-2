@@ -1,6 +1,6 @@
 import { Text } from 'native-base';
 import { ImageBackground, View } from 'react-native';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GameEngine } from 'react-native-game-engine';
 import entities from '../../../entities';
 import {

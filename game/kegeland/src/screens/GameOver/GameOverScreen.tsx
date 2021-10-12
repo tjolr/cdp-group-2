@@ -97,6 +97,8 @@ const styles = StyleSheet.create({
 export default GameOverScreen;
 
 /*
+      Removed to simplify obstacle speed logic
+
       <Button
         onPress={handleNextGamePressOne}
         marginBottom="5"

@@ -1,29 +1,40 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { NavigationScreenProps } from '../navigation.types';
-import { Box, Text, Heading, Button, Center } from 'native-base';
+import { Box, Text, Heading, Button } from 'native-base';
 import {
   useAppDispatch,
   useAppSelector,
 } from '../../../state-management/redux.hooks';
-import { clearGame, pointsSel } from '../../../state-management/game/gameSlice';
+import {
+  clearGame,
+  getUserGameSettingsThunk,
+  pointsSel,
+} from '../../../state-management/game/gameSlice';
 
 const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
   const handleMainMenuPress = () => navigation.navigate('MainMenu');
   const handleNextGamePressOne = () => {
-    navigation.navigate('Game');
-    setTimeout(() => {
-      dispatch(clearGame(1));
-    }, 100);
+    navigation.navigate('Game', {
+      controlNumber: 1,
+    });
+    restartGame(1);
   };
   const handleNextGamePressMultiple = () => {
-    navigation.navigate('Game');
-    setTimeout(() => {
-      dispatch(clearGame(2));
-    }, 100);
+    navigation.navigate('Game', {
+      controlNumber: 3,
+    });
+    restartGame(2);
   };
   const points = useAppSelector(pointsSel);
+
+  const restartGame = (gameMode: number) => {
+    setTimeout(() => {
+      dispatch(clearGame(gameMode));
+      dispatch(getUserGameSettingsThunk());
+    }, 100);
+  };
 
   return (
     <Box
@@ -38,7 +49,7 @@ const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
       style={styles.container}
     >
       <Heading
-        paddingBottom="50"
+        paddingBottom="50px"
         size="2xl"
         color="teal.500"
         alignSelf={{
@@ -63,6 +74,7 @@ const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
         marginTop="20"
         colorScheme="teal"
         _text={{ color: 'white' }}
+        style={styles.button}
       >
         PLAY NEXT GAME - 1 CONTROL
       </Button>
@@ -71,6 +83,7 @@ const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
         marginBottom="10"
         colorScheme="teal"
         _text={{ color: 'white' }}
+        style={styles.button}
       >
         PLAY NEXT GAME - 2 CONTROLS
       </Button>
@@ -91,6 +104,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  button: {
+    width: 300,
   },
 });
 

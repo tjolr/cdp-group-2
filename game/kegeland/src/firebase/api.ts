@@ -1,8 +1,15 @@
 import { UserCredential } from '@firebase/auth-types';
-import { AppUser, RegisterFormData, SimpleUser } from '../../types/user';
+import {
+  AppUser,
+  RegisterFormData,
+  SimpleUser,
+  UserDocument,
+  UserGameSettings,
+} from '../../types/user';
 import { FirestoreApi } from './firestoreApi';
 import firebase from 'firebase';
 import { AppQuestionnaire } from '../../types/questionnaires';
+import { GameData } from '../../types/game';
 
 export namespace API {
   export const signInDefault = async (
@@ -40,7 +47,7 @@ export namespace API {
 
   export const getUserInfo = async (
     userId: string
-  ): Promise<firebase.firestore.DocumentSnapshot<AppUser>> => {
+  ): Promise<firebase.firestore.DocumentSnapshot<UserDocument>> => {
     return FirestoreApi.collectionTypes.users.doc(userId).get();
   };
 
@@ -48,5 +55,18 @@ export namespace API {
     name: string
   ): Promise<firebase.firestore.DocumentSnapshot<AppQuestionnaire>> => {
     return FirestoreApi.collectionTypes.questionnaires.doc(name).get();
+  };
+
+  export const saveGameData = async (gameData: GameData, userId: string) => {
+    const userRef = FirestoreApi.collectionTypes.users.doc(userId);
+    return await userRef.collection('gameData').add(gameData);
+  };
+
+  export const getUserGameSettings = async (
+    userId: string
+  ): Promise<UserGameSettings | undefined> => {
+    const userInfo = (await getUserInfo(userId)).data();
+
+    return userInfo?.settings;
   };
 }

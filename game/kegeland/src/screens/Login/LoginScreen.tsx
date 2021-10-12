@@ -11,7 +11,6 @@ import {
 } from 'native-base';
 import React, { useState } from 'react';
 import { NavigationScreenProps } from '../navigation.types';
-import { SafeAreaView } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import {
   useAppDispatch,
@@ -23,8 +22,6 @@ import {
 } from '../../../state-management/user/userSlice';
 import { SimpleUser } from '../../../types/user';
 import { emailRegex } from '../../utils/String.utils';
-import { StyleSheet } from 'react-native';
-import { borderColor } from 'styled-system';
 import { scrollViewStyles } from '../../common/scrollView';
 
 const LoginScreen = ({ navigation }: NavigationScreenProps) => {
@@ -91,7 +88,7 @@ const LoginScreen = ({ navigation }: NavigationScreenProps) => {
   };
 
   return (
-    <SafeAreaView style={scrollViewStyles.container}>
+    <Box style={scrollViewStyles.container}>
       <Box
         bg={{
           linearGradient: {
@@ -189,7 +186,7 @@ const LoginScreen = ({ navigation }: NavigationScreenProps) => {
           </HStack>
         </VStack>
       </Box>
-    </SafeAreaView>
+    </Box>
   );
 };
 

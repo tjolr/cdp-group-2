@@ -1,9 +1,8 @@
 import { Text } from 'native-base';
 import { ImageBackground, View } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GameEngine } from 'react-native-game-engine';
 import entities from '../../../entities';
-
 import {
   incrementPoints,
   livesSel,
@@ -14,24 +13,28 @@ import {
   stopGame,
   controlsSel,
   sessionSel,
+  saveGameDataThunk,
+  getUserGameSettingsThunk,
 } from '../../../state-management/game/gameSlice';
 import {
   useAppDispatch,
   useAppSelector,
 } from '../../../state-management/redux.hooks';
 import { NavigationScreenProps } from '../navigation.types';
-import { useRoute } from '@react-navigation/native';
 import Background from '../../../assets/hills.png';
 import { savePoints } from '../../../state-management/session/sessionSlice';
+import UnderWaterBackground from '../../../assets/underwater-background.png';
 
-const GameScreen = ({ navigation }: NavigationScreenProps) => {
-  const route = useRoute();
+const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
+  const params = route.params;
   const dispatch = useAppDispatch();
   const points = useAppSelector(pointsSel);
   const lives = useAppSelector(livesSel);
   const running = useAppSelector(runningSel);
   const controls = useAppSelector(controlsSel);
   const session = useAppSelector(sessionSel);
+  const [backgroundImage, setBackgroundImage] = useState(Background);
+  //const obstacleSpeed = useAppSelector(obstacleSpeedSel);
 
   const handleGameOver = () => {
     dispatch(stopGame());
@@ -42,14 +45,25 @@ const GameScreen = ({ navigation }: NavigationScreenProps) => {
       navigation.navigate('GameOver');
     }
     dispatch(restoreLives());
+    dispatch(saveGameDataThunk());
   };
 
   useEffect(() => {
     if (lives === 0) handleGameOver();
   }, [lives]);
 
+  if (params.controlNumber == 1 && backgroundImage != UnderWaterBackground) {
+    setBackgroundImage(UnderWaterBackground);
+  } else if (params.controlNumber == 3 && backgroundImage != Background) {
+    setBackgroundImage(Background);
+  }
+
+  useEffect(() => {
+    dispatch(getUserGameSettingsThunk());
+  }, []);
+
   return (
-    <ImageBackground source={Background} style={{ flex: 1 }}>
+    <ImageBackground source={backgroundImage} style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
         <Text
           style={{

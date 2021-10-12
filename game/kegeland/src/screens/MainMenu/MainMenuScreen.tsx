@@ -13,15 +13,21 @@ import {
   setSession,
 } from '../../../state-management/game/gameSlice';
 import { getQuestionsDefaultThunk } from '../../../state-management/session/sessionSlice';
+import { scrollViewStyles } from '../../common/scrollView';
+import { StyleSheet } from 'react-native';
 
 const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
   const handleStartGamePressOne = () => {
-    navigation.navigate('Game');
+    navigation.navigate('Game', {
+      controlNumber: 1,
+    });
     dispatch(clearGame(1));
   };
   const handleStartGamePressMultiple = () => {
-    navigation.navigate('Game');
+    navigation.navigate('Game', {
+      controlNumber: 3,
+    });
     dispatch(clearGame(2));
   };
   const handleStartGameSession = () => {
@@ -32,7 +38,7 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
   const firstName = useAppSelector(firstNameSel);
 
   return (
-    <SafeAreaView>
+    <Box style={scrollViewStyles.container}>
       <Box
         bg={{
           linearGradient: {
@@ -57,20 +63,18 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
           Get ready for your next exercise
         </Heading>
 
-        <Text fontSize="lg" mt={5}>
+        <Text fontSize="lg" my={7}>
           Play regularly to improve your pelvic muscles. The exercises will be
           adapted to your previous results to customize your exercise.
-        </Text>
-        <Text alignSelf="flex-start" fontSize="lg" mt={3}>
-          Enjoy🎉
         </Text>
 
         <Button
           size="lg"
           colorScheme="teal"
-          m={7}
+          mt={10}
           startIcon={<AntDesign name="play" size={20} color="white" />}
           onPress={handleStartGamePressOne}
+          style={styles.button}
         >
           Start exercise - 1 control
         </Button>
@@ -78,9 +82,10 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
         <Button
           size="lg"
           colorScheme="teal"
-          // m={7}
+          mt={10}
           startIcon={<AntDesign name="play" size={20} color="white" />}
           onPress={handleStartGamePressMultiple}
+          style={styles.button}
         >
           Start exercise - 2 controls
         </Button>
@@ -95,8 +100,14 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
           Start session
         </Button>
       </Box>
-    </SafeAreaView>
+    </Box>
   );
 };
+
+const styles = StyleSheet.create({
+  button: {
+    width: 300,
+  },
+});
 
 export default MainMenuScreen;

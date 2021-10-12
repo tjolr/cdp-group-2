@@ -2,9 +2,11 @@ import { Engine } from 'matter-js';
 import Player from '../components/Player';
 import Bounds from '../components/Bounds';
 import Obstacle from '../components/Obstacle';
-
 import { Dimensions } from 'react-native';
 import { getPipeSizePosBottom } from '../utils/random';
+import { useAppSelector } from '../state-management/redux.hooks';
+import { controlsSel } from '../state-management/game/gameSlice';
+import PhysicsOne from '../physics/physicsOne';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -13,6 +15,9 @@ const Entities = () => {
   let engine = Engine.create();
   let world = engine.world;
   engine.gravity.y = 0;
+  const controls = useAppSelector(controlsSel);
+  let playerY = windowHeight / 2;
+  if (controls == PhysicsOne) playerY = windowHeight - 250;
 
   const pipeSizePos = getPipeSizePosBottom();
 
@@ -20,7 +25,7 @@ const Entities = () => {
     physics: { engine, world },
     Player: Player({
       world,
-      pos: { x: 50, y: windowHeight / 2 },
+      pos: { x: 50, y: playerY },
       size: { width: 75, height: 50 },
     }),
     Floor: Bounds({

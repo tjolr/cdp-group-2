@@ -6,6 +6,14 @@ export type AppUser = {
   lastName: string;
 };
 
+export interface UserDocument extends AppUser {
+  settings?: UserGameSettings;
+}
+
+interface UserGameSettings {
+  speed: number;
+}
+
 export type AppUserCredential = Partial<AppUser> & UserCredential;
 
 export interface SimpleUser {

@@ -10,6 +10,7 @@ import { firstNameSel } from '../../../state-management/user/userSlice';
 import { SafeAreaView } from 'react-native';
 import { clearGame } from '../../../state-management/game/gameSlice';
 import {
+  clearSession,
   currentGameSel,
   gamesNumberSel,
   incrementGame,
@@ -19,6 +20,7 @@ const SelfAssessment2Screen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
   const handleEndSessionPress = () => {
     navigation.navigate('MainMenu');
+    dispatch(clearSession());
   };
   const gameNumber = useAppSelector(currentGameSel);
 

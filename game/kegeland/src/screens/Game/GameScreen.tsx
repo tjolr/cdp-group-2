@@ -94,6 +94,16 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
               ))}
           </HStack>
         </HStack>
+        <Text
+          style={{
+            textAlign: 'center',
+            fontSize: 25,
+            fontWeight: 'bold',
+            top: 50,
+          }}
+        >
+          Speed: {obstacleSpeed}
+        </Text>
       </View>
       <GameEngine
         entities={entities()}

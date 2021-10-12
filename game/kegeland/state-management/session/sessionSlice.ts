@@ -35,6 +35,10 @@ export const sessionSlice = createSlice({
       state.points[state.currentGame - 2] = action.payload;
       console.log(state.points);
     },
+    clearSession: (state) => {
+      state.currentGame = 0;
+      state.points = [];
+    },
   },
 
   extraReducers: (builder) => {
@@ -55,7 +59,8 @@ export const sessionSlice = createSlice({
   },
 });
 
-export const { setSessionId, incrementGame, savePoints } = sessionSlice.actions;
+export const { setSessionId, incrementGame, savePoints, clearSession } =
+  sessionSlice.actions;
 
 export const gamesNumberSel = (state: RootState) => state.session.gamesNumber;
 export const currentGameSel = (state: RootState) => state.session.currentGame;

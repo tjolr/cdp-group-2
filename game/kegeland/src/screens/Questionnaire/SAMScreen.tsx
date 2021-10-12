@@ -10,6 +10,7 @@ import { firstNameSel } from '../../../state-management/user/userSlice';
 import { SafeAreaView } from 'react-native';
 import {
   clearGame,
+  getUserGameSettingsThunk,
   setSession,
 } from '../../../state-management/game/gameSlice';
 import {
@@ -25,9 +26,10 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
   const currentGameNumber = useAppSelector(currentGameSel);
   const gamesNumber = useAppSelector(gamesNumberSel);
   const SAMquestions = useAppSelector(SAMQuestionnaireSel);
-  const handleStartGamePress = () => {
+  const handleStartGamePress = async () => {
     dispatch(incrementGame());
     if (currentGameNumber <= gamesNumber) {
+      await dispatch(getUserGameSettingsThunk());
       if (currentGameNumber % 2 == 1) {
         navigation.navigate('Game', {
           controlNumber: 1,

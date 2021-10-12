@@ -11,6 +11,7 @@ import { SafeAreaView } from 'react-native';
 import {
   clearGame,
   setSession,
+  getUserGameSettingsThunk,
 } from '../../../state-management/game/gameSlice';
 import { getQuestionsDefaultThunk } from '../../../state-management/session/sessionSlice';
 import { scrollViewStyles } from '../../common/scrollView';
@@ -18,13 +19,15 @@ import { StyleSheet } from 'react-native';
 
 const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
-  const handleStartGamePressOne = () => {
+  const handleStartGamePressOne = async () => {
+    await dispatch(getUserGameSettingsThunk());
     navigation.navigate('Game', {
       controlNumber: 1,
     });
     dispatch(clearGame(1));
   };
-  const handleStartGamePressMultiple = () => {
+  const handleStartGamePressMultiple = async () => {
+    await dispatch(getUserGameSettingsThunk());
     navigation.navigate('Game', {
       controlNumber: 3,
     });

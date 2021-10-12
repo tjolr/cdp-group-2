@@ -17,3 +17,7 @@ export interface IHitbox {
   pos: IPosition;
   size: ISize;
 }
+
+export interface IHitboxObstacle extends IHitbox {
+  speed: number;
+}

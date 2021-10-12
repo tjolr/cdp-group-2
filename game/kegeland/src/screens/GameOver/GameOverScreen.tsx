@@ -42,7 +42,7 @@ const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
       style={styles.container}
     >
       <Heading
-        paddingBottom="50"
+        paddingBottom="50px"
         size="2xl"
         color="teal.500"
         alignSelf={{
@@ -67,6 +67,7 @@ const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
         marginTop="20"
         colorScheme="teal"
         _text={{ color: 'white' }}
+        style={styles.button}
       >
         PLAY NEXT GAME - 1 CONTROL
       </Button>
@@ -75,6 +76,7 @@ const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
         marginBottom="10"
         colorScheme="teal"
         _text={{ color: 'white' }}
+        style={styles.button}
       >
         PLAY NEXT GAME - 2 CONTROLS
       </Button>
@@ -95,6 +97,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  button: {
+    width: 300,
   },
 });
 

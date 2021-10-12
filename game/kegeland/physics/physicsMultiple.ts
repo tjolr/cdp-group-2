@@ -83,7 +83,10 @@ const PhysicsMultiple = (
     engine.gravity.y = -0.3;
   }
 
-  Matter.Body.translate(entities[`Obstacle`].body, { x: -3, y: 0 });
+  Matter.Body.translate(entities[`Obstacle`].body, {
+    x: -entities.Obstacle.speed,
+    y: 0,
+  });
 
   if (
     Matter.Bounds.overlaps(

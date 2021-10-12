@@ -67,6 +67,37 @@ const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
         {' '}
         {points}{' '}
       </Text>
+      <Button
+        onPress={handleMainMenuPress}
+        colorScheme="teal"
+        style={styles.mainMenuButton}
+        _text={{ color: 'white' }}
+      >
+        RETURN TO MAIN MENU
+      </Button>
+    </Box>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
+    width: 300,
+  },
+  mainMenuButton: {
+    top: 50,
+  },
+});
+
+export default GameOverScreen;
+
+/*
+      Removed to simplify obstacle speed logic
 
       <Button
         onPress={handleNextGamePressOne}
@@ -87,27 +118,4 @@ const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
       >
         PLAY NEXT GAME - 2 CONTROLS
       </Button>
-      <Button
-        onPress={handleMainMenuPress}
-        colorScheme="teal"
-        _text={{ color: 'white' }}
-      >
-        RETURN TO MAIN MENU
-      </Button>
-    </Box>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  button: {
-    width: 300,
-  },
-});
-
-export default GameOverScreen;
+*/

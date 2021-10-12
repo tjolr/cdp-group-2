@@ -7,19 +7,24 @@ import {
   useAppSelector,
 } from '../../../state-management/redux.hooks';
 import { firstNameSel } from '../../../state-management/user/userSlice';
-import { clearGame } from '../../../state-management/game/gameSlice';
+import {
+  clearGame,
+  getUserGameSettingsThunk,
+} from '../../../state-management/game/gameSlice';
 import { scrollViewStyles } from '../../common/scrollView';
 import { StyleSheet } from 'react-native';
 
 const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
-  const handleStartGamePressOne = () => {
+  const handleStartGamePressOne = async () => {
+    await dispatch(getUserGameSettingsThunk());
     navigation.navigate('Game', {
       controlNumber: 1,
     });
     dispatch(clearGame(1));
   };
-  const handleStartGamePressMultiple = () => {
+  const handleStartGamePressMultiple = async () => {
+    await dispatch(getUserGameSettingsThunk());
     navigation.navigate('Game', {
       controlNumber: 3,
     });

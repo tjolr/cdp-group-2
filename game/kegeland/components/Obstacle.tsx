@@ -1,7 +1,7 @@
 import { World, Bodies } from 'matter-js';
 import React from 'react';
 import { View } from 'react-native';
-import { IEntity, IHitbox } from './components.types';
+import { IEntity, IHitboxObstacle } from './components.types';
 
 const Obstacle = (props: IEntity) => {
   // Size of obstacle calculated from the hitbox
@@ -30,7 +30,7 @@ const Obstacle = (props: IEntity) => {
   );
 };
 
-export default ({ world, pos, size }: IHitbox) => {
+export default ({ world, pos, size, speed }: IHitboxObstacle) => {
   const obstacle = Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
     label: 'Obstacle',
     isStatic: true,
@@ -43,6 +43,7 @@ export default ({ world, pos, size }: IHitbox) => {
   return {
     body: obstacle,
     pos,
+    speed,
     renderer: <Obstacle body={obstacle} />,
   };
 };

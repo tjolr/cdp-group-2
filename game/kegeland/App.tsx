@@ -37,7 +37,11 @@ const App = () => {
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} />
             <Stack.Screen name="MainMenu" component={MainMenuScreen} />
-            <Stack.Screen name="Game" component={GameScreen} />
+            <Stack.Screen
+              name="Game"
+              component={GameScreen}
+              initialParams={{ controlNumber: 1 }}
+            />
             <Stack.Screen name="GameOver" component={GameOverScreen} />
           </Stack.Navigator>
         </NavigationContainer>

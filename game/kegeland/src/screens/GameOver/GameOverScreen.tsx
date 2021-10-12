@@ -12,13 +12,17 @@ const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
   const handleMainMenuPress = () => navigation.navigate('MainMenu');
   const handleNextGamePressOne = () => {
-    navigation.navigate('Game');
+    navigation.navigate('Game', {
+      controlNumber: 1,
+    });
     setTimeout(() => {
       dispatch(clearGame(1));
     }, 100);
   };
   const handleNextGamePressMultiple = () => {
-    navigation.navigate('Game');
+    navigation.navigate('Game', {
+      controlNumber: 3,
+    });
     setTimeout(() => {
       dispatch(clearGame(2));
     }, 100);

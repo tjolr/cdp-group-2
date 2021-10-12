@@ -1,6 +1,6 @@
 import { Text } from 'native-base';
 import { ImageBackground, View } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GameEngine } from 'react-native-game-engine';
 import entities from '../../../entities';
 
@@ -19,16 +19,17 @@ import {
   useAppSelector,
 } from '../../../state-management/redux.hooks';
 import { NavigationScreenProps } from '../navigation.types';
-import { useRoute } from '@react-navigation/native';
 import Background from '../../../assets/hills.png';
+import UnderWaterBackground from '../../../assets/underwater-background.png';
 
-const GameScreen = ({ navigation }: NavigationScreenProps) => {
-  const route = useRoute();
+const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
+  const params = route.params;
   const dispatch = useAppDispatch();
   const points = useAppSelector(pointsSel);
   const lives = useAppSelector(livesSel);
   const running = useAppSelector(runningSel);
   const controls = useAppSelector(controlsSel);
+  const [backgroundImage, setBackgroundImage] = useState(Background);
 
   const handleGameOver = () => {
     dispatch(stopGame());
@@ -40,8 +41,14 @@ const GameScreen = ({ navigation }: NavigationScreenProps) => {
     if (lives === 0) handleGameOver();
   }, [lives]);
 
+  if (params.controlNumber == 1 && backgroundImage != UnderWaterBackground) {
+    setBackgroundImage(UnderWaterBackground);
+  } else if (params.controlNumber == 3 && backgroundImage != Background) {
+    setBackgroundImage(Background);
+  }
+
   return (
-    <ImageBackground source={Background} style={{ flex: 1 }}>
+    <ImageBackground source={backgroundImage} style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
         <Text
           style={{

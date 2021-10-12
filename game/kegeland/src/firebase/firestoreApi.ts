@@ -1,6 +1,6 @@
 import { QueryDocumentSnapshot } from '@firebase/firestore-types';
 
-import { AppUser } from '../../types/user';
+import { UserDocument } from '../../types/user';
 import { firestoredb } from './config';
 
 export namespace FirestoreApi {
@@ -16,6 +16,6 @@ export namespace FirestoreApi {
 
   export const collectionTypes = {
     // list your collections here
-    users: dataPoint<AppUser>('users'),
+    users: dataPoint<UserDocument>('users'),
   };
 }

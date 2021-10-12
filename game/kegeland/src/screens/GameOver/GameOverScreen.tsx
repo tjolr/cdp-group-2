@@ -1,12 +1,16 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { NavigationScreenProps } from '../navigation.types';
-import { Box, Text, Heading, Button, Center } from 'native-base';
+import { Box, Text, Heading, Button } from 'native-base';
 import {
   useAppDispatch,
   useAppSelector,
 } from '../../../state-management/redux.hooks';
-import { clearGame, pointsSel } from '../../../state-management/game/gameSlice';
+import {
+  clearGame,
+  getUserGameSettingsThunk,
+  pointsSel,
+} from '../../../state-management/game/gameSlice';
 
 const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
@@ -15,19 +19,22 @@ const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
     navigation.navigate('Game', {
       controlNumber: 1,
     });
-    setTimeout(() => {
-      dispatch(clearGame(1));
-    }, 100);
+    restartGame(1);
   };
   const handleNextGamePressMultiple = () => {
     navigation.navigate('Game', {
       controlNumber: 3,
     });
-    setTimeout(() => {
-      dispatch(clearGame(2));
-    }, 100);
+    restartGame(2);
   };
   const points = useAppSelector(pointsSel);
+
+  const restartGame = (gameMode: number) => {
+    setTimeout(() => {
+      dispatch(clearGame(gameMode));
+      dispatch(getUserGameSettingsThunk());
+    }, 100);
+  };
 
   return (
     <Box

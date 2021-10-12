@@ -1,3 +1,4 @@
+import { AppQuestionnaire } from '../../types/questionnaires';
 import { ApiStatus } from '../../types/state-management';
 
 export interface SessionState {
@@ -5,5 +6,6 @@ export interface SessionState {
   gamesNumber: number;
   currentGame: number;
   points: Array<number>;
-  getQuestionsDefaultThunk: ApiStatus;
+  getQuestionsStatus: ApiStatus;
+  SAMQuestionnaire?: AppQuestionnaire;
 }

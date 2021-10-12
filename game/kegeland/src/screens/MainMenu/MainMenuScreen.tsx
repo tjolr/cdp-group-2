@@ -12,6 +12,7 @@ import {
   clearGame,
   setSession,
 } from '../../../state-management/game/gameSlice';
+import { getQuestionsDefaultThunk } from '../../../state-management/session/sessionSlice';
 
 const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
@@ -26,6 +27,7 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
   const handleStartGameSession = () => {
     navigation.navigate('SelfAssessment1');
     dispatch(setSession(true));
+    dispatch(getQuestionsDefaultThunk('SAM')).unwrap();
   };
   const firstName = useAppSelector(firstNameSel);
 

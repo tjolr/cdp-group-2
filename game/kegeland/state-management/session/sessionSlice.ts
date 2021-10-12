@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { API } from '../../src/firebase/api';
-import { Question } from '../../types/questionnaires';
+import { AppQuestionnaire, Question } from '../../types/questionnaires';
 import { RootState } from '../store';
 import { SessionState } from './sessionSlice.types';
 
@@ -9,8 +9,17 @@ const initialState: SessionState = {
   gamesNumber: 3,
   currentGame: 0,
   points: [],
-  getQuestionsDefaultThunk: 'idle',
+  getQuestionsStatus: 'idle',
+  SAMQuestionnaire: undefined,
 };
+
+export const getQuestionsDefaultThunk = createAsyncThunk(
+  'session/getQuestionsDefaultThunk',
+  async (name: string): Promise<AppQuestionnaire | undefined> => {
+    const samQuestions = (await API.getQuestionnaire(name)).data();
+    return samQuestions;
+  }
+);
 
 export const sessionSlice = createSlice({
   name: 'session',
@@ -27,23 +36,32 @@ export const sessionSlice = createSlice({
       console.log(state.points);
     },
   },
-});
 
-export const getQuestionsDefaultThunk = createAsyncThunk(
-  'session/getQuestionsDefaultThunk',
-  async (name: string): Promise<Array<Question>> => {
-    const samQuestions = await (
-      await API.getQuestionnaire(name)
-    ).get('questions');
-    return { ...samQuestions.questions };
-  }
-);
+  extraReducers: (builder) => {
+    builder
+      .addCase(getQuestionsDefaultThunk.pending, (state) => {
+        state.getQuestionsStatus = 'loading';
+      })
+      .addCase(getQuestionsDefaultThunk.fulfilled, (state, action) => {
+        state.getQuestionsStatus = 'idle';
+        const questions = action.payload;
+        if (questions) {
+          state.SAMQuestionnaire = questions;
+        }
+      })
+      .addCase(getQuestionsDefaultThunk.rejected, (state) => {
+        state.getQuestionsStatus = 'failed';
+      });
+  },
+});
 
 export const { setSessionId, incrementGame, savePoints } = sessionSlice.actions;
 
 export const gamesNumberSel = (state: RootState) => state.session.gamesNumber;
 export const currentGameSel = (state: RootState) => state.session.currentGame;
-export const getQuestionsDefaultThunkSel = (state: RootState) =>
-  state.session.getQuestionsDefaultThunk;
+export const getQuestionsStatusSel = (state: RootState) =>
+  state.session.getQuestionsStatus;
+export const SAMQuestionnaireSel = (state: RootState) =>
+  state.session.SAMQuestionnaire?.questionsList;
 
 export default sessionSlice.reducer;

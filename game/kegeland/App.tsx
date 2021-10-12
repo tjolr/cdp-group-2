@@ -30,7 +30,7 @@ const App = () => {
       <NativeBaseProvider config={config} theme={theme}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="MainMenu"
+            initialRouteName="Home"
             screenOptions={{
               headerShown: false,
               gestureEnabled: false,

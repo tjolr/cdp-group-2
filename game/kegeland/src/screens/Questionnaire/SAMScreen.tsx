@@ -1,4 +1,4 @@
-import { Box, Heading, Text, Button } from 'native-base';
+import { Box, Heading, Text, Button, Slider, HStack } from 'native-base';
 import React from 'react';
 import { NavigationScreenProps } from '../navigation.types';
 import { AntDesign } from '@expo/vector-icons';
@@ -15,20 +15,18 @@ import {
 import {
   currentGameSel,
   gamesNumberSel,
-  getQuestionsDefaultThunk,
-  getQuestionsDefaultThunkSel,
   incrementGame,
+  SAMQuestionnaireSel,
 } from '../../../state-management/session/sessionSlice';
-import { API } from '../../firebase/api';
+import { Question } from '../../../types/questionnaires';
 
 const SAMScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
   const currentGameNumber = useAppSelector(currentGameSel);
   const gamesNumber = useAppSelector(gamesNumberSel);
-  const questions = dispatch(getQuestionsDefaultThunk('SAM')).unwrap();
+  const SAMquestions = useAppSelector(SAMQuestionnaireSel);
   const handleStartGamePress = () => {
     dispatch(incrementGame());
-    console.log(questions);
     if (currentGameNumber <= gamesNumber) {
       navigation.navigate('Game');
       if (currentGameNumber % 2 == 1) {
@@ -68,17 +66,23 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
           Fill in this questionnaire before starting the session
         </Heading>
 
-        <Text
-          style={{
-            textAlign: 'center',
-            fontSize: 25,
-            fontWeight: 'bold',
-            top: 50,
-            marginBottom: 100,
-          }}
-        >
-          ...SAM Questions ....
-        </Text>
+        {console.log(SAMquestions?.length)}
+        {/*SAMquestions?.length &&
+          SAMquestions.map((question: Question) => (
+            <Box mx="auto" width="90%">
+              <Text textAlign="center">{question.text}</Text>
+              <HStack space={3} alignItems="center">
+                <Text textAlign="left">{question.minVal}</Text>
+                <Text textAlign="right">{question.maxVal}</Text>
+              </HStack>
+              <Slider>
+                defaultValue={0}
+                minValue={0}
+                maxValue={10}
+                accessibilityLabel="{question}" step={1}
+              </Slider>
+            </Box>
+          ))*/}
 
         <Button
           size="lg"

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { NavigationScreenProps } from '../navigation.types';
 import { Box, Text, Heading, Button } from 'native-base';
+
 import {
   useAppDispatch,
   useAppSelector,
@@ -11,6 +12,7 @@ import {
   getUserGameSettingsThunk,
   pointsSel,
 } from '../../../state-management/game/gameSlice';
+import { GameMode } from '../../../state-management/game/gameMode';
 
 const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
@@ -19,17 +21,17 @@ const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
     navigation.navigate('Game', {
       controlNumber: 1,
     });
-    restartGame(1);
+    restartGame(GameMode.OneControl);
   };
   const handleNextGamePressMultiple = () => {
     navigation.navigate('Game', {
       controlNumber: 3,
     });
-    restartGame(2);
+    restartGame(GameMode.MultiControl);
   };
   const points = useAppSelector(pointsSel);
 
-  const restartGame = (gameMode: number) => {
+  const restartGame = (gameMode: GameMode) => {
     setTimeout(() => {
       dispatch(clearGame(gameMode));
       dispatch(getUserGameSettingsThunk());

@@ -2,10 +2,11 @@ import { RootState } from './../store';
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import PhysicsOne from '../../physics/physicsOne';
 import PhysicsMultiple from '../../physics/physicsMultiple';
-import { GameState } from './gameSlice.types';
 import { userIdSel } from '../user/userSlice';
 import { API } from '../../src/firebase/api';
 import { GameData } from '../../types/game';
+import { GameState } from './gameSlice.types';
+import { GameMode } from './gameMode';
 
 const initialState: GameState = {
   gameId: '',
@@ -51,17 +52,17 @@ export const gameSlice = createSlice({
     incrementPoints: (state) => {
       state.points += 1;
     },
-    clearGame: (state, action: PayloadAction<number>) => {
+    clearGame: (state, action: PayloadAction<GameMode>) => {
       state.points = 0;
       state.gameId = '';
       state.lives = 3;
       state.running = true;
 
       switch (action.payload) {
-        case 1:
+        case GameMode.OneControl:
           state.controls = PhysicsOne;
           break;
-        case 2:
+        case GameMode.MultiControl:
           state.controls = PhysicsMultiple;
           break;
       }
@@ -98,8 +99,8 @@ export const gameSlice = createSlice({
 
         if (userGameSettings) {
           state.obstacleSpeed = userGameSettings?.speed;
-          state.running = true;
         }
+        state.running = true;
       })
       .addCase(getUserGameSettingsThunk.rejected, (state) => {
         state.getUserGameSettingsStatus = 'failed';

@@ -10,6 +10,7 @@ import { firstNameSel } from '../../../state-management/user/userSlice';
 import { clearGame } from '../../../state-management/game/gameSlice';
 import { scrollViewStyles } from '../../common/scrollView';
 import { StyleSheet } from 'react-native';
+import { GameMode } from '../../../state-management/game/gameMode';
 
 const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
@@ -17,13 +18,13 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
     navigation.navigate('Game', {
       controlNumber: 1,
     });
-    dispatch(clearGame(1));
+    dispatch(clearGame(GameMode.OneControl));
   };
   const handleStartGamePressMultiple = () => {
     navigation.navigate('Game', {
       controlNumber: 3,
     });
-    dispatch(clearGame(2));
+    dispatch(clearGame(GameMode.MultiControl));
   };
   const firstName = useAppSelector(firstNameSel);
 

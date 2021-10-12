@@ -37,7 +37,6 @@ const PhysicsOne = (
   const moveObstacle = () => {
     const pipeSizePos = getPipeSizePosBottom(windowWidth * 0.9);
     Matter.Body.setPosition(entities['Obstacle'].body, pipeSizePos.pipe.pos);
-    console.log(entities.Obstacle.speed);
   };
 
   const movePlayer = () => {
@@ -75,7 +74,10 @@ const PhysicsOne = (
     engine.gravity.y = 0.3;
   }
 
-  Matter.Body.translate(entities[`Obstacle`].body, { x: -3, y: 0 });
+  Matter.Body.translate(entities[`Obstacle`].body, {
+    x: -entities.Obstacle.speed,
+    y: 0,
+  });
 
   if (
     Matter.Bounds.overlaps(

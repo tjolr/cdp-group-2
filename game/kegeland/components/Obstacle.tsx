@@ -30,7 +30,7 @@ const Obstacle = (props: IEntity) => {
   );
 };
 
-export default ({ world, pos, size }: IHitboxObstacle) => {
+export default ({ world, pos, size, speed }: IHitboxObstacle) => {
   const obstacle = Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
     label: 'Obstacle',
     isStatic: true,
@@ -43,6 +43,7 @@ export default ({ world, pos, size }: IHitboxObstacle) => {
   return {
     body: obstacle,
     pos,
+    speed,
     renderer: <Obstacle body={obstacle} />,
   };
 };

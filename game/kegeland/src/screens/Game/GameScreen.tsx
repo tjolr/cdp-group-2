@@ -13,7 +13,6 @@ import {
   stopGame,
   controlsSel,
   saveGameDataThunk,
-  getUserGameSettingsThunk,
   obstacleSpeedSel,
 } from '../../../state-management/game/gameSlice';
 import {
@@ -33,7 +32,6 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   const controls = useAppSelector(controlsSel);
   const [backgroundImage, setBackgroundImage] = useState(Background);
   const obstacleSpeed = useAppSelector(obstacleSpeedSel);
-  const engine = useRef(null);
 
   const handleGameOver = () => {
     dispatch(stopGame());
@@ -51,10 +49,6 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   } else if (params.controlNumber == 3 && backgroundImage != Background) {
     setBackgroundImage(Background);
   }
-
-  useEffect(() => {
-    dispatch(getUserGameSettingsThunk());
-  }, []);
 
   return (
     <ImageBackground source={backgroundImage} style={{ flex: 1 }}>
@@ -79,10 +73,19 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
         >
           Points: {points}
         </Text>
+        <Text
+          style={{
+            textAlign: 'center',
+            fontSize: 25,
+            fontWeight: 'bold',
+            top: 50,
+          }}
+        >
+          Speed: {obstacleSpeed}
+        </Text>
       </View>
       <GameEngine
         entities={entities()}
-        ref={engine}
         style={{
           position: 'absolute',
           top: 0,

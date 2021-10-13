@@ -7,6 +7,7 @@ export interface GameState {
   obstacleSpeed: number;
   running: boolean;
   controls: any;
+  session: boolean;
   saveGameDataStatus: ApiStatus;
   getUserGameSettingsStatus: ApiStatus;
 }

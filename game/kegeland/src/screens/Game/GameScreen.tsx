@@ -12,6 +12,7 @@ import {
   runningSel,
   stopGame,
   controlsSel,
+  sessionSel,
   saveGameDataThunk,
   obstacleSpeedSel,
 } from '../../../state-management/game/gameSlice';
@@ -21,11 +22,13 @@ import {
 } from '../../../state-management/redux.hooks';
 import { NavigationScreenProps } from '../navigation.types';
 import Background from '../../../assets/hills.png';
+import { savePoints } from '../../../state-management/session/sessionSlice';
 import UnderWaterBackground from '../../../assets/underwater-background.png';
 import { AntDesign } from '@expo/vector-icons';
 import { theme } from '../../styles/theme';
 import { Foundation } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+
 
 const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   const params = route.params;
@@ -34,12 +37,18 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   const lives = useAppSelector(livesSel);
   const running = useAppSelector(runningSel);
   const controls = useAppSelector(controlsSel);
+  const session = useAppSelector(sessionSel);
   const [backgroundImage, setBackgroundImage] = useState(Background);
   const obstacleSpeed = useAppSelector(obstacleSpeedSel);
 
   const handleGameOver = () => {
     dispatch(stopGame());
-    navigation.navigate('GameOver');
+    if (session) {
+      dispatch(savePoints(points));
+      navigation.navigate('SAM');
+    } else {
+      navigation.navigate('GameOver');
+    }
     dispatch(restoreLives());
     dispatch(saveGameDataThunk());
   };
@@ -64,6 +73,7 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
           m={4}
         >
           <HStack alignItems="center" space={1}>
+
             <Foundation
               name="trophy"
               size={30}

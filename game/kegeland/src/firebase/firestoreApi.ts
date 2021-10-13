@@ -1,5 +1,7 @@
 import { QueryDocumentSnapshot } from '@firebase/firestore-types';
 
+import { AppUser } from '../../types/user';
+import { AppQuestionnaire } from '../../types/questionnaires';
 import { UserDocument } from '../../types/user';
 import { firestoredb } from './config';
 
@@ -16,6 +18,7 @@ export namespace FirestoreApi {
 
   export const collectionTypes = {
     // list your collections here
+    questionnaires: dataPoint<AppQuestionnaire>('questionnaires'),
     users: dataPoint<UserDocument>('users'),
   };
 }

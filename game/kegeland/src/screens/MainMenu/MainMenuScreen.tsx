@@ -7,13 +7,17 @@ import {
   useAppSelector,
 } from '../../../state-management/redux.hooks';
 import { firstNameSel } from '../../../state-management/user/userSlice';
+import { SafeAreaView } from 'react-native';
 import {
   clearGame,
+  setSession,
   getUserGameSettingsThunk,
 } from '../../../state-management/game/gameSlice';
+import { getQuestionsDefaultThunk } from '../../../state-management/session/sessionSlice';
 import { scrollViewStyles } from '../../common/scrollView';
 import { StyleSheet } from 'react-native';
 import { GameMode } from '../../../state-management/game/gameMode';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
@@ -30,6 +34,11 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
       controlNumber: 3,
     });
     dispatch(clearGame(GameMode.MultiControl));
+  };
+  const handleStartGameSession = () => {
+    navigation.navigate('SelfAssessment1');
+    dispatch(setSession(true));
+    dispatch(getQuestionsDefaultThunk('SAM')).unwrap();
   };
   const firstName = useAppSelector(firstNameSel);
 
@@ -64,26 +73,50 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
           adapted to your previous results to customize your exercise.
         </Text>
 
+        <Text fontSize="lg" fontWeight="bold">
+          Play a single game:
+        </Text>
+
         <Button
           size="lg"
           colorScheme="teal"
-          mt={10}
-          startIcon={<AntDesign name="play" size={20} color="white" />}
+          mt={5}
+          startIcon={<AntDesign name="play" size={24} color="white" />}
           onPress={handleStartGamePressOne}
           style={styles.button}
         >
-          Start exercise - 1 control
+          One Control Game
         </Button>
 
         <Button
           size="lg"
           colorScheme="teal"
-          mt={10}
-          startIcon={<AntDesign name="play" size={20} color="white" />}
+          mt={5}
+          startIcon={<AntDesign name="play" size={24} color="white" />}
           onPress={handleStartGamePressMultiple}
           style={styles.button}
         >
-          Start exercise - 2 controls
+          Multiple Control Game
+        </Button>
+
+        <Text fontSize="lg" mt={10} fontWeight="bold">
+          Play a session:
+        </Text>
+        <Button
+          size="lg"
+          colorScheme="teal"
+          m={5}
+          startIcon={
+            <MaterialCommunityIcons
+              name="weight-lifter"
+              size={24}
+              color="white"
+            />
+          }
+          style={styles.button}
+          onPress={handleStartGameSession}
+        >
+          Start session
         </Button>
       </Box>
     </Box>

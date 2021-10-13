@@ -15,6 +15,7 @@ const initialState: GameState = {
   obstacleSpeed: -3,
   running: false,
   controls: PhysicsOne,
+  session: false,
   saveGameDataStatus: 'idle',
   getUserGameSettingsStatus: 'idle',
 };
@@ -77,6 +78,9 @@ export const gameSlice = createSlice({
     stopGame: (state) => {
       state.running = false;
     },
+    setSession: (state, action: PayloadAction<boolean>) => {
+      state.session = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -115,12 +119,14 @@ export const {
   decrementLives,
   restoreLives,
   stopGame,
+  setSession,
 } = gameSlice.actions;
 
 export const pointsSel = (state: RootState) => state.game.points;
 export const livesSel = (state: RootState) => state.game.lives;
 export const runningSel = (state: RootState) => state.game.running;
 export const controlsSel = (state: RootState) => state.game.controls;
+export const sessionSel = (state: RootState) => state.game.session;
 export const obstacleSpeedSel = (state: RootState) => state.game.obstacleSpeed;
 
 export default gameSlice.reducer;

@@ -7,6 +7,9 @@ type RootStackParamList = {
   Register: undefined;
   Game: { controlNumber: number };
   GameOver: undefined;
+  SelfAssessment1: undefined;
+  SelfAssessment2: undefined;
+  SAM: undefined;
 };
 
 export type NavigationScreenProps = NativeStackScreenProps<

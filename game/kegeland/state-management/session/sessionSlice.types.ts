@@ -8,4 +8,5 @@ export interface SessionState {
   points: Array<number>;
   getQuestionsStatus: ApiStatus;
   SAMQuestionnaire?: AppQuestionnaire;
+  SAManswers?: Array<Array<number>>;
 }

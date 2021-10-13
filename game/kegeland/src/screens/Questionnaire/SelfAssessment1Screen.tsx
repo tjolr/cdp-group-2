@@ -42,11 +42,11 @@ const SelfAssessment1Screen = ({ navigation }: NavigationScreenProps) => {
         justifyContent="center"
         alignItems="center"
       >
-        <Heading size="2xl" color="teal.500" alignItems="center">
+        <Heading size="2xl" color="teal.500" textAlign="center">
           Self Assessment 1 Questionnaire
         </Heading>
 
-        <Heading color="muted.500" size="md" my={2} alignItems="center">
+        <Heading color="muted.500" size="md" my={2} textAlign="center">
           Fill in this questionnaire before starting the session
         </Heading>
 

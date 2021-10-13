@@ -5,7 +5,7 @@ export type AppQuestionnaire = {
 
 export type Question = {
   text: string;
-  minVal: string;
-  maxVal: string;
+  MinVal: string;
+  MaxVal: string;
   key: string;
 };

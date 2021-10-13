@@ -11,6 +11,7 @@ const initialState: SessionState = {
   points: [],
   getQuestionsStatus: 'idle',
   SAMQuestionnaire: undefined,
+  SAManswers: [],
 };
 
 export const getQuestionsDefaultThunk = createAsyncThunk(
@@ -33,6 +34,10 @@ export const sessionSlice = createSlice({
     },
     savePoints: (state, action: PayloadAction<number>) => {
       state.points[state.currentGame - 2] = action.payload;
+    },
+    saveSAManswers: (state, action: PayloadAction<Array<number>>) => {
+      state.SAManswers?.push(action.payload);
+      console.log(state.SAManswers);
     },
     clearSession: (state) => {
       state.currentGame = 0;
@@ -58,8 +63,13 @@ export const sessionSlice = createSlice({
   },
 });
 
-export const { setSessionId, incrementGame, savePoints, clearSession } =
-  sessionSlice.actions;
+export const {
+  setSessionId,
+  incrementGame,
+  savePoints,
+  clearSession,
+  saveSAManswers,
+} = sessionSlice.actions;
 
 export const gamesNumberSel = (state: RootState) => state.session.gamesNumber;
 export const currentGameSel = (state: RootState) => state.session.currentGame;

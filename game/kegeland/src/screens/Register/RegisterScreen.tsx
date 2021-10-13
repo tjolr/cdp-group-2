@@ -10,7 +10,6 @@ import {
   HStack,
   Link,
 } from 'native-base';
-import { SafeAreaView } from 'react-native';
 import React, { useState } from 'react';
 import { emailRegex, passwordRegex } from '../../utils/String.utils';
 import { NavigationScreenProps } from '../navigation.types';
@@ -142,7 +141,7 @@ const RegisterScreen = ({ navigation }: NavigationScreenProps) => {
   const handleLoginPress = () => navigation.navigate('Login');
 
   return (
-    <SafeAreaView style={scrollViewStyles.container}>
+    <Box style={scrollViewStyles.container}>
       <ScrollView style={scrollViewStyles.scrollView}>
         <Box
           bg={{
@@ -324,7 +323,7 @@ const RegisterScreen = ({ navigation }: NavigationScreenProps) => {
           </VStack>
         </Box>
       </ScrollView>
-    </SafeAreaView>
+    </Box>
   );
 };
 

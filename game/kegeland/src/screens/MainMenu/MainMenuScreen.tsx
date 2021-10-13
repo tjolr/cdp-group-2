@@ -1,5 +1,5 @@
 import { Box, Heading, Text, Button } from 'native-base';
-import React from 'react';
+import React, { useState } from 'react';
 import { NavigationScreenProps } from '../navigation.types';
 import { AntDesign } from '@expo/vector-icons';
 import {
@@ -11,6 +11,7 @@ import { SafeAreaView } from 'react-native';
 import {
   clearGame,
   setSession,
+  getUserGameSettingsStatusSel,
   getUserGameSettingsThunk,
 } from '../../../state-management/game/gameSlice';
 import { getQuestionsDefaultThunk } from '../../../state-management/session/sessionSlice';
@@ -19,9 +20,20 @@ import { StyleSheet } from 'react-native';
 import { GameMode } from '../../../state-management/game/gameMode';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+enum buttonSelector {
+  OneControl = 'OneControl',
+  MultipleControls = 'MultipleControls',
+  Default = 'Default',
+}
+
 const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
+  const [buttonPressed, setButtonPressed] = useState(buttonSelector.Default);
   const dispatch = useAppDispatch();
+  const getUserGameSettingsStatus = useAppSelector(
+    getUserGameSettingsStatusSel
+  );
   const handleStartGamePressOne = async () => {
+    setButtonPressed(buttonSelector.OneControl);
     await dispatch(getUserGameSettingsThunk());
     navigation.navigate('Game', {
       controlNumber: 1,
@@ -29,6 +41,7 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
     dispatch(clearGame(GameMode.OneControl));
   };
   const handleStartGamePressMultiple = async () => {
+    setButtonPressed(buttonSelector.MultipleControls);
     await dispatch(getUserGameSettingsThunk());
     navigation.navigate('Game', {
       controlNumber: 3,
@@ -86,6 +99,10 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
           startIcon={<AntDesign name="play" size={24} color="white" />}
           onPress={handleStartGamePressOne}
           style={styles.button}
+          isLoading={
+            getUserGameSettingsStatus === 'loading' &&
+            buttonPressed === buttonSelector.OneControl
+          }
         >
           One Control Game
         </Button>
@@ -97,6 +114,10 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
           startIcon={<AntDesign name="play" size={24} color="white" />}
           onPress={handleStartGamePressMultiple}
           style={styles.button}
+          isLoading={
+            getUserGameSettingsStatus === 'loading' &&
+            buttonPressed === buttonSelector.MultipleControls
+          }
         >
           Multiple Control Game
         </Button>

@@ -1,5 +1,5 @@
 import { Box, HStack, Text } from 'native-base';
-import { ImageBackground, View } from 'react-native';
+import { ImageBackground, SafeAreaView, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { GameEngine } from 'react-native-game-engine';
 import entities from '../../../entities';
@@ -64,12 +64,13 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
 
   return (
     <ImageBackground source={backgroundImage} style={{ flex: 1 }}>
-      <Box style={{ zIndex: 100 }}>
+      <SafeAreaView style={{ zIndex: 100 }}>
         <HStack
           space={3}
           alignItems="center"
           justifyContent="space-between"
-          m={4}
+          mx={4}
+          my={2}
         >
           <HStack alignItems="center" space={1}>
             <Foundation
@@ -126,7 +127,7 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
               ))}
           </HStack>
         </HStack>
-      </Box>
+      </SafeAreaView>
       <GameEngine
         entities={entities()}
         style={{

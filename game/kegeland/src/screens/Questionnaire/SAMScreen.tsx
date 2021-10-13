@@ -6,7 +6,6 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../state-management/redux.hooks';
-import { firstNameSel } from '../../../state-management/user/userSlice';
 import { SafeAreaView } from 'react-native';
 import {
   clearGame,
@@ -73,7 +72,6 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
           Fill in this questionnaire before starting the session
         </Heading>
 
-        {console.log(SAMquestions?.length)}
         {/*SAMquestions?.length &&
           SAMquestions.map((question: Question) => (
             <Box mx="auto" width="90%">

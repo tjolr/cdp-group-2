@@ -33,7 +33,6 @@ export const sessionSlice = createSlice({
     },
     savePoints: (state, action: PayloadAction<number>) => {
       state.points[state.currentGame - 2] = action.payload;
-      console.log(state.points);
     },
     clearSession: (state) => {
       state.currentGame = 0;

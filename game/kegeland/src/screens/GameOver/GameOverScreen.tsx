@@ -19,13 +19,13 @@ const GameOverScreen = ({ navigation }: NavigationScreenProps) => {
   const handleMainMenuPress = () => navigation.navigate('MainMenu');
   const handleNextGamePressOne = () => {
     navigation.navigate('Game', {
-      controlNumber: 1,
+      controlNumber: GameMode.OneControl,
     });
     restartGame(GameMode.OneControl);
   };
   const handleNextGamePressMultiple = () => {
     navigation.navigate('Game', {
-      controlNumber: 3,
+      controlNumber: GameMode.MultiControl,
     });
     restartGame(GameMode.MultiControl);
   };

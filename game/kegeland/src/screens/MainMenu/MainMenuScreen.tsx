@@ -7,7 +7,6 @@ import {
   useAppSelector,
 } from '../../../state-management/redux.hooks';
 import { firstNameSel } from '../../../state-management/user/userSlice';
-import { SafeAreaView } from 'react-native';
 import {
   clearGame,
   setSession,
@@ -36,7 +35,7 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
     setButtonPressed(buttonSelector.OneControl);
     await dispatch(getUserGameSettingsThunk());
     navigation.navigate('Game', {
-      controlNumber: 1,
+      controlNumber: GameMode.OneControl,
     });
     dispatch(clearGame(GameMode.OneControl));
   };
@@ -44,7 +43,7 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
     setButtonPressed(buttonSelector.MultipleControls);
     await dispatch(getUserGameSettingsThunk());
     navigation.navigate('Game', {
-      controlNumber: 3,
+      controlNumber: GameMode.MultiControl,
     });
     dispatch(clearGame(GameMode.MultiControl));
   };

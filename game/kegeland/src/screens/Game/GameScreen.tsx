@@ -28,6 +28,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { theme } from '../../styles/theme';
 import { Foundation } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import { GameMode } from '../../../state-management/game/gameMode';
 
 const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   const params = route.params;
@@ -56,9 +57,15 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
     if (lives === 0) handleGameOver();
   }, [lives]);
 
-  if (params.controlNumber == 1 && backgroundImage != UnderWaterBackground) {
+  if (
+    params.controlNumber === GameMode.OneControl &&
+    backgroundImage != UnderWaterBackground
+  ) {
     setBackgroundImage(UnderWaterBackground);
-  } else if (params.controlNumber == 3 && backgroundImage != Background) {
+  } else if (
+    params.controlNumber === GameMode.MultiControl &&
+    backgroundImage != Background
+  ) {
     setBackgroundImage(Background);
   }
 

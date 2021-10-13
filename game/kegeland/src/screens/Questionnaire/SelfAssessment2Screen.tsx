@@ -66,7 +66,7 @@ const SelfAssessment2Screen = ({ navigation }: NavigationScreenProps) => {
           size="lg"
           colorScheme="teal"
           marginTop="10"
-          startIcon={<AntDesign name="play" size={20} color="white" />}
+          startIcon={<AntDesign name="checkcircleo" size={24} color="white" />}
           onPress={handleEndSessionPress}
         >
           End Session

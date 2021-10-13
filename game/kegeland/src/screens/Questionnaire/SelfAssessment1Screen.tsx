@@ -14,6 +14,7 @@ import {
   gamesNumberSel,
   incrementGame,
 } from '../../../state-management/session/sessionSlice';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const SelfAssessment1Screen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
@@ -65,10 +66,12 @@ const SelfAssessment1Screen = ({ navigation }: NavigationScreenProps) => {
           size="lg"
           colorScheme="teal"
           marginTop="10"
-          startIcon={<AntDesign name="play" size={20} color="white" />}
+          startIcon={
+            <FontAwesome5 name="question-circle" size={24} color="white" />
+          }
           onPress={handleStartGamePress}
         >
-          Start exercise {gameNumber.toString}
+          SAM Questionnaire
         </Button>
       </Box>
     </SafeAreaView>

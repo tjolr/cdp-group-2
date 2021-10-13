@@ -19,6 +19,7 @@ import {
   SAMQuestionnaireSel,
 } from '../../../state-management/session/sessionSlice';
 import { Question } from '../../../types/questionnaires';
+import { GameMode } from '../../../state-management/game/gameMode';
 
 const SAMScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
@@ -33,12 +34,12 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
         navigation.navigate('Game', {
           controlNumber: 1,
         });
-        dispatch(clearGame(1));
+        dispatch(clearGame(GameMode.OneControl));
       } else {
         navigation.navigate('Game', {
           controlNumber: 3,
         });
-        dispatch(clearGame(2));
+        dispatch(clearGame(GameMode.MultiControl));
       }
     } else {
       navigation.navigate('SelfAssessment2');
@@ -93,7 +94,7 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
           size="lg"
           colorScheme="teal"
           marginTop="10"
-          startIcon={<AntDesign name="play" size={20} color="white" />}
+          startIcon={<AntDesign name="play" size={24} color="white" />}
           onPress={handleStartGamePress}
         >
           Go!

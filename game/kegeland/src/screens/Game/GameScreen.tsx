@@ -26,6 +26,9 @@ import { savePoints } from '../../../state-management/session/sessionSlice';
 import UnderWaterBackground from '../../../assets/underwater-background.png';
 import { AntDesign } from '@expo/vector-icons';
 import { theme } from '../../styles/theme';
+import { Foundation } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+
 
 const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   const params = route.params;
@@ -62,7 +65,7 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
 
   return (
     <ImageBackground source={backgroundImage} style={{ flex: 1 }}>
-      <View style={{ flex: 1 }}>
+      <Box style={{ zIndex: 100 }}>
         <HStack
           space={3}
           alignItems="center"
@@ -70,11 +73,17 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
           m={4}
         >
           <HStack alignItems="center" space={1}>
+
+            <Foundation
+              name="trophy"
+              size={30}
+              color={theme.colors.yellow[600]}
+            />
             <Text
               style={{
-                fontSize: 45,
+                fontSize: 30,
                 fontWeight: 'bold',
-                color: 'black',
+                color: theme.colors.yellow[600],
               }}
               ml={1}
             >
@@ -83,10 +92,35 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
           </HStack>
 
           <HStack alignItems="center" space={1}>
+            <Ionicons
+              name="speedometer"
+              size={30}
+              color={theme.colors.darkBlue[700]}
+            />
+
+            <Text
+              style={{
+                fontSize: 30,
+                fontWeight: 'bold',
+                color: theme.colors.darkBlue[700],
+              }}
+              ml={1}
+            >
+              {obstacleSpeed}
+            </Text>
+          </HStack>
+
+          <HStack
+            alignItems="center"
+            space={1}
+            width={35}
+            justifyContent="flex-end"
+          >
             {Array(lives)
               .fill(0)
-              .map(() => (
+              .map((_, index: number) => (
                 <AntDesign
+                  key={index}
                   name="heart"
                   size={30}
                   color={theme.colors.red[500]}
@@ -94,17 +128,7 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
               ))}
           </HStack>
         </HStack>
-        <Text
-          style={{
-            textAlign: 'center',
-            fontSize: 25,
-            fontWeight: 'bold',
-            top: 50,
-          }}
-        >
-          Speed: {obstacleSpeed}
-        </Text>
-      </View>
+      </Box>
       <GameEngine
         entities={entities()}
         style={{

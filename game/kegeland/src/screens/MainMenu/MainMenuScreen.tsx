@@ -35,10 +35,12 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
     });
     dispatch(clearGame(GameMode.MultiControl));
   };
-  const handleStartGameSession = () => {
+  const handleStartGameSession = async () => {
     navigation.navigate('SelfAssessment1');
     dispatch(setSession(true));
     dispatch(getQuestionsDefaultThunk('SAM')).unwrap();
+    dispatch(await getQuestionsDefaultThunk('SelfAssessment1')).unwrap();
+    dispatch(getQuestionsDefaultThunk('SelfAssessment2')).unwrap();
   };
   const firstName = useAppSelector(firstNameSel);
 

@@ -38,7 +38,6 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
   const SAMquestions = useAppSelector(SAMQuestionnaireSel);
   const [formData, setformData] = useState<Array<number>>([]);
   const handleStartGamePress = async () => {
-    console.log(formData);
     dispatch(saveSAManswers(formData));
     dispatch(incrementGame());
     if (currentGameNumber <= gamesNumber) {
@@ -118,8 +117,8 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
                     justifyContent="space-between"
                     flex={1}
                   >
-                    <Text textAlign="left">{question.MinVal}</Text>
-                    <Text textAlign="right">{question.MaxVal}</Text>
+                    <Text textAlign="left">{question.minVal}</Text>
+                    <Text textAlign="right">{question.maxVal}</Text>
                   </HStack>
                 </FormControl.Label>
                 <Radio.Group

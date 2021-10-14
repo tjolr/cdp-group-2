@@ -29,7 +29,6 @@ import { theme } from '../../styles/theme';
 import { Foundation } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
-
 const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   const params = route.params;
   const dispatch = useAppDispatch();
@@ -73,7 +72,6 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
           m={4}
         >
           <HStack alignItems="center" space={1}>
-
             <Foundation
               name="trophy"
               size={30}

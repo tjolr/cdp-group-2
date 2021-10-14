@@ -10,6 +10,7 @@ import { FirestoreApi } from './firestoreApi';
 import firebase from 'firebase';
 import { AppQuestionnaire } from '../../types/questionnaires';
 import { GameData } from '../../types/game';
+import { sessionData } from '../../state-management/session/sessionSlice.types';
 
 export namespace API {
   export const signInDefault = async (
@@ -68,5 +69,13 @@ export namespace API {
     const userInfo = (await getUserInfo(userId)).data();
 
     return userInfo?.settings;
+  };
+
+  export const saveSessionData = async (
+    session: sessionData,
+    userId: string
+  ) => {
+    const userRef = FirestoreApi.collectionTypes.users.doc(userId);
+    return await userRef.collection('sessionData').add(session);
   };
 }

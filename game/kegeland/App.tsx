@@ -15,6 +15,7 @@ import RegisterScreen from './src/screens/Register/RegisterScreen';
 import SAMScreen from './src/screens/Questionnaire/SAMScreen';
 import SelfAssessment1Screen from './src/screens/Questionnaire/SelfAssessment1Screen';
 import SelfAssessment2Screen from './src/screens/Questionnaire/SelfAssessment2Screen';
+import { GameMode } from './state-management/game/gameMode';
 
 const Stack = createNativeStackNavigator();
 
@@ -43,7 +44,7 @@ const App = () => {
             <Stack.Screen
               name="Game"
               component={GameScreen}
-              initialParams={{ controlNumber: 1 }}
+              initialParams={{ gameMode: GameMode.OneControl }}
             />
             <Stack.Screen name="GameOver" component={GameOverScreen} />
             <Stack.Screen

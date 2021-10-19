@@ -58,12 +58,12 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   }, [lives]);
 
   if (
-    params.controlNumber === GameMode.OneControl &&
+    params.gameMode === GameMode.OneControl &&
     backgroundImage != UnderWaterBackground
   ) {
     setBackgroundImage(UnderWaterBackground);
   } else if (
-    params.controlNumber === GameMode.MultiControl &&
+    params.gameMode === GameMode.MultiControl &&
     backgroundImage != Background
   ) {
     setBackgroundImage(Background);

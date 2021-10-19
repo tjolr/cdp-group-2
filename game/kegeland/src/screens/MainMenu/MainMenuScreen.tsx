@@ -19,31 +19,25 @@ import { StyleSheet } from 'react-native';
 import { GameMode } from '../../../state-management/game/gameMode';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-enum buttonSelector {
-  OneControl = 'OneControl',
-  MultipleControls = 'MultipleControls',
-  Default = 'Default',
-}
-
 const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
-  const [buttonPressed, setButtonPressed] = useState(buttonSelector.Default);
+  const [buttonPressed, setButtonPressed] = useState(GameMode.OneControl);
   const dispatch = useAppDispatch();
   const getUserGameSettingsStatus = useAppSelector(
     getUserGameSettingsStatusSel
   );
   const handleStartGamePressOne = async () => {
-    setButtonPressed(buttonSelector.OneControl);
+    setButtonPressed(GameMode.OneControl);
     await dispatch(getUserGameSettingsThunk());
     navigation.navigate('Game', {
-      controlNumber: GameMode.OneControl,
+      gameMode: GameMode.OneControl,
     });
     dispatch(clearGame(GameMode.OneControl));
   };
   const handleStartGamePressMultiple = async () => {
-    setButtonPressed(buttonSelector.MultipleControls);
+    setButtonPressed(GameMode.MultiControl);
     await dispatch(getUserGameSettingsThunk());
     navigation.navigate('Game', {
-      controlNumber: GameMode.MultiControl,
+      gameMode: GameMode.MultiControl,
     });
     dispatch(clearGame(GameMode.MultiControl));
   };
@@ -100,7 +94,7 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
           style={styles.button}
           isLoading={
             getUserGameSettingsStatus === 'loading' &&
-            buttonPressed === buttonSelector.OneControl
+            buttonPressed === GameMode.OneControl
           }
         >
           One Control Game
@@ -115,7 +109,7 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
           style={styles.button}
           isLoading={
             getUserGameSettingsStatus === 'loading' &&
-            buttonPressed === buttonSelector.MultipleControls
+            buttonPressed === GameMode.MultiControl
           }
         >
           Multiple Control Game

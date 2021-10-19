@@ -5,7 +5,7 @@ type RootStackParamList = {
   Login: undefined;
   MainMenu: undefined;
   Register: undefined;
-  Game: { controlNumber: string };
+  Game: { gameMode: string };
   GameOver: undefined;
   SelfAssessment1: undefined;
   SelfAssessment2: undefined;

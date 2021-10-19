@@ -4,11 +4,15 @@ import { AppQuestionnaire, Question } from '../../types/questionnaires';
 import { pointsSel } from '../game/gameSlice';
 import { RootState } from '../store';
 import { userIdSel } from '../user/userSlice';
-import { sessionData, SessionState } from './sessionSlice.types';
+import {
+  QuestionnaireAnswer,
+  sessionData,
+  SessionState,
+} from './sessionSlice.types';
 
 const initialState: SessionState = {
   sessionId: '',
-  gamesNumber: 1,
+  gamesNumber: 3,
   currentGame: 0,
   sessionPoints: [],
   getQuestionsStatus: 'idle',
@@ -37,7 +41,7 @@ export const saveSessionDataThunk = createAsyncThunk(
     const sessionData: sessionData = {
       gamesNumber: gamesNumberSel(rootState),
       sessionPoints: sessionPointsSel(rootState),
-      timestamp: Date.prototype.valueOf(),
+      timestamp: new Date().valueOf(),
       SAManswers: SAMAnswersSel(rootState),
       SA1answers: SA1AnswersSel(rootState),
       SA2answers: SA2AnswersSel(rootState),
@@ -61,7 +65,11 @@ export const sessionSlice = createSlice({
       state.sessionPoints[state.currentGame - 2] = action.payload;
     },
     saveSAManswers: (state, action: PayloadAction<Array<number>>) => {
-      state.SAManswers?.push(action.payload);
+      const answers: QuestionnaireAnswer = {
+        id: 'SAM' + state.currentGame,
+        answers: action.payload,
+      };
+      state.SAManswers?.push(answers);
     },
     saveSA1answers: (state, action: PayloadAction<Array<number>>) => {
       state.SA1answers = action.payload;

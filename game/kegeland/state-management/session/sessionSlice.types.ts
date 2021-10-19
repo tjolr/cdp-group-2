@@ -8,7 +8,7 @@ export interface SessionState {
   sessionPoints: Array<number>;
   getQuestionsStatus: ApiStatus;
   SAMQuestionnaire?: AppQuestionnaire;
-  SAManswers?: Array<Array<number>>;
+  SAManswers?: Array<QuestionnaireAnswer>;
   SA1Questionnaire?: AppQuestionnaire;
   SA1answers?: Array<number>;
   SA2Questionnaire?: AppQuestionnaire;
@@ -20,7 +20,12 @@ export interface sessionData {
   timestamp: number;
   gamesNumber: number;
   sessionPoints: Array<number>;
-  SAManswers?: Array<Array<number>>;
+  SAManswers?: Array<QuestionnaireAnswer>;
   SA1answers?: Array<number>;
   SA2answers?: Array<number>;
+}
+
+export interface QuestionnaireAnswer {
+  id: String;
+  answers: Array<number>;
 }

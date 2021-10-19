@@ -101,7 +101,12 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
 
         {SAMquestions?.length &&
           SAMquestions.map((question: Question, index) => (
-            <Box mx="auto" width="100%" borderColor="coolGray.600">
+            <Box
+              mx="auto"
+              width="100%"
+              borderColor="coolGray.600"
+              key={question.key}
+            >
               <Text textAlign="center">{question.text}</Text>
               <FormControl isInvalid>
                 <FormControl.Label

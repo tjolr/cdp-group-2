@@ -1,5 +1,5 @@
 import { Box, HStack, Text } from 'native-base';
-import { ImageBackground, View } from 'react-native';
+import { ImageBackground, SafeAreaView, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { GameEngine } from 'react-native-game-engine';
 import entities from '../../../entities';
@@ -28,6 +28,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { theme } from '../../styles/theme';
 import { Foundation } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import { GameMode } from '../../../state-management/game/gameMode';
 
 const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   const params = route.params;
@@ -56,20 +57,27 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
     if (lives === 0) handleGameOver();
   }, [lives]);
 
-  if (params.controlNumber == 1 && backgroundImage != UnderWaterBackground) {
+  if (
+    params.gameMode === GameMode.OneControl &&
+    backgroundImage != UnderWaterBackground
+  ) {
     setBackgroundImage(UnderWaterBackground);
-  } else if (params.controlNumber == 3 && backgroundImage != Background) {
+  } else if (
+    params.gameMode === GameMode.MultiControl &&
+    backgroundImage != Background
+  ) {
     setBackgroundImage(Background);
   }
 
   return (
     <ImageBackground source={backgroundImage} style={{ flex: 1 }}>
-      <Box style={{ zIndex: 100 }}>
+      <SafeAreaView style={{ zIndex: 100 }}>
         <HStack
           space={3}
           alignItems="center"
           justifyContent="space-between"
-          m={4}
+          mx={4}
+          my={2}
         >
           <HStack alignItems="center" space={1}>
             <Foundation
@@ -126,7 +134,7 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
               ))}
           </HStack>
         </HStack>
-      </Box>
+      </SafeAreaView>
       <GameEngine
         entities={entities()}
         style={{

@@ -30,6 +30,7 @@ import {
 } from '../../../state-management/session/sessionSlice';
 import { Question } from '../../../types/questionnaires';
 import { GameMode } from '../../../state-management/game/gameMode';
+import { StyleSheet } from 'react-native';
 
 const SAMScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
@@ -44,12 +45,12 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
       await dispatch(getUserGameSettingsThunk());
       if (currentGameNumber % 2 == 1) {
         navigation.navigate('Game', {
-          controlNumber: 1,
+          gameMode: GameMode.OneControl,
         });
         dispatch(clearGame(GameMode.OneControl));
       } else {
         navigation.navigate('Game', {
-          controlNumber: 3,
+          gameMode: GameMode.MultiControl,
         });
         dispatch(clearGame(GameMode.MultiControl));
       }
@@ -78,7 +79,7 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
   };
 
   return (
-    <SafeAreaView>
+    <Box style={styles.container}>
       <Box
         bg={{
           linearGradient: {
@@ -171,9 +172,15 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
           Go!
         </Button>
       </Box>
-    </SafeAreaView>
+    </Box>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default SAMScreen;
 

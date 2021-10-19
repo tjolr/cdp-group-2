@@ -1,5 +1,14 @@
-import { Box, Heading, Text, Button, Slider, HStack } from 'native-base';
-import React from 'react';
+import {
+  Box,
+  Heading,
+  Text,
+  Button,
+  Slider,
+  HStack,
+  FormControl,
+  Radio,
+} from 'native-base';
+import React, { useState } from 'react';
 import { NavigationScreenProps } from '../navigation.types';
 import { AntDesign } from '@expo/vector-icons';
 import {
@@ -17,6 +26,7 @@ import {
   gamesNumberSel,
   incrementGame,
   SAMQuestionnaireSel,
+  saveSAManswers,
 } from '../../../state-management/session/sessionSlice';
 import { Question } from '../../../types/questionnaires';
 import { GameMode } from '../../../state-management/game/gameMode';
@@ -26,7 +36,9 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
   const currentGameNumber = useAppSelector(currentGameSel);
   const gamesNumber = useAppSelector(gamesNumberSel);
   const SAMquestions = useAppSelector(SAMQuestionnaireSel);
+  const [formData, setFormData] = useState<Array<number>>([]);
   const handleStartGamePress = async () => {
+    dispatch(saveSAManswers(formData));
     dispatch(incrementGame());
     if (currentGameNumber <= gamesNumber) {
       await dispatch(getUserGameSettingsThunk());
@@ -45,6 +57,24 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
       navigation.navigate('SelfAssessment2');
       dispatch(setSession(false));
     }
+    setFormData([]);
+  };
+
+  const setSingleAnswer = (
+    nextValue: string,
+    index: number,
+    formData: number[]
+  ) => {
+    const insert = (formData: number[], index: number, nextValue: number) => [
+      // part of the array before the specified index
+      ...formData.slice(0, index),
+      // inserted item
+      nextValue,
+      // part of the array after the specified index
+      ...formData.slice(index),
+    ];
+
+    setFormData(insert(formData, index, parseInt(nextValue)));
   };
 
   return (
@@ -69,31 +99,72 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
           SAM Questionnaire
         </Heading>
 
-        <Heading color="muted.500" size="md" my={2} alignItems="center">
+        <Heading color="muted.500" size="md" my={2} textAlign="center">
           Fill in this questionnaire before starting the session
         </Heading>
 
-        {/*SAMquestions?.length &&
-          SAMquestions.map((question: Question) => (
-            <Box mx="auto" width="90%">
+        {SAMquestions?.length &&
+          SAMquestions.map((question: Question, index) => (
+            <Box
+              mx="auto"
+              width="100%"
+              borderColor="coolGray.600"
+              key={question.key}
+            >
               <Text textAlign="center">{question.text}</Text>
-              <HStack space={3} alignItems="center">
-                <Text textAlign="left">{question.minVal}</Text>
-                <Text textAlign="right">{question.maxVal}</Text>
-              </HStack>
-              <Slider>
-                defaultValue={0}
-                minValue={0}
-                maxValue={10}
-                accessibilityLabel="{question}" step={1}
-              </Slider>
+              <FormControl isInvalid>
+                <FormControl.Label
+                  _text={{
+                    fontSize: 'lg',
+                    bold: true,
+                  }}
+                >
+                  {question.text}
+                  <HStack
+                    space={3}
+                    alignItems="center"
+                    justifyContent="space-between"
+                    flex={1}
+                  >
+                    <Text textAlign="left">{question.minVal}</Text>
+                    <Text textAlign="right">{question.maxVal}</Text>
+                  </HStack>
+                </FormControl.Label>
+                <Radio.Group
+                  style={{ flexDirection: 'row' }}
+                  name={question.key + 'group'}
+                  accessibilityLabel={question.key + 'value'}
+                  onChange={(nextValue) => {
+                    setSingleAnswer(nextValue, index, formData);
+                  }}
+                >
+                  <Radio value="1" my="1" mr="2">
+                    1
+                  </Radio>
+                  <Radio value="2" my="1" mr="2">
+                    2
+                  </Radio>
+                  <Radio value="3" my="1" mr="2">
+                    3
+                  </Radio>
+                  <Radio value="4" my="1" mr="2">
+                    4
+                  </Radio>
+                  <Radio value="5" my="1" mr="2">
+                    5
+                  </Radio>
+                  <Radio value="6" my="1" mr="2">
+                    6
+                  </Radio>
+                </Radio.Group>
+              </FormControl>
             </Box>
-          ))*/}
+          ))}
 
         <Button
           size="lg"
           colorScheme="teal"
-          marginTop="10"
+          marginTop="20"
           startIcon={<AntDesign name="play" size={24} color="white" />}
           onPress={handleStartGamePress}
         >
@@ -105,3 +176,9 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
 };
 
 export default SAMScreen;
+
+/*  IF WE WANT TO ADD FORM CONTROL
+<FormControl.ErrorMessage>
+  You must select an option.
+</FormControl.ErrorMessage>
+*/

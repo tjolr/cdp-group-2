@@ -1,5 +1,6 @@
 export type AppQuestionnaire = {
   id?: string;
+  name: string;
   questionsList: Array<Question>;
 };
 

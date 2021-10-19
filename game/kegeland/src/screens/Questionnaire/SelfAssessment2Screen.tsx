@@ -29,18 +29,22 @@ const SelfAssessment2Screen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
 
   const SA2questions = useAppSelector(SA2QuestionnaireSel);
-  const [formData, setformData] = useState<Array<number>>([]);
+  const [formData, setFormData] = useState<Array<number>>([]);
 
   const handleEndSessionPress = () => {
     navigation.navigate('MainMenu');
     dispatch(saveSessionDataThunk());
     dispatch(clearSession());
     dispatch(saveSA2answers(formData));
-    setformData([]);
+    setFormData([]);
   };
 
-  function setSingleAnswer(nextValue: string, index: number, formData: any) {
-    const insert = (formData: any, index: number, nextValue: number) => [
+  function setSingleAnswer(
+    nextValue: string,
+    index: number,
+    formData: number[]
+  ) {
+    const insert = (formData: number[], index: number, nextValue: number) => [
       // part of the array before the specified index
       ...formData.slice(0, index),
       // inserted item
@@ -49,7 +53,7 @@ const SelfAssessment2Screen = ({ navigation }: NavigationScreenProps) => {
       ...formData.slice(index),
     ];
 
-    setformData(insert(formData, index, parseInt(nextValue)));
+    setFormData(insert(formData, index, parseInt(nextValue)));
   }
 
   return (

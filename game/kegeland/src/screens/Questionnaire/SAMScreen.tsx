@@ -36,7 +36,7 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
   const currentGameNumber = useAppSelector(currentGameSel);
   const gamesNumber = useAppSelector(gamesNumberSel);
   const SAMquestions = useAppSelector(SAMQuestionnaireSel);
-  const [formData, setformData] = useState<Array<number>>([]);
+  const [formData, setFormData] = useState<Array<number>>([]);
   const handleStartGamePress = async () => {
     dispatch(saveSAManswers(formData));
     dispatch(incrementGame());
@@ -57,11 +57,15 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
       navigation.navigate('SelfAssessment2');
       dispatch(setSession(false));
     }
-    setformData([]);
+    setFormData([]);
   };
 
-  function setSingleAnswer(nextValue: string, index: number, formData: any) {
-    const insert = (formData: any, index: number, nextValue: number) => [
+  const setSingleAnswer = (
+    nextValue: string,
+    index: number,
+    formData: number[]
+  ) => {
+    const insert = (formData: number[], index: number, nextValue: number) => [
       // part of the array before the specified index
       ...formData.slice(0, index),
       // inserted item
@@ -70,8 +74,8 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
       ...formData.slice(index),
     ];
 
-    setformData(insert(formData, index, parseInt(nextValue)));
-  }
+    setFormData(insert(formData, index, parseInt(nextValue)));
+  };
 
   return (
     <SafeAreaView>

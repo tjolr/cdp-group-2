@@ -28,17 +28,21 @@ const SelfAssessment1Screen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
 
   const SA1questions = useAppSelector(SA1QuestionnaireSel);
-  const [formData, setformData] = useState<Array<number>>([]);
+  const [formData, setFormData] = useState<Array<number>>([]);
 
   const handleStartGamePress = () => {
     navigation.navigate('SAM');
     dispatch(incrementGame());
     dispatch(saveSA1answers(formData));
-    setformData([]);
+    setFormData([]);
   };
 
-  function setSingleAnswer(nextValue: string, index: number, formData: any) {
-    const insert = (formData: any, index: number, nextValue: number) => [
+  function setSingleAnswer(
+    nextValue: string,
+    index: number,
+    formData: number[]
+  ) {
+    const insert = (formData: number[], index: number, nextValue: number) => [
       // part of the array before the specified index
       ...formData.slice(0, index),
       // inserted item
@@ -47,7 +51,7 @@ const SelfAssessment1Screen = ({ navigation }: NavigationScreenProps) => {
       ...formData.slice(index),
     ];
 
-    setformData(insert(formData, index, parseInt(nextValue)));
+    setFormData(insert(formData, index, parseInt(nextValue)));
   }
 
   return (

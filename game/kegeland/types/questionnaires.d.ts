@@ -10,3 +10,8 @@ export type Question = {
   maxVal: string;
   key: string;
 };
+
+export interface QuestionnaireAnswer {
+  id: String;
+  answers: Array<number>;
+}

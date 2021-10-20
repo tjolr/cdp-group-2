@@ -18,6 +18,6 @@ export interface IHitbox {
   size: ISize;
 }
 
-export interface IHitboxObstacle extends IHitbox {
+export interface IHitboxMoveable extends IHitbox {
   speed: number;
 }

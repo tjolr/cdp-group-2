@@ -1,4 +1,4 @@
-import { getPipeSizePosBottom } from './random';
+import { getPipeSizePosBottom } from '../../../utils/random';
 
 describe('Testing random utility functions', () => {
   it('Test the width of the obstacle', () => {

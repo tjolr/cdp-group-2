@@ -10,7 +10,7 @@ import { RegistrationQuestionnaire } from './registrationQuest.types';
 
 const initialState: RegistrationQuestionnaire = {
   id: 'Registration',
-  answers: [],
+  answers: undefined,
   questions: undefined,
   getQuestionsStatus: 'idle',
   saveQuestionnaireStatus: 'idle',
@@ -30,8 +30,8 @@ export const saveRegistrationDataThunk = createAsyncThunk(
     const rootState = getState() as RootState;
     const userId = userIdSel(rootState);
     const registrationData = answersSel(rootState);
-
-    return await API.saveRegistrationQuestionnaire(registrationData, userId);
+    if (registrationData != undefined)
+      return await API.saveRegistrationQuestionnaire(registrationData, userId);
   }
 );
 
@@ -44,7 +44,7 @@ export const registrationQuestSlice = createSlice({
         id: 'RegistrationQuestionnaire',
         answers: action.payload,
       };
-      state.answers?.push(answers);
+      state.answers = answers;
     },
   },
 

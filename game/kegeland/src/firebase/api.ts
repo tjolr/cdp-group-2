@@ -83,7 +83,7 @@ export namespace API {
   };
 
   export const saveRegistrationQuestionnaire = async (
-    answers: Array<QuestionnaireAnswer>,
+    answers: QuestionnaireAnswer,
     userId: string
   ) => {
     const userRef = FirestoreApi.collectionTypes.users.doc(userId);

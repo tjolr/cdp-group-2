@@ -9,5 +9,5 @@ export interface RegistrationQuestionnaire {
   getQuestionsStatus: ApiStatus;
   saveQuestionnaireStatus: ApiStatus;
   questions?: AppQuestionnaire;
-  answers: Array<QuestionnaireAnswer>;
+  answers?: QuestionnaireAnswer;
 }

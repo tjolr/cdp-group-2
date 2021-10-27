@@ -1,5 +1,5 @@
-import { translateSensorData } from './translateSensorData';
-import { GameMode } from '../state-management/game/gameMode';
+import { translateSensorData } from '../../../utils/translateSensorData';
+import { GameMode } from '../../../state-management/game/gameMode';
 
 describe('Testing translation from sensor data to velocity', () => {
   it('Test the width of the obstacle', () => {

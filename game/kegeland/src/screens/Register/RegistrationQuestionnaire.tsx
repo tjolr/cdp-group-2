@@ -68,7 +68,6 @@ const RegistrationQuestionnaireScreen = ({
           }}
           p={8}
           height="100%"
-          //minHeight="100%"
           flex={1}
           flexGrow={1}
           w="100%"

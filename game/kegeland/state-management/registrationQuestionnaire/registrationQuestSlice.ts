@@ -17,7 +17,7 @@ const initialState: RegistrationQuestionnaire = {
 };
 
 export const getRegistrationQuestionsDefaultThunk = createAsyncThunk(
-  'resistration/getQuestionsDefaultThunk',
+  'registration/getQuestionsDefaultThunk',
   async (): Promise<AppQuestionnaire | undefined> => {
     const Questions = (await API.getQuestionnaire('Registration')).data();
     return Questions;
@@ -25,7 +25,7 @@ export const getRegistrationQuestionsDefaultThunk = createAsyncThunk(
 );
 
 export const saveRegistrationDataThunk = createAsyncThunk(
-  'resistration/saveRegistrationThunk',
+  'registration/saveRegistrationThunk',
   async (_, { getState }) => {
     const rootState = getState() as RootState;
     const userId = userIdSel(rootState);

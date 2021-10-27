@@ -17,7 +17,7 @@ class RecommenderSystem:
     def calculate_new_difficulty(self, score, previous_settings):
         # The previous player does not have any previous game data, so they get the default settings
         # This should be replaced
-        if previous_settings == {} or "obstacleSpeed" not in previous_settings\
+        if not previous_settings or previous_settings == {} or "obstacleSpeed" not in previous_settings\
                 or "height" not in previous_settings or "width" not in previous_settings\
                 or "objects" not in previous_settings or "lives" not in previous_settings:
             return

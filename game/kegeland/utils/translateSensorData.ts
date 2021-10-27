@@ -5,7 +5,7 @@ export enum Actions {
   MEDIUM = 3,
   LOW = 2,
   BREAK_WALL = 1,
-  DEFAULT = 0,
+  DEFAULT = -1,
 }
 
 export const translateSensorData = (

@@ -1,5 +1,4 @@
 from google.cloud import firestore
-
 from RecommenderSystem import RecommenderSystem
 
 # Get the firestore database for retrieving and inserting data
@@ -48,7 +47,6 @@ def should_update(user_doc_ref, event_id):
         return user_doc_ref.get(field_paths={"lastFunctionWriteId"})\
                    .to_dict().get("lastFunctionWriteId") != event_id
     return True
-
 
 def get_previous_settings(user_doc_ref):
     if user_doc_ref.get(field_paths={"settings"}).exists:

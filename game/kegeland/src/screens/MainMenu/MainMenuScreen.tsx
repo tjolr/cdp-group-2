@@ -1,5 +1,5 @@
 import { Box, Heading, Text, Button } from 'native-base';
-import React from 'react';
+import React, { useState } from 'react';
 import { NavigationScreenProps } from '../navigation.types';
 import { AntDesign } from '@expo/vector-icons';
 import {
@@ -7,10 +7,10 @@ import {
   useAppSelector,
 } from '../../../state-management/redux.hooks';
 import { firstNameSel } from '../../../state-management/user/userSlice';
-import { SafeAreaView } from 'react-native';
 import {
   clearGame,
   setSession,
+  getUserGameSettingsStatusSel,
   getUserGameSettingsThunk,
 } from '../../../state-management/game/gameSlice';
 import { getQuestionsDefaultThunk } from '../../../state-management/session/sessionSlice';
@@ -20,25 +20,33 @@ import { GameMode } from '../../../state-management/game/gameMode';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
+  const [buttonPressed, setButtonPressed] = useState(GameMode.OneControl);
   const dispatch = useAppDispatch();
+  const getUserGameSettingsStatus = useAppSelector(
+    getUserGameSettingsStatusSel
+  );
   const handleStartGamePressOne = async () => {
+    setButtonPressed(GameMode.OneControl);
     await dispatch(getUserGameSettingsThunk());
     navigation.navigate('Game', {
-      controlNumber: 1,
+      gameMode: GameMode.OneControl,
     });
     dispatch(clearGame(GameMode.OneControl));
   };
   const handleStartGamePressMultiple = async () => {
+    setButtonPressed(GameMode.MultiControl);
     await dispatch(getUserGameSettingsThunk());
     navigation.navigate('Game', {
-      controlNumber: 3,
+      gameMode: GameMode.MultiControl,
     });
     dispatch(clearGame(GameMode.MultiControl));
   };
-  const handleStartGameSession = () => {
+  const handleStartGameSession = async () => {
     navigation.navigate('SelfAssessment1');
     dispatch(setSession(true));
     dispatch(getQuestionsDefaultThunk('SAM')).unwrap();
+    dispatch(await getQuestionsDefaultThunk('SelfAssessment1')).unwrap();
+    dispatch(getQuestionsDefaultThunk('SelfAssessment2')).unwrap();
   };
   const firstName = useAppSelector(firstNameSel);
 
@@ -84,6 +92,10 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
           startIcon={<AntDesign name="play" size={24} color="white" />}
           onPress={handleStartGamePressOne}
           style={styles.button}
+          isLoading={
+            getUserGameSettingsStatus === 'loading' &&
+            buttonPressed === GameMode.OneControl
+          }
         >
           One Control Game
         </Button>
@@ -95,6 +107,10 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
           startIcon={<AntDesign name="play" size={24} color="white" />}
           onPress={handleStartGamePressMultiple}
           style={styles.button}
+          isLoading={
+            getUserGameSettingsStatus === 'loading' &&
+            buttonPressed === GameMode.MultiControl
+          }
         >
           Multiple Control Game
         </Button>

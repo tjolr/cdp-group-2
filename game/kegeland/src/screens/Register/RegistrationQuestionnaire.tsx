@@ -10,33 +10,31 @@ import {
 } from 'native-base';
 import React, { useState } from 'react';
 import { NavigationScreenProps } from '../navigation.types';
-import { AntDesign } from '@expo/vector-icons';
 import {
   useAppDispatch,
   useAppSelector,
 } from '../../../state-management/redux.hooks';
-import { SafeAreaView } from 'react-native';
-import {
-  clearSession,
-  SA2QuestionnaireSel,
-  saveSA2answers,
-  saveSessionDataThunk,
-} from '../../../state-management/session/sessionSlice';
-import { Question } from '../../../types/questionnaires';
 import { scrollViewStyles } from '../../common/scrollView';
+import { Question } from '../../../types/questionnaires';
+import {
+  RegQuestionnaireSel,
+  saveAnswers,
+  saveRegistrationDataThunk,
+} from '../../../state-management/registrationQuestionnaire/registrationQuestSlice';
+import AntDesign from '@expo/vector-icons/build/AntDesign';
 
-const SelfAssessment2Screen = ({ navigation }: NavigationScreenProps) => {
+const RegistrationQuestionnaireScreen = ({
+  navigation,
+}: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
 
-  const SA2questions = useAppSelector(SA2QuestionnaireSel);
+  const questions = useAppSelector(RegQuestionnaireSel);
   const [formData, setFormData] = useState<Array<number>>([]);
 
-  const handleEndSessionPress = () => {
+  const handleConfirmPress = () => {
     navigation.navigate('MainMenu');
-    dispatch(saveSA2answers(formData));
-    dispatch(saveSessionDataThunk());
-    dispatch(clearSession());
-
+    dispatch(saveAnswers(formData));
+    dispatch(saveRegistrationDataThunk());
     setFormData([]);
   };
 
@@ -69,7 +67,9 @@ const SelfAssessment2Screen = ({ navigation }: NavigationScreenProps) => {
             },
           }}
           p={8}
-          minHeight="100%"
+          height="100%"
+          flex={1}
+          flexGrow={1}
           w="100%"
           mx="auto"
           display="flex"
@@ -77,21 +77,21 @@ const SelfAssessment2Screen = ({ navigation }: NavigationScreenProps) => {
           alignItems="center"
         >
           <Heading size="2xl" color="teal.500" textAlign="center">
-            Self Assessment 2 Questionnaire
+            Registration Questionnaire
           </Heading>
 
           <Heading color="muted.500" size="md" my={2} textAlign="center">
-            Fill in this questionnaire before ending the session
+            Fill in this questionnaire before starting the session
           </Heading>
 
-          {SA2questions?.length &&
-            SA2questions.map((question: Question, index) => (
+          {questions?.length &&
+            questions.map((question: Question, index) => (
               <Box
                 mx="auto"
                 width="100%"
                 borderColor="coolGray.600"
                 mt={8}
-                key={question.key}
+                key={'Reg' + question.key}
               >
                 <Text textAlign="center" fontWeight="bold">
                   {question.text}
@@ -151,9 +151,9 @@ const SelfAssessment2Screen = ({ navigation }: NavigationScreenProps) => {
             startIcon={
               <AntDesign name="checkcircleo" size={24} color="white" />
             }
-            onPress={handleEndSessionPress}
+            onPress={handleConfirmPress}
           >
-            End Session
+            Confirm
           </Button>
         </Box>
       </ScrollView>
@@ -161,4 +161,4 @@ const SelfAssessment2Screen = ({ navigation }: NavigationScreenProps) => {
   );
 };
 
-export default SelfAssessment2Screen;
+export default RegistrationQuestionnaireScreen;

@@ -24,6 +24,7 @@ import {
 } from '../../../state-management/user/userSlice';
 import { RegisterFormData } from '../../../types/user';
 import { scrollViewStyles } from '../../common/scrollView';
+import { getRegistrationQuestionsDefaultThunk } from '../../../state-management/registrationQuestionnaire/registrationQuestSlice';
 
 const RegisterScreen = ({ navigation }: NavigationScreenProps) => {
   const dispatch = useAppDispatch();
@@ -131,7 +132,8 @@ const RegisterScreen = ({ navigation }: NavigationScreenProps) => {
             confirmPassword: formData.confirmPassword.trim(),
           })
         ).unwrap();
-        navigation.navigate('MainMenu');
+        await dispatch(getRegistrationQuestionsDefaultThunk()).unwrap();
+        navigation.navigate('RegQuestionnaire');
       } catch (e) {
         return new Error('Could not register user.');
       }

@@ -128,5 +128,7 @@ export const runningSel = (state: RootState) => state.game.running;
 export const controlsSel = (state: RootState) => state.game.controls;
 export const sessionSel = (state: RootState) => state.game.session;
 export const obstacleSpeedSel = (state: RootState) => state.game.obstacleSpeed;
+export const getUserGameSettingsStatusSel = (state: RootState) =>
+  state.game.getUserGameSettingsStatus;
 
 export default gameSlice.reducer;

@@ -1,14 +1,14 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { API } from '../../src/firebase/api';
-import { AppQuestionnaire, Question } from '../../types/questionnaires';
+import {
+  AppQuestionnaire,
+  Question,
+  QuestionnaireAnswer,
+} from '../../types/questionnaires';
 import { pointsSel } from '../game/gameSlice';
 import { RootState } from '../store';
 import { userIdSel } from '../user/userSlice';
-import {
-  QuestionnaireAnswer,
-  sessionData,
-  SessionState,
-} from './sessionSlice.types';
+import { sessionData, SessionState } from './sessionSlice.types';
 
 const initialState: SessionState = {
   sessionId: '',
@@ -34,7 +34,7 @@ export const getQuestionsDefaultThunk = createAsyncThunk(
 );
 
 export const saveSessionDataThunk = createAsyncThunk(
-  'game/saveSessionDataThunk',
+  'session/saveSessionDataThunk',
   async (_, { getState }) => {
     const rootState = getState() as RootState;
     const userId = userIdSel(rootState);

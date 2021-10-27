@@ -8,7 +8,10 @@ import {
 } from '../../types/user';
 import { FirestoreApi } from './firestoreApi';
 import firebase from 'firebase';
-import { AppQuestionnaire } from '../../types/questionnaires';
+import {
+  AppQuestionnaire,
+  QuestionnaireAnswer,
+} from '../../types/questionnaires';
 import { GameData } from '../../types/game';
 import { sessionData } from '../../state-management/session/sessionSlice.types';
 
@@ -77,5 +80,13 @@ export namespace API {
   ) => {
     const userRef = FirestoreApi.collectionTypes.users.doc(userId);
     return await userRef.collection('sessionData').add(session);
+  };
+
+  export const saveRegistrationQuestionnaire = async (
+    answers: QuestionnaireAnswer,
+    userId: string
+  ) => {
+    const userRef = FirestoreApi.collectionTypes.users.doc(userId);
+    return await userRef.collection('registrationData').add(answers);
   };
 }

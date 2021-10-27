@@ -10,6 +10,7 @@ type RootStackParamList = {
   SelfAssessment1: undefined;
   SelfAssessment2: undefined;
   SAM: undefined;
+  RegQuestionnaire: undefined;
 };
 
 export type NavigationScreenProps = NativeStackScreenProps<

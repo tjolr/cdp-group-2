@@ -1,4 +1,7 @@
-import { AppQuestionnaire } from '../../types/questionnaires';
+import {
+  AppQuestionnaire,
+  QuestionnaireAnswer,
+} from '../../types/questionnaires';
 import { ApiStatus } from '../../types/state-management';
 
 export interface SessionState {
@@ -23,9 +26,4 @@ export interface sessionData {
   SAManswers?: Array<QuestionnaireAnswer>;
   SA1answers?: Array<number>;
   SA2answers?: Array<number>;
-}
-
-export interface QuestionnaireAnswer {
-  id: String;
-  answers: Array<number>;
 }

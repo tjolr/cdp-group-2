@@ -7,8 +7,8 @@ class RecommenderSystem:
                 "min": 450
             },
             "width": {
-                "max": 75,
-                "min": 90
+                "max": 90,
+                "min": 75
             },
             "objects": 1,
             "lives": 3

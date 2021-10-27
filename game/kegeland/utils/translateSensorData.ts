@@ -1,12 +1,6 @@
 import { GameMode } from '../state-management/game/gameMode';
-
-export enum Actions {
-  HIGH = 4,
-  MEDIUM = 3,
-  LOW = 2,
-  BREAK_WALL = 1,
-  DEFAULT = 0,
-}
+import { ACTIONS } from './utilityConstants';
+import { THRESHOLD_VALUES } from './utilityConstants';
 
 export const translateSensorData = (
   data: Array<number>,
@@ -25,7 +19,7 @@ const singleControlTranslation = (pressureData: Array<number>) => {
 };
 
 const multipleControlTranslation = (pressureData: Array<number>) => {
-  const treshold = 2;
+  const THRESHOLD = 2;
   const upperSensors = pressureData.slice(0, 4);
   const lowerSensors = pressureData.slice(4, 8);
   const allSensors = pressureData.slice(0, 8);
@@ -34,22 +28,26 @@ const multipleControlTranslation = (pressureData: Array<number>) => {
     upperSensors.reduce((a, b) => a + b) / upperSensors.length;
   const averageLowerPressure =
     lowerSensors.reduce((a, b) => a + b) / lowerSensors.length;
-  if (averageUpperPressure - treshold > averageLowerPressure) {
+  if (averageUpperPressure - THRESHOLD > averageLowerPressure) {
     return -checkPressure(averageUpperPressure);
-  } else if (averageLowerPressure - treshold > averageUpperPressure) {
+  } else if (averageLowerPressure - THRESHOLD > averageUpperPressure) {
     return checkPressure(averageLowerPressure);
-  } else if (averageTotal > 750) {
-    return Actions.BREAK_WALL;
-  } else return Actions.DEFAULT;
+  } else if (averageTotal > THRESHOLD_VALUES.MEDIUM) {
+    return ACTIONS.BREAK_WALL;
+  } else return ACTIONS.DEFAULT;
 };
 
 // Values should be based on calibration in the future
 const checkPressure = (averagePressure: number) => {
-  if (averagePressure < 750) {
-    return Actions.LOW;
-  } else if (averagePressure >= 750 && averagePressure < 754) {
-    return Actions.MEDIUM;
-  } else if (averagePressure >= 754) {
-    return Actions.HIGH;
-  } else return Actions.DEFAULT;
+  if (averagePressure < THRESHOLD_VALUES.LOWER) return ACTIONS.DEFAULT;
+  if (averagePressure < THRESHOLD_VALUES.MEDIUM) {
+    return ACTIONS.LOW;
+  } else if (
+    averagePressure >= THRESHOLD_VALUES.MEDIUM &&
+    averagePressure < THRESHOLD_VALUES.UPPER
+  ) {
+    return ACTIONS.MEDIUM;
+  } else if (averagePressure >= THRESHOLD_VALUES.UPPER) {
+    return ACTIONS.HIGH;
+  } else return ACTIONS.DEFAULT;
 };

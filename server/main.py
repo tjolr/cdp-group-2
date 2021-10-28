@@ -48,6 +48,7 @@ def should_update(user_doc_ref, event_id):
                    .to_dict().get("lastFunctionWriteId") != event_id
     return True
 
+
 def get_previous_settings(user_doc_ref):
     if user_doc_ref.get(field_paths={"settings"}).exists:
         return user_doc_ref.get(field_paths={"settings"}).to_dict().get("settings")

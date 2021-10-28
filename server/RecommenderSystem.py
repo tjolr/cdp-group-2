@@ -1,7 +1,7 @@
 class RecommenderSystem:
     def __init__(self):
         self.settings = {
-            "speed": 2,
+            "obstacleSpeed": 2,
             "height": {
                 "max": 550,
                 "min": 450
@@ -17,11 +17,11 @@ class RecommenderSystem:
     def calculate_new_difficulty(self, score, previous_settings):
         # The previous player does not have any previous game data, so they get the default settings
         # This should be replaced
-        if previous_settings == {} or "speed" not in previous_settings\
+        if not previous_settings or previous_settings == {} or "obstacleSpeed" not in previous_settings\
                 or "height" not in previous_settings or "width" not in previous_settings\
                 or "objects" not in previous_settings or "lives" not in previous_settings:
             return
-        self.calculate_new_speed(score, previous_settings["speed"])
+        self.calculate_new_obstacle_speed(score, previous_settings["obstacleSpeed"])
         self.calculate_new_height(score, previous_settings["height"])
         self.calculate_new_width(score, previous_settings["width"])
         self.calculate_new_amount_of_objects(score, previous_settings["objects"])
@@ -39,13 +39,13 @@ class RecommenderSystem:
             self.settings["height"]["max"] = prev_max
             self.settings["height"]["min"] = prev_min
 
-    def calculate_new_speed(self, score, previous_speed):
-        if score > 10 and previous_speed <= 4:
-            self.settings["speed"] = previous_speed + 1
-        elif score < 6 and previous_speed >= 2:
-            self.settings["speed"] = previous_speed - 1
+    def calculate_new_obstacle_speed(self, score, previous_obstacle_speed):
+        if score > 10 and previous_obstacle_speed <= 4:
+            self.settings["obstacleSpeed"] = previous_obstacle_speed + 1
+        elif score < 6 and previous_obstacle_speed >= 2:
+            self.settings["obstacleSpeed"] = previous_obstacle_speed - 1
         else:
-            self.settings["speed"] = previous_speed
+            self.settings["obstacleSpeed"] = previous_obstacle_speed
 
     def calculate_new_width(self, score, previous_width):
         prev_max, prev_min = previous_width.get("max"), previous_width.get("min")

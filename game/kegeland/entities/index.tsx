@@ -7,9 +7,10 @@ import { getPipeSizePosBottom } from '../utils/random';
 import { useAppSelector } from '../state-management/redux.hooks';
 import {
   controlsSel,
-  obstacleSpeedSel,
+  userGameSettingsSel,
 } from '../state-management/game/gameSlice';
 import PhysicsOne from '../physics/physicsOne';
+import { getPlayerDefaultPosition } from '../src/utils/Player.Utils';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -19,11 +20,13 @@ const Entities = () => {
   let world = engine.world;
   engine.gravity.y = 0;
   const controls = useAppSelector(controlsSel);
-  const obstacleSpeed = useAppSelector(obstacleSpeedSel);
-  let playerY = windowHeight / 2;
-  if (controls == PhysicsOne) playerY = windowHeight - 250;
+  const userGameSettings = useAppSelector(userGameSettingsSel);
 
-  const pipeSizePos = getPipeSizePosBottom();
+  let playerY = windowHeight / 2;
+  if (controls == PhysicsOne) playerY = getPlayerDefaultPosition(windowHeight);
+
+  const pipeSizePos = getPipeSizePosBottom(userGameSettings);
+  pipeSizePos.pipe.pos.x = pipeSizePos.pipe.pos.x + 1.2 * windowWidth;
 
   return {
     physics: { engine, world },
@@ -47,7 +50,7 @@ const Entities = () => {
       world,
       pos: pipeSizePos.pipe.pos,
       size: pipeSizePos.pipe.size,
-      speed: obstacleSpeed,
+      userGameSettings,
     }),
   };
 };

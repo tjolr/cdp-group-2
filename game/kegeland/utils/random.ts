@@ -1,4 +1,5 @@
 import { Dimensions } from 'react-native';
+import { UserGameSettings } from '../types/user';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -30,18 +31,27 @@ export const getPipeSizePos = (addToPosX = 0) => {
   return { pipe };
 };
 
-export const getPipeSizePosBottom = (addToPosX = 0) => {
-  let min = 400;
-  let max = windowHeight - 200;
-  let yPosTop = -getRandom(min, max);
-  let pipe;
-  let yCoord;
+export const getPipeSizePosBottom = (
+  userGameSettings: UserGameSettings,
+  addToPosX = 0
+) => {
+  const { min, max } = userGameSettings.height;
 
-  yCoord = windowHeight * 2 + 200 + yPosTop;
+  const relativeMin = windowHeight * min;
+  const relativeMax = windowHeight * max;
 
-  pipe = {
+  const yPosTop = -getRandom(relativeMin, relativeMax);
+
+  const obstacleWidth = getRandom(
+    userGameSettings.width.min,
+    userGameSettings.width.max
+  );
+
+  const yCoord = windowHeight * 2 + yPosTop;
+
+  const pipe = {
     pos: { x: windowWidth + addToPosX, y: yCoord },
-    size: { height: windowHeight * 2, width: 75 },
+    size: { height: windowHeight * 2, width: obstacleWidth },
   };
 
   return { pipe };

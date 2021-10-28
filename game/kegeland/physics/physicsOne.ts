@@ -6,6 +6,7 @@ import {
 } from 'react-native-game-engine';
 
 import { Dimensions } from 'react-native';
+import { getPlayerDefaultPosition } from '../src/utils/Player.Utils';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -35,18 +36,24 @@ const PhysicsOne = (
   Matter.Engine.update(engine, time.delta);
 
   const moveObstacle = () => {
-    const pipeSizePos = getPipeSizePosBottom(windowWidth * 0.9);
-    Matter.Body.setPosition(entities['Obstacle'].body, pipeSizePos.pipe.pos);
+    const pipeSizePos = getPipeSizePosBottom(
+      entities.Obstacle.userGameSettings,
+      windowWidth * 0.9
+    );
+
+    const currentWidth =
+      entities.Obstacle.body.bounds.max.x - entities.Obstacle.body.bounds.min.x;
+
+    const scaleX = pipeSizePos.pipe.size.width / currentWidth;
+    Matter.Body.scale(entities.Obstacle.body, scaleX, 1);
+    Matter.Body.setPosition(entities.Obstacle.body, pipeSizePos.pipe.pos);
   };
 
-  const movePlayer = () => {
-    Matter.Body.setPosition(entities['Player'].body, {
-      x: 50,
-      y: windowHeight - 250,
-    });
+  const playerHit = () => {
+    // Player bounce upwards, to simulate a bump/crash
     Matter.Body.setVelocity(entities.Player.body, {
       x: 0,
-      y: entities.Player.speed,
+      y: -4,
     });
   };
 
@@ -67,7 +74,7 @@ const PhysicsOne = (
     (entities['Player'].body.bounds.min.y +
       entities['Player'].body.bounds.max.y) /
     2;
-  if (playerY >= windowHeight - 250) {
+  if (playerY >= getPlayerDefaultPosition(windowHeight)) {
     engine.gravity.y = 0;
     Matter.Body.setVelocity(entities['Player'].body, { x: 0, y: 0 });
   } else {
@@ -75,7 +82,7 @@ const PhysicsOne = (
   }
 
   Matter.Body.translate(entities[`Obstacle`].body, {
-    x: -entities.Obstacle.speed,
+    x: -entities.Obstacle.userGameSettings.obstacleSpeed,
     y: 0,
   });
 
@@ -85,7 +92,7 @@ const PhysicsOne = (
       entities.Obstacle.body.bounds
     )
   ) {
-    movePlayer();
+    playerHit();
     moveObstacle();
     dispatch({ type: 'hit_obstacle' });
   }

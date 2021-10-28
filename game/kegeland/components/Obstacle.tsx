@@ -1,7 +1,7 @@
 import { World, Bodies } from 'matter-js';
 import React from 'react';
 import { View } from 'react-native';
-import { IEntity, IHitboxMoveable } from './components.types';
+import { IEntity, PlayerParams } from './components.types';
 
 const Obstacle = (props: IEntity) => {
   // Size of obstacle calculated from the hitbox
@@ -30,7 +30,7 @@ const Obstacle = (props: IEntity) => {
   );
 };
 
-export default ({ world, pos, size, speed }: IHitboxMoveable) => {
+export default ({ world, pos, size, userGameSettings }: PlayerParams) => {
   const obstacle = Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
     label: 'Obstacle',
     isStatic: true,
@@ -43,7 +43,7 @@ export default ({ world, pos, size, speed }: IHitboxMoveable) => {
   return {
     body: obstacle,
     pos,
-    speed,
+    userGameSettings,
     renderer: <Obstacle body={obstacle} />,
   };
 };

@@ -7,11 +7,25 @@ import { API } from '../../src/firebase/api';
 import { GameData } from '../../types/game';
 import { GameState } from './gameSlice.types';
 import { GameMode } from './gameMode';
+import { UserGameSettings } from '../../types/user';
 
 const initialState: GameState = {
   gameId: '',
   points: 0,
   lives: 3,
+  settings: {
+    obstacleSpeed: 2,
+    lives: 3,
+    objects: 1,
+    height: {
+      min: 0.4,
+      max: 0.5,
+    },
+    width: {
+      min: 250,
+      max: 400,
+    },
+  },
   obstacleSpeed: -3,
   running: false,
   controls: PhysicsOne,
@@ -35,7 +49,7 @@ export const saveGameDataThunk = createAsyncThunk(
 
 export const getUserGameSettingsThunk = createAsyncThunk(
   'game/getUserGameSettingsThunk',
-  async (_, { getState }) => {
+  async (_, { getState }): Promise<UserGameSettings | undefined> => {
     const rootState = getState() as RootState;
     const userId = userIdSel(rootState);
 
@@ -102,7 +116,7 @@ export const gameSlice = createSlice({
         const userGameSettings = action.payload;
 
         if (userGameSettings) {
-          state.obstacleSpeed = userGameSettings?.speed;
+          state.settings = userGameSettings;
         }
         state.running = true;
       })
@@ -127,7 +141,9 @@ export const livesSel = (state: RootState) => state.game.lives;
 export const runningSel = (state: RootState) => state.game.running;
 export const controlsSel = (state: RootState) => state.game.controls;
 export const sessionSel = (state: RootState) => state.game.session;
-export const obstacleSpeedSel = (state: RootState) => state.game.obstacleSpeed;
+export const obstacleSpeedSel = (state: RootState) =>
+  state.game.settings.obstacleSpeed;
+export const userGameSettingsSel = (state: RootState) => state.game.settings;
 export const getUserGameSettingsStatusSel = (state: RootState) =>
   state.game.getUserGameSettingsStatus;
 

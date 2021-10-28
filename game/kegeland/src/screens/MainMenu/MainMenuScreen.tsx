@@ -27,11 +27,13 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
   );
   const handleStartGamePressOne = async () => {
     setButtonPressed(GameMode.OneControl);
-    await dispatch(getUserGameSettingsThunk());
+
+    await dispatch(getUserGameSettingsThunk()).unwrap();
+    dispatch(clearGame(GameMode.OneControl));
+
     navigation.navigate('Game', {
       gameMode: GameMode.OneControl,
     });
-    dispatch(clearGame(GameMode.OneControl));
   };
   const handleStartGamePressMultiple = async () => {
     setButtonPressed(GameMode.MultiControl);

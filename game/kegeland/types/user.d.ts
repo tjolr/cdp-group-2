@@ -1,4 +1,6 @@
+import { MinMax } from './../state-management/game/gameSlice.types';
 import { UserCredential } from '@firebase/auth-types';
+
 export type AppUser = {
   id?: string;
   email: string;
@@ -11,7 +13,11 @@ export interface UserDocument extends AppUser {
 }
 
 interface UserGameSettings {
-  speed: number;
+  obstacleSpeed: number;
+  lives: number;
+  objects: number;
+  height: MinMax;
+  width: MinMax;
 }
 
 export type AppUserCredential = Partial<AppUser> & UserCredential;

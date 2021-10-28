@@ -3,12 +3,12 @@ class RecommenderSystem:
         self.settings = {
             "obstacleSpeed": 2,
             "height": {
-                "max": 550,
-                "min": 450
+                "max": 0.5,
+                "min": 0.4
             },
             "width": {
-                "max": 90,
-                "min": 75
+                "max": 400,
+                "min": 250
             },
             "objects": 1,
             "lives": 3
@@ -29,12 +29,12 @@ class RecommenderSystem:
 
     def calculate_new_height(self, score, previous_height):
         prev_max, prev_min = previous_height.get("max"), previous_height.get("min")
-        if score > 10 and prev_min <= 640 and prev_max <= 740:
-            self.settings["height"]["max"] = prev_max + 25
-            self.settings["height"]["min"] = prev_min + 25
-        elif score < 6 and prev_min >= 460 and prev_max >= 560:
-            self.settings["height"]["max"] = prev_max - 25
-            self.settings["height"]["min"] = prev_min - 25
+        if score > 10 and prev_min <= 0.6 and prev_max <= 0.7:
+            self.settings["height"]["max"] = prev_max + 0.1
+            self.settings["height"]["min"] = prev_min + 0.1
+        elif score < 6 and prev_min >= 0.4 and prev_max >= 0.5:
+            self.settings["height"]["max"] = prev_max - 0.1
+            self.settings["height"]["min"] = prev_min - 0.1
         else:
             self.settings["height"]["max"] = prev_max
             self.settings["height"]["min"] = prev_min
@@ -49,12 +49,12 @@ class RecommenderSystem:
 
     def calculate_new_width(self, score, previous_width):
         prev_max, prev_min = previous_width.get("max"), previous_width.get("min")
-        if score > 10 and prev_min <= 100 and prev_max <= 110:
-            self.settings["width"]["max"] = prev_max + 10
-            self.settings["width"]["min"] = prev_min + 10
-        elif score < 6 and prev_min >= 85 and prev_max >= 95:
-            self.settings["width"]["max"] = prev_max - 10
-            self.settings["width"]["min"] = prev_min - 10
+        if score > 10 and prev_min <= 700 and prev_max <= 850:
+            self.settings["width"]["max"] = prev_max + 150
+            self.settings["width"]["min"] = prev_min + 150
+        elif score < 6 and prev_min >= 250 and prev_max >= 400:
+            self.settings["width"]["max"] = prev_max - 150
+            self.settings["width"]["min"] = prev_min - 150
         else:
             self.settings["width"]["max"] = prev_max
             self.settings["width"]["min"] = prev_min

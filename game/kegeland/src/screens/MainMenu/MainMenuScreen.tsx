@@ -43,6 +43,15 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
     });
     dispatch(clearGame(GameMode.MultiControl));
   };
+
+  const handleStartGameSensorTest = async () => {
+    setButtonPressed(GameMode.SensorDataTestControl);
+    dispatch(clearGame(GameMode.SensorDataTestControl));
+    await dispatch(getUserGameSettingsThunk());
+    navigation.navigate('Game', {
+      gameMode: GameMode.SensorDataTestControl,
+    });
+  };
   const handleStartGameSession = async () => {
     navigation.navigate('SelfAssessment1');
     dispatch(setSession(true));
@@ -115,6 +124,17 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
           }
         >
           Multiple Control Game
+        </Button>
+
+        <Button
+          size="lg"
+          colorScheme="teal"
+          mt={5}
+          startIcon={<AntDesign name="play" size={24} color="white" />}
+          onPress={handleStartGameSensorTest}
+          style={styles.button}
+        >
+          Sensor Data Test
         </Button>
 
         <Text fontSize="lg" mt={10} fontWeight="bold">

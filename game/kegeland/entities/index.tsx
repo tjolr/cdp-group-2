@@ -11,6 +11,7 @@ import {
 } from '../state-management/game/gameSlice';
 import PhysicsOne from '../physics/physicsOne';
 import { getPlayerDefaultPosition } from '../src/utils/Player.Utils';
+import PhysicsSensorData from '../physics/physicsSensorData';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -20,14 +21,31 @@ const Entities = () => {
   let world = engine.world;
   engine.gravity.y = 0;
   const controls = useAppSelector(controlsSel);
+  /*
+  const userGameSettings = {
+    obstacleSpeed: 2,
+    lives: 3,
+    objects: 1,
+    height: {
+      min: 0.4,
+      max: 0.5,
+    },
+    width: {
+      min: 70,
+      max: 75,
+    },
+  };
+  */
   const userGameSettings = useAppSelector(userGameSettingsSel);
-
   let playerY = windowHeight / 2;
-  if (controls == PhysicsOne) playerY = getPlayerDefaultPosition(windowHeight);
+  if (controls == PhysicsOne) {
+    playerY = getPlayerDefaultPosition(windowHeight);
+  } else if (controls == PhysicsSensorData) {
+    playerY = windowHeight;
+  }
 
   const pipeSizePos = getPipeSizePosBottom(userGameSettings);
   pipeSizePos.pipe.pos.x = pipeSizePos.pipe.pos.x + 1.2 * windowWidth;
-
   return {
     physics: { engine, world },
     Player: Player({

@@ -2,6 +2,7 @@ import { RootState } from './../store';
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import PhysicsOne from '../../physics/physicsOne';
 import PhysicsMultiple from '../../physics/physicsMultiple';
+import PhysicsSensorData from '../../physics/physicsSensorData';
 import { userIdSel } from '../user/userSlice';
 import { API } from '../../src/firebase/api';
 import { GameData } from '../../types/game';
@@ -79,6 +80,9 @@ export const gameSlice = createSlice({
           break;
         case GameMode.MultiControl:
           state.controls = PhysicsMultiple;
+          break;
+        case GameMode.SensorDataTestControl:
+          state.controls = PhysicsSensorData;
           break;
       }
     },

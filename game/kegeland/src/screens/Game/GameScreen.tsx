@@ -1,6 +1,6 @@
 import { Box, HStack, Text } from 'native-base';
 import { ImageBackground, SafeAreaView, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { GameEngine } from 'react-native-game-engine';
 import entities from '../../../entities';
 import {
@@ -29,6 +29,10 @@ import { theme } from '../../styles/theme';
 import { Foundation } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { GameMode } from '../../../state-management/game/gameMode';
+import sensorData from '../../../Datasets/2021_07_16_14_35_38.json';
+import { useRefState } from '../../hooks/hooks';
+import { translateSensorData } from '../../../utils/translateSensorData';
+import { ACTIONS } from '../../../utils/utilityConstants';
 
 const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   const params = route.params;
@@ -40,6 +44,8 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   const session = useAppSelector(sessionSel);
   const [backgroundImage, setBackgroundImage] = useState(Background);
   const obstacleSpeed = useAppSelector(obstacleSpeedSel);
+  const [lineCounter, setLineCounter] = useRefState(0);
+  const engine = useRef(null);
 
   const handleGameOver = () => {
     dispatch(stopGame());
@@ -51,6 +57,29 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
     }
     dispatch(restoreLives());
     dispatch(saveGameDataThunk());
+  };
+  useEffect(() => {
+    if (params.gameMode === GameMode.SensorDataTestControl) {
+      setInterval(() => handleSensorData(), 500);
+    }
+  }, []);
+
+  const handleSensorData = () => {
+    const arrData = Object.values(sensorData[lineCounter.current]);
+    const action = translateSensorData(arrData, GameMode.MultiControl);
+    //console.log(action);
+    if (action === -ACTIONS.HIGH) {
+      engine.current.dispatch('move-up-fast');
+    } else if (action === -ACTIONS.MEDIUM) {
+      engine.current.dispatch('move-up-medium');
+    } else if (action === -ACTIONS.LOW) {
+      engine.current.dispatch('move-up-low');
+    }
+    setLineCounter(lineCounter.current + 5);
+  };
+
+  const makeArray = (dataObject: any) => {
+    return Object.values(dataObject);
   };
 
   useEffect(() => {
@@ -136,6 +165,7 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
         </HStack>
       </SafeAreaView>
       <GameEngine
+        ref={engine}
         entities={entities()}
         style={{
           position: 'absolute',

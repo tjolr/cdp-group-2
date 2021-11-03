@@ -3,15 +3,17 @@ import Player from '../components/Player';
 import Bounds from '../components/Bounds';
 import Obstacle from '../components/Obstacle';
 import { Dimensions } from 'react-native';
-import { getPipeSizePosBottom } from '../utils/random';
+import { getPipeSizePos, getPipeSizePosBottom } from '../utils/random';
 import { useAppSelector } from '../state-management/redux.hooks';
 import {
   controlsSel,
   userGameSettingsSel,
 } from '../state-management/game/gameSlice';
 import PhysicsOne from '../physics/physicsOne';
-import { getPlayerDefaultPosition } from '../src/utils/Player.Utils';
 import PhysicsSensorData from '../physics/physicsSensorData';
+import { getPlayerDefaultYPosition } from '../src/utils/Player.Utils';
+import { GameMode } from '../state-management/game/gameMode';
+import { PipeSizePos } from '../types/game';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -22,15 +24,33 @@ const Entities = () => {
   engine.gravity.y = 0;
   const controls = useAppSelector(controlsSel);
   const userGameSettings = useAppSelector(userGameSettingsSel);
+
+  let pipeSizePos: PipeSizePos = {
+    pipe: {
+      pos: {
+        x: 0,
+        y: 0,
+      },
+      size: {
+        height: windowHeight / 2,
+        width: 300,
+      },
+    },
+  };
+
   let playerY = windowHeight / 2;
   if (controls == PhysicsOne) {
-    playerY = getPlayerDefaultPosition(windowHeight);
+    playerY = getPlayerDefaultYPosition(GameMode.OneControl);
+    pipeSizePos = getPipeSizePosBottom(userGameSettings);
+    pipeSizePos.pipe.pos.x = pipeSizePos.pipe.pos.x + 1.2 * windowWidth;
   } else if (controls == PhysicsSensorData) {
     playerY = windowHeight;
+  } else {
+    playerY = getPlayerDefaultYPosition(GameMode.MultiControl);
+    pipeSizePos = getPipeSizePos(userGameSettings);
+    pipeSizePos.pipe.pos.x = pipeSizePos.pipe.pos.x + 1.2 * windowWidth;
   }
 
-  const pipeSizePos = getPipeSizePosBottom(userGameSettings);
-  pipeSizePos.pipe.pos.x = pipeSizePos.pipe.pos.x + 1.2 * windowWidth;
   return {
     physics: { engine, world },
     Player: Player({

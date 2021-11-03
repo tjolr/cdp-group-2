@@ -1,15 +1,15 @@
 import Matter from 'matter-js';
-import { getPipeSizePosBottom } from '../utils/random';
 import {
   GameEngineUpdateEventOptionType,
   TouchEvent,
 } from 'react-native-game-engine';
-
-import { Dimensions } from 'react-native';
-import { getPlayerDefaultPosition } from '../src/utils/Player.Utils';
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+import { getPlayerDefaultYPosition } from '../src/utils/Player.Utils';
+import {
+  checkIfPoint,
+  moveObstacle,
+  translateObstacle,
+} from './physics.shared';
+import { GameMode } from '../state-management/game/gameMode';
 
 const PhysicsOne = (
   entities: any,
@@ -18,7 +18,7 @@ const PhysicsOne = (
   let engine = entities.physics.engine;
   touches
     .filter((t: TouchEvent) => t.type === 'start')
-    .forEach((t: TouchEvent) => {
+    .forEach((_) => {
       entities.Player.speed = -4;
     });
   touches
@@ -35,20 +35,6 @@ const PhysicsOne = (
 
   Matter.Engine.update(engine, time.delta);
 
-  const moveObstacle = () => {
-    const pipeSizePos = getPipeSizePosBottom(
-      entities.Obstacle.userGameSettings,
-      windowWidth * 0.9
-    );
-
-    const currentWidth =
-      entities.Obstacle.body.bounds.max.x - entities.Obstacle.body.bounds.min.x;
-
-    const scaleX = pipeSizePos.pipe.size.width / currentWidth;
-    Matter.Body.scale(entities.Obstacle.body, scaleX, 1);
-    Matter.Body.setPosition(entities.Obstacle.body, pipeSizePos.pipe.pos);
-  };
-
   const playerHit = () => {
     // Player bounce upwards, to simulate a bump/crash
     Matter.Body.setVelocity(entities.Player.body, {
@@ -57,34 +43,20 @@ const PhysicsOne = (
     });
   };
 
-  if (
-    entities['Obstacle'].body.bounds.max.x <= 10 &&
-    !entities['Obstacle'].point
-  ) {
-    entities['Obstacle'].point = true;
-    dispatch({ type: 'new_point' });
-  }
-
-  if (entities['Obstacle'].body.bounds.max.x <= 0) {
-    entities['Obstacle'].point = false;
-    moveObstacle();
-  }
+  checkIfPoint(entities, dispatch, GameMode.OneControl);
 
   let playerY =
     (entities['Player'].body.bounds.min.y +
       entities['Player'].body.bounds.max.y) /
     2;
-  if (playerY >= getPlayerDefaultPosition(windowHeight)) {
+  if (playerY >= getPlayerDefaultYPosition(GameMode.OneControl)) {
     engine.gravity.y = 0;
     Matter.Body.setVelocity(entities['Player'].body, { x: 0, y: 0 });
   } else {
     engine.gravity.y = 0.3;
   }
 
-  Matter.Body.translate(entities[`Obstacle`].body, {
-    x: -entities.Obstacle.userGameSettings.obstacleSpeed,
-    y: 0,
-  });
+  translateObstacle(entities);
 
   if (
     Matter.Bounds.overlaps(
@@ -93,7 +65,7 @@ const PhysicsOne = (
     )
   ) {
     playerHit();
-    moveObstacle();
+    moveObstacle(entities, GameMode.OneControl);
     dispatch({ type: 'hit_obstacle' });
   }
 

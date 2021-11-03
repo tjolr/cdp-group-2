@@ -1,7 +1,7 @@
 import { World, Bodies } from 'matter-js';
 import React from 'react';
 import { View } from 'react-native';
-import { IEntity, PlayerParams } from './components.types';
+import { IEntity, ObstacleParams } from './components.types';
 
 const Obstacle = (props: IEntity) => {
   // Size of obstacle calculated from the hitbox
@@ -30,7 +30,7 @@ const Obstacle = (props: IEntity) => {
   );
 };
 
-export default ({ world, pos, size, userGameSettings }: PlayerParams) => {
+export default ({ world, pos, size, userGameSettings }: ObstacleParams) => {
   const obstacle = Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
     label: 'Obstacle',
     isStatic: true,

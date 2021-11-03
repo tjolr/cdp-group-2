@@ -4,31 +4,31 @@ import { ACTIONS } from '../../../utils/utilityConstants';
 
 describe('Testing translation from sensor data to velocity', () => {
   it('Test velocity for one control game mode', () => {
-    const testData = [754, 755, 754, 755, 754, 755, 754, 755, 37];
+    const testData = [766, 767, 766, 767, 766, 767, 766, 767, 37];
     expect(translateSensorData(testData, GameMode.OneControl)).toBe(
       -ACTIONS.MEDIUM
     );
   });
   it('Test break wall action', () => {
-    const testData = [755, 755, 755, 755, 755, 755, 755, 756];
+    const testData = [766, 767, 766, 767, 766, 767, 766, 767];
     expect(translateSensorData(testData, GameMode.MultiControl)).toBe(
       ACTIONS.BREAK_WALL
     );
   });
   it('Test flying up action', () => {
-    const testData = [759, 758, 759, 758, 750, 750, 750, 750];
+    const testData = [772, 770, 772, 770, 750, 750, 750, 750];
     expect(translateSensorData(testData, GameMode.MultiControl)).toBe(
       -ACTIONS.HIGH
     );
   });
   it('Test flying down action', () => {
-    const testData = [750, 750, 750, 750, 758, 759, 758, 759];
+    const testData = [750, 750, 750, 750, 772, 770, 772, 770];
     expect(translateSensorData(testData, GameMode.MultiControl)).toBe(
       ACTIONS.HIGH
     );
   });
   it('Test flying down slowly', () => {
-    const testData = [745, 745, 745, 745, 751, 751, 751, 751];
+    const testData = [745, 745, 745, 745, 762, 763, 762, 763];
     expect(translateSensorData(testData, GameMode.MultiControl)).toBe(
       ACTIONS.LOW
     );

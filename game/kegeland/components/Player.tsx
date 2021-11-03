@@ -1,7 +1,7 @@
 import { World, Bodies } from 'matter-js';
 import React from 'react';
 import { Image } from 'react-native';
-import { IEntity, IHitbox, IHitboxMoveable } from './components.types';
+import { IEntity, PlayerParams } from './components.types';
 import PlaneImage from '../assets/plane_1_pink.png';
 import FishImage from '../assets/fish.png';
 import PhysicsOne from '../physics/physicsOne';
@@ -39,7 +39,7 @@ const Player = (props: IEntity) => {
   );
 };
 
-export default ({ world, pos, size, speed }: IHitboxMoveable) => {
+export default ({ world, pos, size, speed }: PlayerParams) => {
   const player = Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
     label: 'Player',
   });

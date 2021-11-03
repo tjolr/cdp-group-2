@@ -7,7 +7,7 @@ export enum ACTIONS {
 }
 
 export const THRESHOLD_VALUES = {
-  LOWER: 750,
-  MEDIUM: 754,
-  UPPER: 758,
+  LOWER: 761,
+  MEDIUM: 765,
+  UPPER: 769,
 };

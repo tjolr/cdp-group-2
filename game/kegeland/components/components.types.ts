@@ -20,10 +20,10 @@ export interface IHitbox {
   size: ISize;
 }
 
-export interface PlayerParams extends IHitbox {
+export interface ObstacleParams extends IHitbox {
   userGameSettings: UserGameSettings;
 }
 
-export interface IHitboxMoveable extends IHitbox {
+export interface PlayerParams extends IHitbox {
   speed: number;
 }

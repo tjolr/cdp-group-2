@@ -29,6 +29,7 @@ const PhysicsMultiple = (
     .forEach((t: TouchEvent) => {
       if (t.event.pageX > windowWidth / 2) {
         entities.Player.shield = true;
+        dispatch({ type: 'activate_shield' });
       } else if (t.event.pageY < windowHeight / 2) {
         entities.Player.speed = -4;
       } else {
@@ -38,6 +39,7 @@ const PhysicsMultiple = (
   touches
     .filter((t: TouchEvent) => t.type === 'end')
     .forEach((t: TouchEvent) => {
+      dispatch({ type: 'deactivate_shield' });
       entities.Player.shield = false;
       entities.Player.speed = 0;
     });

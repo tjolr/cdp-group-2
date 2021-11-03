@@ -4,10 +4,10 @@ import { Image } from 'react-native';
 import { IEntity, PlayerParams } from './components.types';
 import PlaneImage from '../assets/plane_1_pink.png';
 import FishImage from '../assets/fish.png';
-import PlaneImageShield from '../assets/plane_1_pink_shield.png'
+import PlaneImageShield from '../assets/plane_1_pink_shield.png';
 import PhysicsOne from '../physics/physicsOne';
 import { useAppSelector } from '../state-management/redux.hooks';
-import { controlsSel, pointsSel } from '../state-management/game/gameSlice';
+import { controlsSel, shieldSel } from '../state-management/game/gameSlice';
 
 const Player = (props: IEntity) => {
   // Size of player calculated from the hitbox
@@ -15,15 +15,15 @@ const Player = (props: IEntity) => {
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
   const controls = useAppSelector(controlsSel);
-  const points = useAppSelector(pointsSel);
+  const shieldActive = useAppSelector(shieldSel);
+
   let image;
   if (controls == PhysicsOne) {
     image = FishImage;
+  } else if (shieldActive) {
+    image = PlaneImageShield;
   } else {
     image = PlaneImage;
-  }
-  if (points == 3) {
-    image = PlaneImageShield
   }
 
   // X and Y coordinate of center of player

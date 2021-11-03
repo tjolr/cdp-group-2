@@ -12,6 +12,7 @@ export interface GameState {
   session: boolean;
   saveGameDataStatus: ApiStatus;
   getUserGameSettingsStatus: ApiStatus;
+  shieldActive: boolean;
 }
 
 export interface MinMax {

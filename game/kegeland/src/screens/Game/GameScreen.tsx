@@ -1,5 +1,5 @@
-import { Box, HStack, Text } from 'native-base';
-import { ImageBackground, SafeAreaView, View } from 'react-native';
+import { HStack, Text } from 'native-base';
+import { ImageBackground, SafeAreaView } from 'react-native';
 import React, { useEffect, useState, useRef } from 'react';
 import { GameEngine } from 'react-native-game-engine';
 import entities from '../../../entities';
@@ -45,7 +45,9 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   const [backgroundImage, setBackgroundImage] = useState(Background);
   const obstacleSpeed = useAppSelector(obstacleSpeedSel);
   const [lineCounter, setLineCounter] = useRefState(0);
+  const [maxDataLineNumber, setMaxDataLineNumber] = useState(sensorData.length);
   const engine = useRef(null);
+  const [loop, setLoop] = useState<NodeJS.Timer>();
 
   const handleGameOver = () => {
     dispatch(stopGame());
@@ -60,14 +62,20 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   };
   useEffect(() => {
     if (params.gameMode === GameMode.SensorDataTestControl) {
-      setInterval(() => handleSensorData(), 500);
+      let interval = setInterval(() => handleSensorData(), 500);
+      setLoop(interval);
     }
   }, []);
 
   const handleSensorData = () => {
+    if (lineCounter.current + 6 > maxDataLineNumber) {
+      if (loop) clearInterval(loop);
+      setLineCounter(0);
+      navigation.navigate('MainMenu');
+      return;
+    }
     const arrData = Object.values(sensorData[lineCounter.current]);
     const action = translateSensorData(arrData, GameMode.MultiControl);
-    //console.log(action);
     if (action === -ACTIONS.HIGH) {
       engine.current.dispatch('move-up-fast');
     } else if (action === -ACTIONS.MEDIUM) {
@@ -76,10 +84,6 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
       engine.current.dispatch('move-up-low');
     }
     setLineCounter(lineCounter.current + 5);
-  };
-
-  const makeArray = (dataObject: any) => {
-    return Object.values(dataObject);
   };
 
   useEffect(() => {

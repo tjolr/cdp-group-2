@@ -21,21 +21,6 @@ const Entities = () => {
   let world = engine.world;
   engine.gravity.y = 0;
   const controls = useAppSelector(controlsSel);
-  /*
-  const userGameSettings = {
-    obstacleSpeed: 2,
-    lives: 3,
-    objects: 1,
-    height: {
-      min: 0.4,
-      max: 0.5,
-    },
-    width: {
-      min: 70,
-      max: 75,
-    },
-  };
-  */
   const userGameSettings = useAppSelector(userGameSettingsSel);
   let playerY = windowHeight / 2;
   if (controls == PhysicsOne) {

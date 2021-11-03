@@ -1,12 +1,7 @@
 import { World, Bodies } from 'matter-js';
 import React from 'react';
 import { Image } from 'react-native';
-import {
-  IEntity,
-  IHitbox,
-  IHitboxMoveable,
-  PlayerParams,
-} from './components.types';
+import { IEntity, PlayerParams } from './components.types';
 import PlaneImage from '../assets/plane_1_pink.png';
 import FishImage from '../assets/fish.png';
 import PhysicsOne from '../physics/physicsOne';
@@ -29,7 +24,6 @@ const Player = (props: IEntity) => {
   // X and Y coordinate of center of player
   const xBody = props.body.position.x - widthBody / 2;
   const yBody = props.body.position.y - heightBody / 2;
-  //console.log(yBody);
   return (
     <Image
       source={image}
@@ -46,7 +40,6 @@ const Player = (props: IEntity) => {
 };
 
 export default ({ world, pos, size, speed }: PlayerParams) => {
-  //console.log(pos);
   const player = Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
     label: 'Player',
   });

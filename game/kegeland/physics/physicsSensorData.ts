@@ -1,12 +1,8 @@
 import Matter from 'matter-js';
 import { getPipeSizePos } from '../utils/random';
-import {
-  GameEngineUpdateEventOptionType,
-  TouchEvent,
-} from 'react-native-game-engine';
+import { GameEngineUpdateEventOptionType } from 'react-native-game-engine';
 
 import { Dimensions } from 'react-native';
-import { getPlayerDefaultPosition } from '../src/utils/Player.Utils';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -44,18 +40,10 @@ const PhysicsSensorData = (
     });
   }
   engine.gravity.y = 0.3;
-  /*
-  if (entities.Player.speed < 0 || entities.Player.speed > 0) {
-    Matter.Body.setVelocity(entities.Player.body, {
-      x: 0,
-      y: entities.Player.speed,
-    });
-  }
-*/
+
   const moveObstacle = () => {
     const pipeSizePos = getPipeSizePos(windowWidth * 0.9);
     Matter.Body.setPosition(entities['Obstacle'].body, pipeSizePos.pipe.pos);
-    //console.log(entities.Player.speed);
   };
 
   if (

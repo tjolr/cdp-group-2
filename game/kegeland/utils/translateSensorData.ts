@@ -39,7 +39,6 @@ const multipleControlTranslation = (pressureData: Array<number>) => {
 
 // Values should be based on calibration in the future
 const checkPressure = (averagePressure: number) => {
-  //console.log(averagePressure);
   if (averagePressure < THRESHOLD_VALUES.LOWER) return ACTIONS.DEFAULT;
   if (averagePressure < THRESHOLD_VALUES.MEDIUM) {
     return ACTIONS.LOW;

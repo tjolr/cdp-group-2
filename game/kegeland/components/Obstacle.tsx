@@ -1,7 +1,7 @@
 import { World, Bodies } from 'matter-js';
 import React from 'react';
 import { View } from 'react-native';
-import { IEntity, ObstacleParams, PlayerParams } from './components.types';
+import { IEntity, ObstacleParams } from './components.types';
 
 const Obstacle = (props: IEntity) => {
   // Size of obstacle calculated from the hitbox

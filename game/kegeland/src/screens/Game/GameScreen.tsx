@@ -30,7 +30,7 @@ import { Foundation } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { GameMode } from '../../../state-management/game/gameMode';
 import sensorData from '../../../Datasets/2021_07_16_14_35_38.json';
-import { useRefState } from '../../hooks/hooks';
+import { useRefState } from '../../hooks';
 import { translateSensorData } from '../../../utils/translateSensorData';
 import { ACTIONS } from '../../../utils/utilityConstants';
 

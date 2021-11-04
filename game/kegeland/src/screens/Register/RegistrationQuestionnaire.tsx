@@ -96,7 +96,7 @@ const RegistrationQuestionnaireScreen = ({
                 <Text textAlign="center" fontWeight="bold">
                   {question.text}
                 </Text>
-                <FormControl isInvalid>
+                <FormControl>
                   <FormControl.Label
                     _text={{
                       fontSize: 'lg',
@@ -120,6 +120,7 @@ const RegistrationQuestionnaireScreen = ({
                     onChange={(nextValue) => {
                       setSingleAnswer(nextValue, index, formData);
                     }}
+                    colorScheme="teal"
                   >
                     <Radio value="1" my="1" mr="2">
                       1

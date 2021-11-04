@@ -3,7 +3,6 @@ import {
   Heading,
   Text,
   Button,
-  Slider,
   HStack,
   FormControl,
   Radio,
@@ -15,7 +14,6 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../state-management/redux.hooks';
-import { SafeAreaView } from 'react-native';
 import {
   clearGame,
   getUserGameSettingsThunk,
@@ -113,7 +111,7 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
               key={question.key}
             >
               <Text textAlign="center">{question.text}</Text>
-              <FormControl isInvalid>
+              <FormControl>
                 <FormControl.Label
                   _text={{
                     fontSize: 'lg',
@@ -138,6 +136,7 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
                   onChange={(nextValue) => {
                     setSingleAnswer(nextValue, index, formData);
                   }}
+                  colorScheme="teal"
                 >
                   <Radio value="1" my="1" mr="2">
                     1

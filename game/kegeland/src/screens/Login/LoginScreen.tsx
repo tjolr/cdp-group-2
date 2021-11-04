@@ -109,7 +109,7 @@ const LoginScreen = ({ navigation }: NavigationScreenProps) => {
           Welcome
         </Heading>
         <Heading color="muted.500" size="xs">
-          Sign in to continue!
+          Log in to continue!
         </Heading>
 
         <VStack space={2} mt={5} w="100%">
@@ -170,7 +170,7 @@ const LoginScreen = ({ navigation }: NavigationScreenProps) => {
               isLoading={loginUserDefaultThunkStatus === 'loading'}
               onPress={handleLoginPress}
             >
-              Sign in
+              Log in
             </Button>
           </VStack>
           <HStack justifyContent="center" mt={4}>
@@ -181,7 +181,7 @@ const LoginScreen = ({ navigation }: NavigationScreenProps) => {
               _text={{ color: 'teal.600', bold: true, fontSize: 'md' }}
               onPress={handleRegisterPress}
             >
-              Sign Up
+              Register
             </Link>
           </HStack>
         </VStack>

@@ -303,7 +303,7 @@ const RegisterScreen = ({ navigation }: NavigationScreenProps) => {
                 startIcon={<AntDesign name="adduser" size={20} color="white" />}
                 isLoading={registerUserDefaultThunkStatus === 'loading'}
               >
-                Sign up
+                Register
               </Button>
             </VStack>
 
@@ -319,7 +319,7 @@ const RegisterScreen = ({ navigation }: NavigationScreenProps) => {
                 _text={{ color: 'teal.600', bold: true, fontSize: 'md' }}
                 onPress={handleLoginPress}
               >
-                Sign in
+                Login
               </Link>
             </HStack>
           </VStack>

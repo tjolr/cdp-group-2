@@ -70,7 +70,7 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
       // inserted item
       nextValue,
       // part of the array after the specified index
-      ...formData.slice(index),
+      ...formData.slice(index + 1),
     ];
 
     setFormData(insert(formData, index, parseInt(nextValue)));

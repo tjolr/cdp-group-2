@@ -5,7 +5,6 @@ import {
   Question,
   QuestionnaireAnswer,
 } from '../../types/questionnaires';
-import { pointsSel } from '../game/gameSlice';
 import { RootState } from '../store';
 import { userIdSel } from '../user/userSlice';
 import { sessionData, SessionState } from './sessionSlice.types';
@@ -46,7 +45,6 @@ export const saveSessionDataThunk = createAsyncThunk(
       SA1answers: SA1AnswersSel(rootState),
       SA2answers: SA2AnswersSel(rootState),
     };
-
     return await API.saveSessionData(sessionData, userId);
   }
 );
@@ -78,7 +76,11 @@ export const sessionSlice = createSlice({
       state.SA2answers = action.payload;
     },
     clearSession: (state) => {
-      state = initialState;
+      state.currentGame = 0;
+      state.sessionPoints = [];
+      state.SAManswers = [];
+      state.SA1answers = [];
+      state.SA2answers = [];
     },
   },
 

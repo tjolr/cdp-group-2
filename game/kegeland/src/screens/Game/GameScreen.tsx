@@ -1,4 +1,4 @@
-import { HStack, Text } from 'native-base';
+import { HStack, Text, View } from 'native-base';
 import { ImageBackground, SafeAreaView } from 'react-native';
 import React, { useEffect, useState, useRef } from 'react';
 import { GameEngine } from 'react-native-game-engine';
@@ -15,6 +15,7 @@ import {
   sessionSel,
   saveGameDataThunk,
   obstacleSpeedSel,
+  setShield,
 } from '../../../state-management/game/gameSlice';
 import {
   useAppDispatch,
@@ -33,6 +34,7 @@ import sensorData from '../../../Datasets/2021_07_16_14_35_38.json';
 import { useRefState } from '../../hooks';
 import { translateSensorData } from '../../../utils/translateSensorData';
 import { ACTIONS } from '../../../utils/utilityConstants';
+import { StyleSheet } from 'react-native';
 
 const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   const params = route.params;
@@ -188,11 +190,25 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
             case 'new_point':
               dispatch(incrementPoints());
               break;
+            case 'activate_shield':
+              dispatch(setShield(true));
+              break;
+            case 'deactivate_shield':
+              dispatch(setShield(false));
+              break;
           }
         }}
       ></GameEngine>
     </ImageBackground>
   );
 };
+
+const styles = StyleSheet.create({
+  shieldIcon: {
+    position: 'absolute',
+    right: 35,
+    bottom: 40,
+  },
+});
 
 export default GameScreen;

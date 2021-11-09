@@ -100,7 +100,14 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
           size="lg"
           colorScheme="teal"
           mt={5}
-          startIcon={<AntDesign name="play" size={24} color="white" />}
+          startIcon={
+            <AntDesign
+              name="play"
+              size={24}
+              color="white"
+              style={{ right: 17 }}
+            />
+          }
           onPress={handleStartGamePressOne}
           style={styles.button}
           isLoading={
@@ -130,7 +137,14 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
           size="lg"
           colorScheme="teal"
           mt={5}
-          startIcon={<AntDesign name="play" size={24} color="white" />}
+          startIcon={
+            <AntDesign
+              name="play"
+              size={24}
+              color="white"
+              style={{ right: 21 }}
+            />
+          }
           onPress={handleStartGameSensorTest}
           style={styles.button}
         >

@@ -33,6 +33,7 @@ const initialState: GameState = {
   session: false,
   saveGameDataStatus: 'idle',
   getUserGameSettingsStatus: 'idle',
+  shieldActive: false,
 };
 
 export const saveGameDataThunk = createAsyncThunk(
@@ -99,6 +100,9 @@ export const gameSlice = createSlice({
     setSession: (state, action: PayloadAction<boolean>) => {
       state.session = action.payload;
     },
+    setShield: (state, action: PayloadAction<boolean>) => {
+      state.shieldActive = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -138,6 +142,7 @@ export const {
   restoreLives,
   stopGame,
   setSession,
+  setShield,
 } = gameSlice.actions;
 
 export const pointsSel = (state: RootState) => state.game.points;
@@ -145,6 +150,7 @@ export const livesSel = (state: RootState) => state.game.lives;
 export const runningSel = (state: RootState) => state.game.running;
 export const controlsSel = (state: RootState) => state.game.controls;
 export const sessionSel = (state: RootState) => state.game.session;
+export const shieldSel = (state: RootState) => state.game.shieldActive;
 export const obstacleSpeedSel = (state: RootState) =>
   state.game.settings.obstacleSpeed;
 export const userGameSettingsSel = (state: RootState) => state.game.settings;

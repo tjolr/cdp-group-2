@@ -81,7 +81,7 @@ const PhysicsMultiple = (
     // If the player has shield and the obstacle is a wall, then the player should not lose a life
     const obstacleBounds = entities['Obstacle'].body.bounds;
     const obstacleHeight = obstacleBounds.max.y - obstacleBounds.min.y;
-    if (entities.Player.shield && obstacleHeight >= windowHeight)
+    if (entities.Player.shield && obstacleHeight >= 2 * windowHeight)
       return entities;
 
     hideObstacle(entities);

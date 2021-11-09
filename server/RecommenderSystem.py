@@ -62,7 +62,7 @@ class RecommenderSystem:
     def calculate_new_amount_of_objects(self, score, previous_amount_of_objects):
         if score > 10 and previous_amount_of_objects == 1:
             self.settings["objects"] = previous_amount_of_objects + 1
-        elif score < 6 and previous_amount_of_objects < 2:
+        elif score < 6 and previous_amount_of_objects == 2:
             self.settings["objects"] = previous_amount_of_objects - 1
         else:
             self.settings["objects"] = previous_amount_of_objects

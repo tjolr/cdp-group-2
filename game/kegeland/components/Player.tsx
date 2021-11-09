@@ -4,7 +4,7 @@ import { Image } from 'react-native';
 import { IEntity, PlayerParams } from './components.types';
 import PlaneImage from '../assets/plane_1_pink.png';
 import FishImage from '../assets/fish.png';
-import PlaneImageShield from '../assets/plane_1_pink_shield.png';
+import Shield from '../assets/shield.png';
 import PhysicsOne from '../physics/physicsOne';
 import { useAppSelector } from '../state-management/redux.hooks';
 import { controlsSel, shieldSel } from '../state-management/game/gameSlice';
@@ -20,8 +20,6 @@ const Player = (props: IEntity) => {
   let image;
   if (controls == PhysicsOne) {
     image = FishImage;
-  } else if (shieldActive) {
-    image = PlaneImageShield;
   } else {
     image = PlaneImage;
   }
@@ -30,17 +28,32 @@ const Player = (props: IEntity) => {
   const xBody = props.body.position.x - widthBody / 2;
   const yBody = props.body.position.y - heightBody / 2;
   return (
-    <Image
-      source={image}
-      style={{
-        position: 'absolute',
-        left: xBody,
-        top: yBody,
-        width: widthBody,
-        height: heightBody,
-        resizeMode: 'stretch',
-      }}
-    />
+    <>
+      <Image
+        source={image}
+        style={{
+          position: 'absolute',
+          left: xBody,
+          top: yBody,
+          width: widthBody,
+          height: heightBody,
+          resizeMode: 'stretch',
+        }}
+      />
+      {shieldActive && (
+        <Image
+          source={Shield}
+          style={{
+            position: 'absolute',
+            left: xBody + 10,
+            top: yBody,
+            width: 25,
+            height: 50,
+            resizeMode: 'stretch',
+          }}
+        />
+      )}
+    </>
   );
 };
 

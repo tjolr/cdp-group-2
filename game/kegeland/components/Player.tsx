@@ -38,6 +38,7 @@ const Player = (props: IEntity) => {
           width: widthBody,
           height: heightBody,
           resizeMode: 'stretch',
+          zIndex: 99,
         }}
       />
       {shieldActive && (
@@ -45,11 +46,12 @@ const Player = (props: IEntity) => {
           source={Shield}
           style={{
             position: 'absolute',
-            left: xBody + 10,
+            left: xBody + widthBody,
             top: yBody,
             width: 25,
             height: 50,
             resizeMode: 'stretch',
+            zIndex: 99,
           }}
         />
       )}

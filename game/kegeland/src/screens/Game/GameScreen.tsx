@@ -16,7 +16,6 @@ import {
   saveGameDataThunk,
   obstacleSpeedSel,
   setShield,
-  shieldSel,
 } from '../../../state-management/game/gameSlice';
 import {
   useAppDispatch,
@@ -36,7 +35,6 @@ import { useRefState } from '../../hooks';
 import { translateSensorData } from '../../../utils/translateSensorData';
 import { ACTIONS } from '../../../utils/utilityConstants';
 import { StyleSheet } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
 
 const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   const params = route.params;
@@ -46,7 +44,6 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   const running = useAppSelector(runningSel);
   const controls = useAppSelector(controlsSel);
   const session = useAppSelector(sessionSel);
-  const shieldActive = useAppSelector(shieldSel);
   const [backgroundImage, setBackgroundImage] = useState(Background);
   const obstacleSpeed = useAppSelector(obstacleSpeedSel);
   const [lineCounter, setLineCounter] = useRefState(0);
@@ -202,11 +199,6 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
           }
         }}
       ></GameEngine>
-      {shieldActive && (
-        <View style={styles.shieldIcon}>
-          <Ionicons name="shield-sharp" size={50} color="#1057c9" />
-        </View>
-      )}
     </ImageBackground>
   );
 };

@@ -13,7 +13,10 @@ import {
   getUserGameSettingsStatusSel,
   getUserGameSettingsThunk,
 } from '../../../state-management/game/gameSlice';
-import { getQuestionsDefaultThunk } from '../../../state-management/session/sessionSlice';
+import {
+  clearSession,
+  getQuestionsDefaultThunk,
+} from '../../../state-management/session/sessionSlice';
 import { scrollViewStyles } from '../../common/scrollView';
 import { StyleSheet } from 'react-native';
 import { GameMode } from '../../../state-management/game/gameMode';
@@ -58,6 +61,7 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
     dispatch(getQuestionsDefaultThunk('SAM')).unwrap();
     dispatch(await getQuestionsDefaultThunk('SelfAssessment1')).unwrap();
     dispatch(getQuestionsDefaultThunk('SelfAssessment2')).unwrap();
+    dispatch(clearSession());
   };
   const firstName = useAppSelector(firstNameSel);
 

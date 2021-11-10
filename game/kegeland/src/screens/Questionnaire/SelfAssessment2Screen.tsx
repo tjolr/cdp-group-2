@@ -36,7 +36,6 @@ const SelfAssessment2Screen = ({ navigation }: NavigationScreenProps) => {
     dispatch(saveSA2answers(formData));
     dispatch(saveSessionDataThunk());
     dispatch(clearSession());
-
     setFormData([]);
   };
 
@@ -51,7 +50,7 @@ const SelfAssessment2Screen = ({ navigation }: NavigationScreenProps) => {
       // inserted item
       nextValue,
       // part of the array after the specified index
-      ...formData.slice(index),
+      ...formData.slice(index + 1),
     ];
 
     setFormData(insert(formData, index, parseInt(nextValue)));

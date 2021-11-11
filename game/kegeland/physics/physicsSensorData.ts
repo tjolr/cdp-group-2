@@ -1,11 +1,8 @@
 import Matter from 'matter-js';
-import { getPipeSizePos } from '../utils/random';
 import { GameEngineUpdateEventOptionType } from 'react-native-game-engine';
+import { checkIfPoint } from './physics.shared';
 
-import { Dimensions } from 'react-native';
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+import { GameMode } from '../state-management/game/gameMode';
 
 const PhysicsSensorData = (
   entities: any,
@@ -41,10 +38,7 @@ const PhysicsSensorData = (
   }
   engine.gravity.y = 0.3;
 
-  const moveObstacle = () => {
-    const pipeSizePos = getPipeSizePos(windowWidth * 0.9);
-    Matter.Body.setPosition(entities['Obstacle'].body, pipeSizePos.pipe.pos);
-  };
+  checkIfPoint(entities, dispatch, GameMode.OneControl);
 
   if (
     entities['Obstacle'].body.bounds.max.x <= 10 &&
@@ -52,11 +46,6 @@ const PhysicsSensorData = (
   ) {
     entities['Obstacle'].point = true;
     dispatch({ type: 'new_point' });
-  }
-
-  if (entities['Obstacle'].body.bounds.max.x <= 0) {
-    entities['Obstacle'].point = false;
-    moveObstacle();
   }
 
   Matter.Body.translate(entities[`Obstacle`].body, {

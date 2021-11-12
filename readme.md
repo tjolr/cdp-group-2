@@ -20,10 +20,9 @@ At the opening of the app, a welcome screen (Figure 1) is showed to the user. Wh
 
 If the user already has an account, they can log in by inserting their email and password and pressing `Sign in`, otherwise they have to press `Sign up` and create an account.
 
-![Welcome screen](https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/welcome.PNGraw=true)
+<img alt="Welcome screen" src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/welcome.PNG?raw=true" width="200"> <img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/signin.PNG?raw=true" width="200">
 
-[Welcome screen](screenshots/welcome.png)
-[Sign in screen](screenshots/signin.png)
+Figure 1: Welcome screen Figure 2: Sign in screen
 
 To proceed with the registration, the user has to insert their first name, last name, email and password and press `Sign up` (Figure 3).
 The password has the following constraints:
@@ -35,14 +34,17 @@ The password has the following constraints:
 
 Afterwards, the app requests the user to fill in a registration questionnaire (Figure 4). The user must answer all the questions and then press the `Confirm` button.
 
-[Sign up screen](screenshots/welcome.png)
-[Registration ACS questionnaire](screenshots/acs.png)
+<img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/welcome.PNG?raw=true" width="200"> <img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/acs.PNG?raw=true" width="200">
+
+Figure 3: Sign up screen  Figure 4: Registration ACS questionnaire
 
 ### Main Menu
 
 After login or registration, the app shows the Main Menu Screen (Figrue 5). From this screen the user can choose to start a single game with the options one control or multiple control, or start a game session.
 
-[Main menu screen](screenshots/home.png)
+<img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/home.PNG?raw=true" width="200">
+
+Figure 5: Main menu screen
 
 ### Games
 
@@ -55,8 +57,9 @@ The one control game (Figure 6) only has the possibility to move the character u
 
 In the multiple control game (Figure 7) there are three kind of obstacles: upper obstacles, lower obstacles and full screen obstacles. The character is positioned in the center of the screen and can be moved up by pressing the left-upper part of the screen (or compressing the higher muscles if the sensor is connected) or moved down by pressing the left-lower part of the screen (or compressing the lower muscles). The character returns to the starting position in the middle when releasing. To avoid the full screen obstacles, it is necessary to activate a shield and this can be done by pressing the right part of the screen (or compressing higher and lower muscles), the shield is removed when releasing.
 
-[One Control game](screenshots/onegame.jpg)
-[Multiple Control game](screenshots/multiplegame.jpg)
+<img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/onegame.jpg?raw=true" width="200"> <img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/multiplegame.jpg?raw=true" width="200">
+
+Figure 6: One Control game  Figure 7: Multiple Control game
 
 ### Game Session
 
@@ -74,9 +77,10 @@ An example of the game session workflow with 3 games is:
 8. SAM questionnaire
 9. Self Assessment 2 questionnaire
 
-[Self Assesment questionnaire 1](screenshots/selfass1.png)
-[Self Assesment questionnaire 2](screenshots/selfass2.png)
-[SAM questionnaire](screenshots/sam.png)
+<img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/selfass1.PNG?raw=true" width="200"> <img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/selfass2.PNG?raw=true" width="200"> <img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/sam.PNG?raw=true" width="200">
+
+Figure 8: Self Assesment 1  Figure 9: Self Assesment 2 Figure 10: SAM questionnaire
+
 
 ## Contributing
 

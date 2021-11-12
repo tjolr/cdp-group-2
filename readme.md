@@ -1,14 +1,18 @@
 # Kegeland
+
+The customer of this project is Damiano Varagnolo, head of an NTNU research group involved in the development of an adaptive pelvic floor muscle trainer. These exercises are known for strengthening and preventing damage to the PFMs. Due to the importance of PFM exercises, the customer wanted an application to make exercising more entertaining through gamification. The application will assist women in strengthening and training their PFMs in order to speed up recovery after labour and work as a preventative measure for future issues. The system is a biofeedback system, which is composed of a vaginal pressure sensor and a game app that communicates through the sensor's Bluetooth signals.
+
 **Table of Contents**
-* [User Guide](#user-guide)
-  * [Login and Registration](#login-and-registration)
-  * [Main Menu](#main-menu)
-  * [Games](#games)
-  * [Game Session](#game-session)
-* [Contributing](#contributing)
-  * [Commits](#commits)
-  * [Merge Strategy](#merge-strategy)
-  * [Code Review](#code-review)
+
+- [User Guide](#user-guide)
+  - [Login and Registration](#login-and-registration)
+  - [Main Menu](#main-menu)
+  - [Games](#games)
+  - [Game Session](#game-session)
+- [Contributing](#contributing)
+  - [Commits](#commits)
+  - [Merge Strategy](#merge-strategy)
+  - [Code Review](#code-review)
 
 ## User Guide
 
@@ -20,7 +24,7 @@ At the opening of the app, a welcome screen (Figure 1) is showed to the user. Wh
 
 If the user already has an account, they can log in by inserting their email and password and pressing `Sign in`, otherwise they have to press `Sign up` and create an account.
 
-<img alt="Welcome screen" src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/welcome.PNG?raw=true" width="200"> <img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/signin.PNG?raw=true" width="200">
+<img alt="Welcome screen" src="https://github.com/tjolr/cdp-group-2/blob/main/screenshots/welcome.PNG?raw=true" width="200"> <img src="https://github.com/tjolr/cdp-group-2/blob/main/screenshots/signin.PNG?raw=true" width="200">
 
 Figure 1: Welcome screen Figure 2: Sign in screen
 
@@ -34,15 +38,15 @@ The password has the following constraints:
 
 Afterwards, the app requests the user to fill in a registration questionnaire (Figure 4). The user must answer all the questions and then press the `Confirm` button.
 
-<img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/welcome.PNG?raw=true" width="200"> <img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/acs.PNG?raw=true" width="200">
+<img src="https://github.com/tjolr/cdp-group-2/blob/main/screenshots/welcome.PNG?raw=true" width="200"> <img src="https://github.com/tjolr/cdp-group-2/blob/main/screenshots/acs.PNG?raw=true" width="200">
 
-Figure 3: Sign up screen  Figure 4: Registration ACS questionnaire
+Figure 3: Sign up screen Figure 4: Registration ACS questionnaire
 
 ### Main Menu
 
 After login or registration, the app shows the Main Menu Screen (Figrue 5). From this screen the user can choose to start a single game with the options one control or multiple control, or start a game session.
 
-<img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/home.PNG?raw=true" width="200">
+<img src="https://github.com/tjolr/cdp-group-2/blob/main/screenshots/home.PNG?raw=true" width="200">
 
 Figure 5: Main menu screen
 
@@ -57,9 +61,9 @@ The one control game (Figure 6) only has the possibility to move the character u
 
 In the multiple control game (Figure 7) there are three kind of obstacles: upper obstacles, lower obstacles and full screen obstacles. The character is positioned in the center of the screen and can be moved up by pressing the left-upper part of the screen (or compressing the higher muscles if the sensor is connected) or moved down by pressing the left-lower part of the screen (or compressing the lower muscles). The character returns to the starting position in the middle when releasing. To avoid the full screen obstacles, it is necessary to activate a shield and this can be done by pressing the right part of the screen (or compressing higher and lower muscles), the shield is removed when releasing.
 
-<img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/onegame.jpg?raw=true" width="200"> <img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/multiplegame.jpg?raw=true" width="200">
+<img src="https://github.com/tjolr/cdp-group-2/blob/main/screenshots/onegame.jpg?raw=true" width="200"> <img src="https://github.com/tjolr/cdp-group-2/blob/main/screenshots/multiplegame.jpg?raw=true" width="200">
 
-Figure 6: One Control game  Figure 7: Multiple Control game
+Figure 6: One Control game Figure 7: Multiple Control game
 
 ### Game Session
 
@@ -77,10 +81,9 @@ An example of the game session workflow with 3 games is:
 8. SAM questionnaire
 9. Self Assessment 2 questionnaire
 
-<img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/selfass1.PNG?raw=true" width="200"> <img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/selfass2.PNG?raw=true" width="200"> <img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/sam.PNG?raw=true" width="200">
+<img src="https://github.com/tjolr/cdp-group-2/blob/main/screenshots/selfass1.PNG?raw=true" width="200"> <img src="https://github.com/tjolr/cdp-group-2/blob/main/screenshots/selfass2.PNG?raw=true" width="200"> <img src="https://github.com/tjolr/cdp-group-2/blob/main/screenshots/sam.PNG?raw=true" width="200">
 
-Figure 8: Self Assesment 1  Figure 9: Self Assesment 2 Figure 10: SAM questionnaire
-
+Figure 8: Self Assesment 1 Figure 9: Self Assesment 2 Figure 10: SAM questionnaire
 
 ## Contributing
 

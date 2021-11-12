@@ -1,4 +1,14 @@
 # Kegeland
+**Table of Contents**
+* [User Guide](#user-guide)
+  * [Login and Registration](#login-and-registration)
+  * [Main Menu](#main-menu)
+  * [Games](#games)
+  * [Game Session](#game-session)
+* [Contributing](#contributing)
+  * [Commits](#commits)
+  * [Merge Strategy](#merge-strategy)
+  * [Code Review](#code-review)
 
 ## User Guide
 
@@ -79,11 +89,11 @@ Example: fix-#665: `Fix login issue`
 Chore: chore-#999: `Message in imperative`
 Example: chore-#665: `Update React navigation from 8 to 9`
 
-### Merge strategy
+### Merge Strategy
 
 Rebase with squash. One PR per task.
 
-### Code review
+### Code Review
 
 Add reviewers that are working with the related PR.
 Come with suggestions, constructive feedback and ask questions when you don't understand.

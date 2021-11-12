@@ -20,6 +20,8 @@ At the opening of the app, a welcome screen (Figure 1) is showed to the user. Wh
 
 If the user already has an account, they can log in by inserting their email and password and pressing `Sign in`, otherwise they have to press `Sign up` and create an account.
 
+![Welcome screen](https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/welcome.PNGraw=true)
+
 [Welcome screen](screenshots/welcome.png)
 [Sign in screen](screenshots/signin.png)
 

@@ -34,7 +34,7 @@ The password has the following constraints:
 
 Afterwards, the app requests the user to fill in a registration questionnaire (Figure 4). The user must answer all the questions and then press the `Confirm` button.
 
-<img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/welcome.PNG?raw=true" width="200"> <img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/acs.PNG?raw=true" width="200">
+<img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/register.PNG?raw=true" width="200"> <img src="https://github.com/tjolr/cdp-group-2/blob/readme/screenshots/acs.PNG?raw=true" width="200">
 
 Figure 3: Sign up screen  Figure 4: Registration ACS questionnaire
 

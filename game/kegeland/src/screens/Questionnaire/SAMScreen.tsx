@@ -36,6 +36,7 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
   const gamesNumber = useAppSelector(gamesNumberSel);
   const SAMquestions = useAppSelector(SAMQuestionnaireSel);
   const [formData, setFormData] = useState<Array<number>>([]);
+
   const handleStartGamePress = async () => {
     dispatch(saveSAManswers(formData));
     dispatch(incrementGame());
@@ -133,6 +134,7 @@ const SAMScreen = ({ navigation }: NavigationScreenProps) => {
                   style={{ flexDirection: 'row' }}
                   name={question.key + 'group'}
                   accessibilityLabel={question.key + 'value'}
+                  value={`${formData[index]}`}
                   onChange={(nextValue) => {
                     setSingleAnswer(nextValue, index, formData);
                   }}

@@ -16,6 +16,7 @@ import {
 import {
   clearSession,
   getQuestionsDefaultThunk,
+  getQuestionsStatusSel,
 } from '../../../state-management/session/sessionSlice';
 import { scrollViewStyles } from '../../common/scrollView';
 import { StyleSheet } from 'react-native';
@@ -28,6 +29,7 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
   const getUserGameSettingsStatus = useAppSelector(
     getUserGameSettingsStatusSel
   );
+  const getQuestionsStatus = useAppSelector(getQuestionsStatusSel);
   const handleStartGamePressOne = async () => {
     setButtonPressed(GameMode.OneControl);
 
@@ -56,10 +58,10 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
     });
   };
   const handleStartGameSession = async () => {
-    navigation.navigate('SelfAssessment1');
     dispatch(setSession(true));
+    await dispatch(getQuestionsDefaultThunk('SelfAssessment1')).unwrap();
+    navigation.navigate('SelfAssessment1');
     dispatch(getQuestionsDefaultThunk('SAM')).unwrap();
-    dispatch(await getQuestionsDefaultThunk('SelfAssessment1')).unwrap();
     dispatch(getQuestionsDefaultThunk('SelfAssessment2')).unwrap();
     dispatch(clearSession());
   };
@@ -171,6 +173,7 @@ const MainMenuScreen = ({ navigation }: NavigationScreenProps) => {
           }
           style={styles.button}
           onPress={handleStartGameSession}
+          isLoading={getQuestionsStatus === 'loading'}
         >
           Start session
         </Button>

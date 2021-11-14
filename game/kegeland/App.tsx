@@ -36,6 +36,7 @@ const App = () => {
             screenOptions={{
               headerShown: false,
               gestureEnabled: false,
+              animation: 'none',
             }}
           >
             <Stack.Screen name="Home" component={HomeScreen} />

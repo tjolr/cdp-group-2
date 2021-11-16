@@ -47,7 +47,6 @@ const PhysicsOne = (
     events.forEach((e) => {
       switch (e) {
         case 'move-obstacle':
-          console.log('Ran');
           moveObstacle(entities, GameMode.OneControl);
       }
     });

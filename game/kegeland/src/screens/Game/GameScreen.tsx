@@ -67,6 +67,9 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
       let interval = setInterval(() => handleSensorData(), 500);
       setLoop(interval);
     }
+    if (params.gameMode === GameMode.OneControl) {
+      engine.current.dispatch('move-obstacle');
+    }
   }, []);
 
   const handleSensorData = () => {

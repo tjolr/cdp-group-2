@@ -13,7 +13,7 @@ import { GameMode } from '../state-management/game/gameMode';
 
 const PhysicsOne = (
   entities: any,
-  { touches, time, dispatch }: GameEngineUpdateEventOptionType
+  { events, touches, time, dispatch }: GameEngineUpdateEventOptionType
 ) => {
   let engine = entities.physics.engine;
   touches
@@ -42,6 +42,16 @@ const PhysicsOne = (
       y: -4,
     });
   };
+
+  if (events.length) {
+    events.forEach((e) => {
+      switch (e) {
+        case 'move-obstacle':
+          console.log('Ran');
+          moveObstacle(entities, GameMode.OneControl);
+      }
+    });
+  }
 
   checkIfPoint(entities, dispatch, GameMode.OneControl);
 

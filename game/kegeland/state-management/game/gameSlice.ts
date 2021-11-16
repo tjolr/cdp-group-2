@@ -74,6 +74,7 @@ export const gameSlice = createSlice({
       state.gameId = '';
       state.lives = 3;
       state.running = true;
+      state.shieldActive = false;
 
       switch (action.payload) {
         case GameMode.OneControl:

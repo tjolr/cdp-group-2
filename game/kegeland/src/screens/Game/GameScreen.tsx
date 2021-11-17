@@ -1,4 +1,4 @@
-import { HStack, Text, View } from 'native-base';
+import { HStack, Text, View, Button } from 'native-base';
 import { ImageBackground, SafeAreaView } from 'react-native';
 import React, { useEffect, useState, useRef } from 'react';
 import { GameEngine } from 'react-native-game-engine';
@@ -11,6 +11,7 @@ import {
   restoreLives,
   runningSel,
   stopGame,
+  startGame,
   controlsSel,
   sessionSel,
   saveGameDataThunk,
@@ -202,15 +203,36 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
           }
         }}
       ></GameEngine>
+      {!running && (
+        <View style={styles.container}>
+          <Button
+            size="lg"
+            colorScheme="rose"
+            mt={5}
+            onPress={() => dispatch(startGame())}
+            style={styles.button}
+            startIcon={<AntDesign name="play" size={24} color="white" />}
+          >
+            <Text style={{ color: 'white', fontWeight: '600' }}>
+              Start Game
+            </Text>
+          </Button>
+        </View>
+      )}
     </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  shieldIcon: {
-    position: 'absolute',
-    right: 35,
-    bottom: 40,
+  button: {
+    width: 175,
+    zIndex: 100,
+  },
+  container: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

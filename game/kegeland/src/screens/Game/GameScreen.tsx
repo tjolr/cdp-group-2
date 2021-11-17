@@ -36,7 +36,6 @@ import { useRefState } from '../../hooks';
 import { translateSensorData } from '../../../utils/translateSensorData';
 import { ACTIONS } from '../../../utils/utilityConstants';
 import { StyleSheet } from 'react-native';
-import { Dimensions } from 'react-native';
 
 const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   const params = route.params;
@@ -52,7 +51,6 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   const [maxDataLineNumber, setMaxDataLineNumber] = useState(sensorData.length);
   const engine = useRef(null);
   const [loop, setLoop] = useState<NodeJS.Timer>();
-  const windowHeight = Dimensions.get('window').height;
 
   const handleGameOver = () => {
     dispatch(stopGame());
@@ -109,8 +107,6 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   ) {
     setBackgroundImage(Background);
   }
-
-  console.log(running);
 
   return (
     <ImageBackground source={backgroundImage} style={{ flex: 1 }}>
@@ -228,19 +224,9 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
 };
 
 const styles = StyleSheet.create({
-  shieldIcon: {
-    position: 'absolute',
-    right: 35,
-    bottom: 40,
-  },
   button: {
     width: 175,
     zIndex: 100,
-    //backgroundColor: 'transparent',
-    //borderColor: 'white',
-    //borderStyle: 'solid',
-    //borderWidth: 3,
-    color: 'black',
   },
   container: {
     flex: 1,

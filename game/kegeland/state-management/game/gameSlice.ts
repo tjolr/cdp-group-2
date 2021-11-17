@@ -129,7 +129,6 @@ export const gameSlice = createSlice({
         if (userGameSettings) {
           state.settings = userGameSettings;
         }
-        //state.running = true;
       })
       .addCase(getUserGameSettingsThunk.rejected, (state) => {
         state.getUserGameSettingsStatus = 'failed';

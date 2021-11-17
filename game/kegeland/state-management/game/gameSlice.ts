@@ -73,7 +73,6 @@ export const gameSlice = createSlice({
       state.points = 0;
       state.gameId = '';
       state.lives = 3;
-      state.running = true;
       state.shieldActive = false;
 
       switch (action.payload) {
@@ -97,6 +96,9 @@ export const gameSlice = createSlice({
 
     stopGame: (state) => {
       state.running = false;
+    },
+    startGame: (state) => {
+      state.running = true;
     },
     setSession: (state, action: PayloadAction<boolean>) => {
       state.session = action.payload;
@@ -127,7 +129,7 @@ export const gameSlice = createSlice({
         if (userGameSettings) {
           state.settings = userGameSettings;
         }
-        state.running = true;
+        //state.running = true;
       })
       .addCase(getUserGameSettingsThunk.rejected, (state) => {
         state.getUserGameSettingsStatus = 'failed';
@@ -142,6 +144,7 @@ export const {
   decrementLives,
   restoreLives,
   stopGame,
+  startGame,
   setSession,
   setShield,
 } = gameSlice.actions;

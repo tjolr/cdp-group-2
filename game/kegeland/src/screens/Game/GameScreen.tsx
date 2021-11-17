@@ -1,4 +1,4 @@
-import { HStack, Text, View } from 'native-base';
+import { HStack, Text, View, Button } from 'native-base';
 import { ImageBackground, SafeAreaView } from 'react-native';
 import React, { useEffect, useState, useRef } from 'react';
 import { GameEngine } from 'react-native-game-engine';
@@ -11,6 +11,7 @@ import {
   restoreLives,
   runningSel,
   stopGame,
+  startGame,
   controlsSel,
   sessionSel,
   saveGameDataThunk,
@@ -35,6 +36,7 @@ import { useRefState } from '../../hooks';
 import { translateSensorData } from '../../../utils/translateSensorData';
 import { ACTIONS } from '../../../utils/utilityConstants';
 import { StyleSheet } from 'react-native';
+import { Dimensions } from 'react-native';
 
 const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   const params = route.params;
@@ -50,6 +52,7 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   const [maxDataLineNumber, setMaxDataLineNumber] = useState(sensorData.length);
   const engine = useRef(null);
   const [loop, setLoop] = useState<NodeJS.Timer>();
+  const windowHeight = Dimensions.get('window').height;
 
   const handleGameOver = () => {
     dispatch(stopGame());
@@ -106,6 +109,8 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
   ) {
     setBackgroundImage(Background);
   }
+
+  console.log(running);
 
   return (
     <ImageBackground source={backgroundImage} style={{ flex: 1 }}>
@@ -202,6 +207,22 @@ const GameScreen = ({ route, navigation }: NavigationScreenProps) => {
           }
         }}
       ></GameEngine>
+      {!running && (
+        <View style={styles.container}>
+          <Button
+            size="lg"
+            colorScheme="rose"
+            mt={5}
+            onPress={() => dispatch(startGame())}
+            style={styles.button}
+            startIcon={<AntDesign name="play" size={24} color="white" />}
+          >
+            <Text style={{ color: 'white', fontWeight: '600' }}>
+              Start Game
+            </Text>
+          </Button>
+        </View>
+      )}
     </ImageBackground>
   );
 };
@@ -211,6 +232,21 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 35,
     bottom: 40,
+  },
+  button: {
+    width: 175,
+    zIndex: 100,
+    //backgroundColor: 'transparent',
+    //borderColor: 'white',
+    //borderStyle: 'solid',
+    //borderWidth: 3,
+    color: 'black',
+  },
+  container: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

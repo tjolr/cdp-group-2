@@ -39,7 +39,6 @@ describe('Test gameSlice reducers', () => {
     expect(gameState.points).toBe(0);
     expect(gameState.gameId).toBe('');
     expect(gameState.lives).toBe(3);
-    expect(gameState.running).toBe(true);
   });
 
   it('Should decrement lives', () => {
